@@ -19,15 +19,13 @@ router
     .get("/confirmation")
     .post("/confirmation");
 
+router
+    .get("/date");
+
 //Wildcard Route
 router
     .get("/*",carController.getCarsByQuery)
     .post("/*");
 
-/*
-    "/"
-    "/admin"
-    "/confirmation"
-*/
 
 module.exports = router;
