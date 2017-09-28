@@ -17,7 +17,9 @@ const carSchema = new Schema({
     dagsHyra: Number,
     fuel: String,
     imgLink: String,
-    kommentarer: String,
+    kommentarer: {
+        skador: String
+    },
     isAvailable: Boolean
 });
 

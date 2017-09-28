@@ -7,7 +7,8 @@
   "year": 1991,
   "gearbox": "manuell",
   "dagshyra": 298,
-  "imgLink": "https://upload.wikimedia.org/wikipedia/commons/7/72/Mazda_323f_green_front_20080301.jpg"
+  "imgLink": "https://upload.wikimedia.org/wikipedia/commons/7/72/Mazda_323f_green_front_20080301.jpg",
+    "isAvailable":true
   },
   {
     "fordonstyp": "personbil",
@@ -17,7 +18,9 @@
     "year": 1997,
     "dagshyra": 349,
     "gearbox": "manuell",
-    "imgLink": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Volvo-V40.jpg"
+    "imgLink": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Volvo-V40.jpg",
+    "isAvailable":true
+
   },
   {
     "fordonstyp": "lätt lastbil",
@@ -25,14 +28,18 @@
     "brand": "Mercedez-Benz",
     "model": "Sprinter 316 CDI",
     "year": 2003,
-    "dagshyra": 498
+    "dagshyra": 498,
+    "isAvailable":true
+
   },
   {
     "fordonstyp": "lätt lastbil",
     "requiredDrivingLicense": "B",
     "brand": "Volkswagen",
     "model": "LT 46b",
-    "year": 1999
+    "year": 1999,
+    "dagshyra": 550,
+    "isAvailable":true
   },
   {
     "fordonstyp": "personbil",
@@ -42,7 +49,8 @@
     "model": "308",
     "year": 2007,
     "dagshyra": 298,
-    "imgLink": "https://upload.wikimedia.org/wikipedia/commons/4/40/Peugeot_308_5-T%C3%BCrer_front.JPG"
+    "imgLink": "https://upload.wikimedia.org/wikipedia/commons/4/40/Peugeot_308_5-T%C3%BCrer_front.JPG",
+    "isAvailable":true
   },
   {
     "fordonstyp": "tung lastbil",
@@ -54,7 +62,8 @@
     "imgLink": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Mercedes-Benz_Atego_white_strasbourg.JPG",
     "kommentarer": {
       "skador": "Större reva på högersida skåp."
-    }
+    },
+    "isAvailable":true
   },
   {
     "fordonstyp": "personbil",
@@ -65,7 +74,8 @@
     "year": 2000,
     "dagshyra": 398,
     "imgLink": "https://upload.wikimedia.org/wikipedia/commons/7/79/Audi_A4_B7_Avant_2.0_TDI.JPG",
-    "fuel": "95"
+    "fuel": "95",
+    "isAvailable":true
   },
   {
     "fordonstyp": "personbil",
@@ -75,7 +85,8 @@
     "year": 2005,
     "gearbox": "manuell",
     "dagshyra": 498,
-    "imgLink": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Volvo_V50_--_04-20-2010.jpg"
+    "imgLink": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Volvo_V50_--_04-20-2010.jpg",
+    "isAvailable":true
   },
   {
     "fordonstyp": "motorcykel",
@@ -83,7 +94,8 @@
     "brand": "Yamaha",
     "model": "YCF R1",
     "year": 2001,
-    "dagshyra": 498
+    "dagshyra": 498,
+    "isAvailable":true
   },
   {
     "fordonstyp": "personbil",
@@ -91,7 +103,8 @@
     "brand": "Toyota",
     "model": "Aygo",
     "dagshyra": 198,
-    "imgLink": "https://upload.wikimedia.org/wikipedia/commons/e/e1/Toyota_Aygo_front_20071204.jpg"
+    "imgLink": "https://upload.wikimedia.org/wikipedia/commons/e/e1/Toyota_Aygo_front_20071204.jpg",
+    "isAvailable":true
   },
   {
     "fordonstyp": "ATV",
@@ -99,7 +112,8 @@
     "brand": "Can-Am",
     "model": "Outlander 570",
     "year": 2008,
-    "dagshyra": 598
+    "dagshyra": 598,
+    "isAvailable":true
   },
   {
     "fordonstyp": "personbil",
@@ -109,7 +123,8 @@
     "gearbox": "automat",
     "year": 2003,
     "fuel": "95",
-    "dagshyra": 198
+    "dagshyra": 198,
+    "isAvailable":true
   },
   {
     "fordonstyp": "Trehjuling",
@@ -117,7 +132,8 @@
     "model": "Spyder Roadster",
     "year": 2015,
     "dagshyra": 798,
-    "imgLink": "https://upload.wikimedia.org/wikipedia/commons/5/52/BRP_Can-Am_Spyder_Roadster_20100810c.JPG"
+    "imgLink": "https://upload.wikimedia.org/wikipedia/commons/5/52/BRP_Can-Am_Spyder_Roadster_20100810c.JPG",
+    "isAvailable":true
   },
   {
     "fordonstyp": "personbil",
@@ -127,7 +143,8 @@
     "model": "Optima kombi",
     "year": 2001,
     "dagshyra": 498,
-    "imgLink": "https://upload.wikimedia.org/wikipedia/commons/e/eb/2011_Kia_Optima_Hybrid_--_05-19-2011.jpg"
+    "imgLink": "https://upload.wikimedia.org/wikipedia/commons/e/eb/2011_Kia_Optima_Hybrid_--_05-19-2011.jpg",
+    "isAvailable":true
   },
   {
     "fordonstyp": "lätt lastbil",
@@ -135,7 +152,8 @@
     "brand": "Fiat",
     "model": "Ducato 2.3 Volymskåp maxi",
     "year": 2006,
-    "dagshyra": 798
+    "dagshyra": 798,
+    "isAvailable":true
   },
   {
     "fordonstyp": "personbil",
@@ -144,7 +162,8 @@
     "model": "Aygo",
     "year": 2009,
     "gearbox": "manuell",
-    "dagshyra": 198
+    "dagshyra": 198,
+    "isAvailable":true
   },
   {
     "fordonstyp": "personbil",
@@ -155,7 +174,8 @@
     "fuel": "diesel",
     "kommentarer": {
       "skador": "Backen är väldigt trög att få i."
-    }
+    },
+    "isAvailable":true
   },
   {
     "fordonstyp": "personbil",
@@ -164,6 +184,7 @@
     "model": "v70",
     "year": 1996,
     "dagshyra": 298,
-    "fuel": "diesel"
+    "fuel": "diesel",
+    "isAvailable":true
   }
 ]
