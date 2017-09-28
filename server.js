@@ -24,7 +24,7 @@ app.listen(port);
 //=============================================================
 //ROUTERS
 let router = require("./public/routers/serverRouter");
-app.use("/",router);
+app.use("/olssonsfordonab",router);
 //=============================================================
 //DATABASE
 
