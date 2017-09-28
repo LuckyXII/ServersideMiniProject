@@ -14,6 +14,11 @@ mongoose.connect("mongodb://localhost/vehicleDatabase", {
 
 //set public folder
 app.use(express.static(path.join(__dirname, 'public')));
+
+//Pug view
+app.set('view engine', 'pug');
+app.set('views', __dirname + '/views');
+
 //listen on 3000
 app.listen(port);
 //=============================================================
