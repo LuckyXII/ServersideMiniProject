@@ -14,7 +14,10 @@ const carSchema = new Schema({
     },
     year: Number,
     gearbox:String,
-    dagsHyra: Number,
+    dagsHyra: {
+        type:Number,
+        required: "dagshyra is required"
+    },
     fuel: String,
     imgLink: String,
     kommentarer: {

@@ -18,10 +18,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.listen(port);
 //=============================================================
 //ROUTERS
-
-
-
-
+let router = require("./public/routers/serverRouter");
+app.use("/",router);
 //=============================================================
 //DATABASE
 
