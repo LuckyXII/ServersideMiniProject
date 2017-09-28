@@ -15,16 +15,18 @@ mongoose.connect("mongodb://localhost/vehicleDatabase", {
 //set public folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-//Pug view
+//Load view engine
 app.set('view engine', 'pug');
 app.set('views', __dirname + '/views');
 
 //listen on 3000
 app.listen(port);
+console.log('server is alive at'+ port);
 //=============================================================
 //ROUTERS
 let router = require("./public/routers/serverRouter");
-app.use("/olssonsfordonab",router);
+/*app.use("/olssonsfordonab",router);*/
+
 //=============================================================
 //DATABASE
 

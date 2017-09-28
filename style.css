@@ -1,0 +1,31 @@
+.nav {
+    border: 1px solid black;
+    height: 90px;
+    width: 100vw;
+    position: absolute;
+    
+}
+.content {
+    width: 70vw;
+    margin: auto;
+}
+.showCars {
+    border: 1px solid red;
+    width: 500px;
+    height: 500px;
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+}
+.showCars img, .showCars p, .showCars button {
+    flex: 1;
+}
+.showCars button {
+    padding: 8px;
+    width: 20px;
+    height: 40px;
+}
+html {
+    margin: 0;
+    padding: 0;
+}

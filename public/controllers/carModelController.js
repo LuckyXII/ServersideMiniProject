@@ -7,7 +7,7 @@ function getAllCars(req,res){
         .exec()
         .then((cars)=>{
             console.log(cars);
-            res.render("PUGNAME",{
+            res.render("index",{
                 BLOCKNAME:cars
             });
             //TODO Add view file, replace PUGNAME and BLOCKNAME
@@ -24,7 +24,7 @@ function getCarsByQuery(req, res){
         .exec()
         .then((cars)=>{
             console.log(cars);
-            res.render("PUGNAME",{
+            res.render("index",{
                 BLOCKNAME:cars
             });
             //TODO Add view file, replace PUGNAME and BLOCKNAME
