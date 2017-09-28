@@ -17,7 +17,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //Load view engine
 app.set('view engine', 'pug');
-app.set('views', __dirname + '/views');
+app.set('views', __dirname + '/public/views');
 
 //listen on 3000
 app.listen(port);
