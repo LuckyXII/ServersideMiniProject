@@ -8,7 +8,15 @@
   "gearbox": "manuell",
   "dagshyra": 298,
   "imgLink": "https://upload.wikimedia.org/wikipedia/commons/7/72/Mazda_323f_green_front_20080301.jpg",
-    "isAvailable":true
+   "status":{
+     "isAvailable":true,
+     "rented":{
+        "startDate":null,
+        "endDate":null
+     }
+
+   }
+
   },
   {
     "fordonstyp": "personbil",
@@ -19,7 +27,14 @@
     "dagshyra": 349,
     "gearbox": "manuell",
     "imgLink": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Volvo-V40.jpg",
-    "isAvailable":true
+    "status":{
+      "isAvailable":true,
+      "rented":{
+        "startDate":null,
+        "endDate":null
+      }
+
+    }
 
   },
   {
@@ -29,7 +44,14 @@
     "model": "Sprinter 316 CDI",
     "year": 2003,
     "dagshyra": 498,
-    "isAvailable":true
+    "status":{
+      "isAvailable":true,
+      "rented":{
+        "startDate":null,
+        "endDate":null
+      }
+
+    }
 
   },
   {
@@ -39,7 +61,14 @@
     "model": "LT 46b",
     "year": 1999,
     "dagshyra": 550,
-    "isAvailable":true
+    "status":{
+      "isAvailable":true,
+      "rented":{
+        "startDate":null,
+        "endDate":null
+      }
+
+    }
   },
   {
     "fordonstyp": "personbil",
@@ -50,7 +79,14 @@
     "year": 2007,
     "dagshyra": 298,
     "imgLink": "https://upload.wikimedia.org/wikipedia/commons/4/40/Peugeot_308_5-T%C3%BCrer_front.JPG",
-    "isAvailable":true
+    "status":{
+      "isAvailable":true,
+      "rented":{
+        "startDate":null,
+        "endDate":null
+      }
+
+    }
   },
   {
     "fordonstyp": "tung lastbil",
@@ -63,7 +99,14 @@
     "kommentarer": {
       "skador": "Större reva på högersida skåp."
     },
-    "isAvailable":true
+    "status":{
+      "isAvailable":true,
+      "rented":{
+        "startDate":null,
+        "endDate":null
+      }
+
+    }
   },
   {
     "fordonstyp": "personbil",
@@ -75,7 +118,14 @@
     "dagshyra": 398,
     "imgLink": "https://upload.wikimedia.org/wikipedia/commons/7/79/Audi_A4_B7_Avant_2.0_TDI.JPG",
     "fuel": "95",
-    "isAvailable":true
+    "status":{
+      "isAvailable":true,
+      "rented":{
+        "startDate":null,
+        "endDate":null
+      }
+
+    }
   },
   {
     "fordonstyp": "personbil",
@@ -86,7 +136,14 @@
     "gearbox": "manuell",
     "dagshyra": 498,
     "imgLink": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Volvo_V50_--_04-20-2010.jpg",
-    "isAvailable":true
+    "status":{
+      "isAvailable":true,
+      "rented":{
+        "startDate":null,
+        "endDate":null
+      }
+
+    }
   },
   {
     "fordonstyp": "motorcykel",
@@ -95,7 +152,14 @@
     "model": "YCF R1",
     "year": 2001,
     "dagshyra": 498,
-    "isAvailable":true
+    "status":{
+      "isAvailable":true,
+      "rented":{
+        "startDate":null,
+        "endDate":null
+      }
+
+    }
   },
   {
     "fordonstyp": "personbil",
@@ -104,7 +168,14 @@
     "model": "Aygo",
     "dagshyra": 198,
     "imgLink": "https://upload.wikimedia.org/wikipedia/commons/e/e1/Toyota_Aygo_front_20071204.jpg",
-    "isAvailable":true
+    "status":{
+      "isAvailable":true,
+      "rented":{
+        "startDate":null,
+        "endDate":null
+      }
+
+    }
   },
   {
     "fordonstyp": "ATV",
@@ -113,7 +184,14 @@
     "model": "Outlander 570",
     "year": 2008,
     "dagshyra": 598,
-    "isAvailable":true
+    "status":{
+      "isAvailable":true,
+      "rented":{
+        "startDate":null,
+        "endDate":null
+      }
+
+    }
   },
   {
     "fordonstyp": "personbil",
@@ -124,7 +202,14 @@
     "year": 2003,
     "fuel": "95",
     "dagshyra": 198,
-    "isAvailable":true
+    "status":{
+      "isAvailable":true,
+      "rented":{
+        "startDate":null,
+        "endDate":null
+      }
+
+    }
   },
   {
     "fordonstyp": "Trehjuling",
@@ -133,7 +218,14 @@
     "year": 2015,
     "dagshyra": 798,
     "imgLink": "https://upload.wikimedia.org/wikipedia/commons/5/52/BRP_Can-Am_Spyder_Roadster_20100810c.JPG",
-    "isAvailable":true
+    "status":{
+      "isAvailable":true,
+      "rented":{
+        "startDate":null,
+        "endDate":null
+      }
+
+    }
   },
   {
     "fordonstyp": "personbil",
@@ -144,7 +236,14 @@
     "year": 2001,
     "dagshyra": 498,
     "imgLink": "https://upload.wikimedia.org/wikipedia/commons/e/eb/2011_Kia_Optima_Hybrid_--_05-19-2011.jpg",
-    "isAvailable":true
+    "status":{
+      "isAvailable":true,
+      "rented":{
+        "startDate":null,
+        "endDate":null
+      }
+
+    }
   },
   {
     "fordonstyp": "lätt lastbil",
@@ -153,7 +252,14 @@
     "model": "Ducato 2.3 Volymskåp maxi",
     "year": 2006,
     "dagshyra": 798,
-    "isAvailable":true
+    "status":{
+      "isAvailable":true,
+      "rented":{
+        "startDate":null,
+        "endDate":null
+      }
+
+    }
   },
   {
     "fordonstyp": "personbil",
@@ -163,7 +269,14 @@
     "year": 2009,
     "gearbox": "manuell",
     "dagshyra": 198,
-    "isAvailable":true
+    "status":{
+      "isAvailable":true,
+      "rented":{
+        "startDate":null,
+        "endDate":null
+      }
+
+    }
   },
   {
     "fordonstyp": "personbil",
@@ -175,7 +288,14 @@
     "kommentarer": {
       "skador": "Backen är väldigt trög att få i."
     },
-    "isAvailable":true
+    "status":{
+      "isAvailable":true,
+      "rented":{
+        "startDate":null,
+        "endDate":null
+      }
+
+    }
   },
   {
     "fordonstyp": "personbil",
@@ -185,6 +305,13 @@
     "year": 1996,
     "dagshyra": 298,
     "fuel": "diesel",
-    "isAvailable":true
+    "status":{
+      "isAvailable":true,
+      "rented":{
+        "startDate":null,
+        "endDate":null
+      }
+
+    }
   }
 ]
