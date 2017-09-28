@@ -25,7 +25,7 @@ console.log('server is alive at'+ port);
 //=============================================================
 //ROUTERS
 let router = require("./public/routers/serverRouter");
-/*app.use("/olssonsfordonab",router);*/
+app.use("/olssonsfordonab",router);
 
 //=============================================================
 //DATABASE

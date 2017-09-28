@@ -6,7 +6,7 @@ const
 
 //default Route
 router
-    .get("/",carController.getAllCars)
+    .get("/", carController.getAllCars)
     .post("/");
 
 //Admin Route
@@ -29,3 +29,5 @@ router
     "/admin"
     "/confirmation"
 */
+
+module.exports = router;

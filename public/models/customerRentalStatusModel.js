@@ -4,9 +4,10 @@ const mongoose = require("mongoose"),
 
 const customerRentalStatusSchema = new Schema({
     name:{
+        type: Object,
         first: String,
         last: String,
-        required: "name is required",
+        required: true,
     },
     personr:{
         type:Number,
@@ -24,11 +25,13 @@ const customerRentalStatusSchema = new Schema({
         unique:true
     },
     rentalPeriod:{
+        type:Object,
         start: Date,
         end: Date,
         required: "a period must exist"
     },
     rentalCost:{
+        type: Object,
         day: Number,
         total:Number,
         required: "cost is required"
