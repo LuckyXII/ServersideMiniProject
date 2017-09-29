@@ -36,38 +36,58 @@ function getCarsByQuery(req, res){
 }
 
 function checkAvailableCarsByDate(req,res){
-    let query = req.query;
+    let query = req.query,
+        startDate = dateParser(query.startDate),
+        endDate = dateParser(query.endDate);
     //TODO check if date is less or more than rent date, account for null value
     car
         .find({
-            "status.isAvailale":true,
-            "status.rented.startDate": {
-                $lt: query.startDate,
-                $gt: query.endDate,
-                $ne: null
-            },
-            "staus.rented.endDate":{
-                $gt: query.endDate,
-                $lt: query.startDate,
-                $ne: null
-            }
-
-        })
-        /*.find({
             "status.isAvailable":true,
-            "status.rented.startDate":null,
-            "status.rented.endDate":null
-        })*/
+        })
         .exec()
         .then((cars)=>{
-            console.log(res);
-            console.log(cars);
-            res.send(cars);
+            //console.log(res);
+            //console.log(cars);
+
+            let carsAfterSort = [];
+            cars.forEach((car)=>{
+                let carInDbStartDate = dateParser(car.status.rented.startDate),
+                    carInDbEndDate = dateParser(car.status.rented.endDate);
+
+                //Check bools and values
+                /*console.log(car.model + " : " + (carInDbStartDate > endDate));
+                console.log(carInDbStartDate + " : " + endDate);
+                console.log(car.model + " : " + (carInDbEndDate < startDate));
+                console.log(carInDbEndDate + " : " + startDate);
+                console.log(car.model + " : " + (carInDbStartDate !== null));*/
+                if(
+                    (carInDbStartDate > endDate && carInDbEndDate > endDate && carInDbStartDate !== null)  ||
+                    (carInDbEndDate < startDate && carInDbStartDate < startDate && carInDbStartDate !== null)
+                    //TODO allow null later for unrented/unreserved cars
+                ){  
+                    //console.log(car);
+                    carsAfterSort.push(car);
+                }
+            });
+            res.json(carsAfterSort);
+            return res;
         })
         .catch((err)=>{
             console.log(err);
         });
 }
+
+
+//===================================================
+//Developer Methods
+
+function dateParser(date){
+    if(date === null){return null;}
+    return new Date(date);
+}
+
+//=====================================================
+
 
 
 module.exports = {

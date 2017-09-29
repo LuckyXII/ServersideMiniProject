@@ -308,8 +308,8 @@
     "status":{
       "isAvailable":true,
       "rented":{
-        "startDate":null,
-        "endDate":null
+        "startDate": "2000-01-01",
+        "endDate": "2000-01-05"
       }
 
     }

@@ -26,8 +26,8 @@ const carSchema = new Schema({
     status:{
         isAvailable: Boolean,
         rented:{
-            startDate: {type:Date,min: new Date().getTime()},
-            endDate:Date
+            startDate: String,
+            endDate: String
         }
     }
 });

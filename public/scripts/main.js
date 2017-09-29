@@ -31,8 +31,8 @@ function checkAvailabillityByQuery(e){
 }
 
 function checkAvailabillityByDate(e){
-    dateStartValue = dateStart.valueAsDate;
-    dateEndValue = dateEnd.valueAsDate;
+    dateStartValue = dateStart.value;
+    dateEndValue = dateEnd.value;
 
     if(dateEndValue === null && dateStartValue !== null){
         //TODO show status message that an end date must be selected
@@ -51,10 +51,11 @@ function findByQuery(query=""){
 
     fetch(`olssonsfordonab/date/?${query}`)
         .then((response)=> {
+            console.log(response);
             return response.text();
         })
         .then((result)=> {
-            console.log(result);
+            console.log("SUCESS!!" + result);
             //TODO show results in view
         })
         .catch((err)=>{
@@ -66,14 +67,3 @@ function findByQuery(query=""){
 function restrictPassedDate(){
     //TODO get current date in html5 format and set a min property on the date inputs
 }
-/*
-db.vehicles.updateMany(
-    {
-        brand:"Volvo"
-    },
-    {
-        $set:{
-            "status.rented.startDate":new Date("2017-09-02")
-        }
-    }
-);*/
