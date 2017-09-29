@@ -20,7 +20,8 @@ router
     .post("/confirmation");
 
 router
-    .get("/date");
+    .get("/date",carController.checkAvailableCarsByDate)
+    .get("/date/*");
 
 //Wildcard Route
 router

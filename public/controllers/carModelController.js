@@ -6,7 +6,7 @@ function getAllCars(req,res){
         .find({})
         .exec()
         .then((cars)=>{
-            console.log(cars);
+            //console.log(cars);
             res.render("index",{
                 BLOCKNAME:cars
             });
@@ -43,18 +43,26 @@ function checkAvailableCarsByDate(req,res){
             "status.isAvailale":true,
             "status.rented.startDate": {
                 $lt: query.startDate,
+                $gt: query.endDate,
                 $ne: null
             },
             "staus.rented.endDate":{
                 $gt: query.endDate,
+                $lt: query.startDate,
                 $ne: null
             }
 
         })
+        /*.find({
+            "status.isAvailable":true,
+            "status.rented.startDate":null,
+            "status.rented.endDate":null
+        })*/
         .exec()
-        .then((res)=>{
+        .then((cars)=>{
             console.log(res);
-            return res;
+            console.log(cars);
+            res.send(cars);
         })
         .catch((err)=>{
             console.log(err);
@@ -65,5 +73,6 @@ function checkAvailableCarsByDate(req,res){
 module.exports = {
     getAllCars:getAllCars,
     getCarsByQuery:getCarsByQuery,
+    checkAvailableCarsByDate: checkAvailableCarsByDate,
 
 };

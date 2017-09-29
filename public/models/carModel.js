@@ -23,7 +23,13 @@ const carSchema = new Schema({
     kommentarer: {
         skador: String
     },
-    isAvailable: Boolean
+    status:{
+        isAvailable: Boolean,
+        rented:{
+            startDate: {type:Date,min: new Date().getTime()},
+            endDate:Date
+        }
+    }
 });
 
 module.exports = mongoose.model("vehicle", carSchema);
