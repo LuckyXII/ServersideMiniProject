@@ -35,31 +35,23 @@ function getCarsByQuery(req, res){
         });
 }
 
+//find cars that are available between selected dates
 function checkAvailableCarsByDate(req,res){
     let query = req.query,
         startDate = dateParser(query.startDate),
         endDate = dateParser(query.endDate);
-    //TODO check if date is less or more than rent date, account for null value
+    //find cars
     car
         .find({
             "status.isAvailable":true,
         })
         .exec()
         .then((cars)=>{
-            //console.log(res);
-            //console.log(cars);
-
             let carsAfterSort = [];
             cars.forEach((car)=>{
                 let carInDbStartDate = dateParser(car.status.rented.startDate),
                     carInDbEndDate = dateParser(car.status.rented.endDate);
 
-                //Check bools and values
-                /*console.log(car.model + " : " + (carInDbStartDate > endDate));
-                console.log(carInDbStartDate + " : " + endDate);
-                console.log(car.model + " : " + (carInDbEndDate < startDate));
-                console.log(carInDbEndDate + " : " + startDate);
-                console.log(car.model + " : " + (carInDbStartDate !== null));*/
                 if(
                     (carInDbStartDate > endDate && carInDbEndDate > endDate && carInDbStartDate !== null)  ||
                     (carInDbEndDate < startDate && carInDbStartDate < startDate && carInDbStartDate !== null)

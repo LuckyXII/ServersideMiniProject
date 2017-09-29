@@ -6,10 +6,14 @@ block content
         
         input(type="date")
     form(id="filterForm" action="#" method="post")
-        input(type="text")
-        input(type="text")
-        input(type="text")
-        input(type="text")
+        select(id="vehicleType")
+            option(value="" disabled selected) VehicleType
+        select(id="brand" )
+            option(value="" disabled selected) Brand
+        select(id="model" )
+            option(value="" disabled selected) Model
+        select(id="gearbox" )
+            option(value="" disabled selected) Gearbox
         button(id="searchBtn" type="submit" ) Search
     div
         img(src="" alt="image")

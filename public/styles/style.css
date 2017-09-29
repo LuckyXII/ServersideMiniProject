@@ -29,3 +29,11 @@ html {
     margin: 0;
     padding: 0;
 }
+
+select{
+    width: 80px;
+}
+select:first-child{
+    color:#999
+    /*TODO selects ONLY first option in first select, fix pretty please*/
+}

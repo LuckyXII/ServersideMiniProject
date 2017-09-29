@@ -3,7 +3,11 @@
 const
     searchBtn = document.getElementById("searchBtn"),
     dateStart = document.getElementById("dateForm").children[0],
-    dateEnd = document.getElementById("dateForm").children[1];
+    dateEnd = document.getElementById("dateForm").children[1],
+    selectVehicleType = document.getElementById("vehicleType"),
+    selectBrand = document.getElementById("brand"),
+    selectModel = document.getElementById("model"),
+    selectGearbox = document.getElementById("gearbox");
 
 var dateStartValue, dateEndValue;
 //=======================================================
@@ -53,11 +57,47 @@ function findByQuery(query=""){
 
     fetch(`olssonsfordonab/date/?${query}`)
         .then((response)=> {
-            console.log(response);
-            return response.text();
+            //console.log(response);
+            return response.json();
         })
         .then((result)=> {
+            //TODO generate select options
             console.log("SUCESS!!" + result);
+            //find all unique property values
+            let gearBoxes = [],
+                brands = [],
+                models = [],
+                vehicleTypes = [];
+
+            result.forEach((car)=>{
+                gearBoxes.push(car.gearbox);
+                brands.push(car.brand);
+                models.push(car.model);
+                vehicleTypes.push(car.fordonstyp);
+            });
+
+            //save all unique property values in array
+            brands = brands.filter(uniqesOnly);
+            models = models.filter(uniqesOnly);
+            vehicleTypes = vehicleTypes.filter(uniqesOnly);
+            gearBoxes = gearBoxes.filter(uniqesOnly);
+            console.log(brands);
+            console.log(models);
+
+            //create options for select elements
+            brands.forEach((value)=>{
+                addOption(value,selectBrand);
+            });
+            models.forEach((value)=>{
+                addOption(value,selectModel);
+            });
+            vehicleTypes.forEach((value)=>{
+                addOption(value,selectVehicleType);
+            });
+            gearBoxes.forEach((value)=>{
+                addOption(value,selectGearbox);
+            });
+
         })
         .catch((err)=>{
             console.log(err);
@@ -79,4 +119,14 @@ function restrictPassedDate(){
     }
     dateStart.min = `${year}-${month}-${day}`;
     dateEnd.min = `${year}-${month}-${day}`;
+}
+
+function uniqesOnly(value, index, self){
+    return self.indexOf(value) === index;
+}
+
+function addOption(value,parent){
+    let option = document.createElement("option");
+    option.textContent = value;
+    parent.appendChild(option);
 }
