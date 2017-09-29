@@ -3,7 +3,10 @@ const Schema = mongoose.Schema;
 
 const carSchema = new Schema({
     reqLicense: String,
-    fordonstyp:String,
+    fordonstyp:{
+        type:String,
+        required: true
+    },
     brand:{
         type:String,
         required:true
@@ -16,7 +19,7 @@ const carSchema = new Schema({
     gearbox:String,
     dagsHyra: {
         type:Number,
-        required: "dagshyra is required"
+        required: true
     },
     fuel: String,
     imgLink: String,
@@ -24,7 +27,10 @@ const carSchema = new Schema({
         skador: String
     },
     status:{
-        isAvailable: Boolean,
+        isAvailable:{
+            type: Boolean,
+            required: true
+        },
         rented:{
             startDate: String,
             endDate: String

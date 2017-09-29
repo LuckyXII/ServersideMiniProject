@@ -70,6 +70,7 @@ function checkAvailableCarsByDate(req,res){
                 }
             });
             res.json(carsAfterSort);
+            //TODO send data to view
             return res;
         })
         .catch((err)=>{
