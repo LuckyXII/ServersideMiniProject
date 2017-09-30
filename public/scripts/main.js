@@ -29,7 +29,17 @@ dateEnd.addEventListener("change",checkAvailabillityByDate);
 function checkAvailabillityByQuery(e){
     e.preventDefault();
 
-    //TODO add rest of input data, make query and filter cars
+    //Get value of selections
+    let vehicleType = selectVehicleType.selectedOptions[0].textContent;
+    let vehicleModel = selectModel.selectedOptions[0].textContent;
+    let vehicleGearbox = selectGearbox.selectedOptions[0].textContent;
+    let vehicleBrand = selectBrand.selectedOptions[0].textContent;
+    console.log(vehicleGearbox + " : " +vehicleModel+ " : " +vehicleBrand+ " : " +vehicleType);
+    //check values
+    let query = preventNullInQuery(["fordonstyp","brand","model","gearbox"],[vehicleType,vehicleBrand,vehicleModel, vehicleGearbox]);
+    findByQuery("result",query,console.log);
+
+    //TODO add callback to findByQuery to handle results
 
 }
 
@@ -52,6 +62,7 @@ function checkAvailabillityByDate(){
     }
     //if both dates are selected
     else if(dateEndValue !== null && dateStartValue !== null){
+        searchBtn.removeAttribute("disabled");
         findByQuery("date",`startDate=${dateStartValue}&endDate=${dateEndValue}`,findUniquePropertyValue);
     }
 
@@ -66,7 +77,7 @@ function findByQuery(router,query="",callback){
             return response.json();
         })
         .then((result)=> {
-            console.log("date query was sucessfull");
+            console.log(router + " query was sucessfull");
             callback(result);
         })
         .catch((err)=>{
@@ -137,4 +148,26 @@ function findUniquePropertyValue(result){
         addOption(value,selectGearbox);
     });
 
+}
+
+function preventNullInQuery(names,values){
+    let query = "";
+    values.forEach((val,i)=>{
+        //console.log(val + " : " + (val !== "Gearbox"));
+        if(
+            (val !== null || val !== undefined) &&
+            val !== "Gearbox" && val !== "VehicleType" &&
+            val !== "Model" && val !=="Brand"
+        ){
+            if(i !== values.length-1){
+                query+=names[i] + "=" + val + "&";
+            }else{
+                query+=names[i] + "=" + val;
+            }
+        }
+    });
+    console.log("string query: "+query);
+
+
+    return query;
 }

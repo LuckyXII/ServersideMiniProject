@@ -2,7 +2,8 @@ const
     express = require("express"),
     router = express.Router(),
     carController = require("../controllers/carModelController"),
-    customerController = require("../controllers/customerModelController");
+    customerController = require("../controllers/customerModelController"),
+    dataHolderController = require("../controllers/dataHolderController");
 
 //default Route
 router
@@ -19,9 +20,14 @@ router
     .get("/confirmation")
     .post("/confirmation");
 
+//date API
 router
     .get("/date",carController.checkAvailableCarsByDate)
     .get("/date/*");
+
+router
+    .get("/result", dataHolderController.checkAvailableCarsByQuery)
+    .get("/result/*");
 
 //Wildcard Route
 router
