@@ -52,9 +52,11 @@ function checkAvailableCarsByDate(req,res){
             let carsAfterSort = [];
             let carIdsAfterSort = [];
             cars.forEach((car)=>{
+                //TODO when rented dates is array isert nested loop for date parsing
                 let carInDbStartDate = dateParser(car.status.rented.startDate),
                     carInDbEndDate = dateParser(car.status.rented.endDate);
 
+                //check valid values
                 if(
                     (carInDbStartDate > endDate && carInDbEndDate > endDate && carInDbStartDate !== null)  ||
                     (carInDbEndDate < startDate && carInDbStartDate < startDate && carInDbStartDate !== null)
@@ -86,6 +88,7 @@ function checkAvailableCarsByDate(req,res){
 //===================================================
 //Developer Methods
 
+//Turn string dates YYYY-MM-DD in to date object
 function dateParser(date){
     if(date === null){return null;}
     return new Date(date);

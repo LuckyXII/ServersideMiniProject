@@ -37,24 +37,27 @@ function checkAvailabillityByDate(){
     dateStartValue = dateStart.value;
     dateEndValue = dateEnd.value;
 
+    //if only first date is selected
     if((dateEndValue === null || dateEndValue === "") &&
         (dateStartValue !== null)){
         //TODO show status message that an end date must be selected
         //prevent end from being smaller than start
         dateEnd.min = dateStartValue;
     }
+    //if only last date is selected
     else if(dateEndValue !== null &&
         (dateStartValue === null || dateStartValue === null)){
         //TODO show status message that a start date must be seected
         dateStart.max = dateEndValue;
     }
+    //if both dates are selected
     else if(dateEndValue !== null && dateStartValue !== null){
         findByQuery("date",`startDate=${dateStartValue}&endDate=${dateEndValue}`,findUniquePropertyValue);
     }
 
 }
 
-
+//fetch response by query
 function findByQuery(router,query="",callback){
 
     fetch(`${URL_BASE}${router}/?${query}`)
@@ -72,8 +75,8 @@ function findByQuery(router,query="",callback){
 
 }
 
+//prevent passed dates to be selected
 function restrictPassedDate(){
-    //TODO get current date in html5 format and set a min property on the date inputs
     let date = new Date(),
         day = date.getDate(),
         month = date.getMonth()+1,
@@ -88,18 +91,20 @@ function restrictPassedDate(){
     dateEnd.min = `${year}-${month}-${day}`;
 }
 
+//used to search array for unique values
 function uniqesOnly(value, index, self){
     return self.indexOf(value) === index;
 }
 
+//add option element to select element
 function addOption(value,parent){
     let option = document.createElement("option");
     option.textContent = value;
     parent.appendChild(option);
 }
 
+//find all unique property values for list of cars
 function findUniquePropertyValue(result){
-    //find all unique property values
     let gearBoxes = [],
         brands = [],
         models = [],
