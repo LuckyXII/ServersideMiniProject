@@ -35,5 +35,5 @@ select{
 }
 select:first-child{
     color:#999
-    /*TODO selects ONLY first option in first select, fix pretty please*/
+    /*TODO selects first option ONLY in first select, fix pretty please*/
 }

@@ -1,6 +1,7 @@
 //=======================================================
 //GLOBALS
 const
+    URL_BASE = "olssonsfordonab/",
     searchBtn = document.getElementById("searchBtn"),
     dateStart = document.getElementById("dateForm").children[0],
     dateEnd = document.getElementById("dateForm").children[1],
@@ -32,7 +33,7 @@ function checkAvailabillityByQuery(e){
 
 }
 
-function checkAvailabillityByDate(e){
+function checkAvailabillityByDate(){
     dateStartValue = dateStart.value;
     dateEndValue = dateEnd.value;
 
@@ -45,59 +46,25 @@ function checkAvailabillityByDate(e){
     else if(dateEndValue !== null &&
         (dateStartValue === null || dateStartValue === null)){
         //TODO show status message that a start date must be seected
+        dateStart.max = dateEndValue;
     }
     else if(dateEndValue !== null && dateStartValue !== null){
-        findByQuery(`startDate=${dateStartValue}&endDate=${dateEndValue}`);
+        findByQuery("date",`startDate=${dateStartValue}&endDate=${dateEndValue}`,findUniquePropertyValue);
     }
 
 }
 
 
-function findByQuery(query=""){
+function findByQuery(router,query="",callback){
 
-    fetch(`olssonsfordonab/date/?${query}`)
+    fetch(`${URL_BASE}${router}/?${query}`)
         .then((response)=> {
             //console.log(response);
             return response.json();
         })
         .then((result)=> {
-            //TODO generate select options
-            console.log("SUCESS!!" + result);
-            //find all unique property values
-            let gearBoxes = [],
-                brands = [],
-                models = [],
-                vehicleTypes = [];
-
-            result.forEach((car)=>{
-                gearBoxes.push(car.gearbox);
-                brands.push(car.brand);
-                models.push(car.model);
-                vehicleTypes.push(car.fordonstyp);
-            });
-
-            //save all unique property values in array
-            brands = brands.filter(uniqesOnly);
-            models = models.filter(uniqesOnly);
-            vehicleTypes = vehicleTypes.filter(uniqesOnly);
-            gearBoxes = gearBoxes.filter(uniqesOnly);
-            console.log(brands);
-            console.log(models);
-
-            //create options for select elements
-            brands.forEach((value)=>{
-                addOption(value,selectBrand);
-            });
-            models.forEach((value)=>{
-                addOption(value,selectModel);
-            });
-            vehicleTypes.forEach((value)=>{
-                addOption(value,selectVehicleType);
-            });
-            gearBoxes.forEach((value)=>{
-                addOption(value,selectGearbox);
-            });
-
+            console.log("date query was sucessfull");
+            callback(result);
         })
         .catch((err)=>{
             console.log(err);
@@ -129,4 +96,40 @@ function addOption(value,parent){
     let option = document.createElement("option");
     option.textContent = value;
     parent.appendChild(option);
+}
+
+function findUniquePropertyValue(result){
+    //find all unique property values
+    let gearBoxes = [],
+        brands = [],
+        models = [],
+        vehicleTypes = [];
+
+    result.forEach((car)=>{
+        gearBoxes.push(car.gearbox);
+        brands.push(car.brand);
+        models.push(car.model);
+        vehicleTypes.push(car.fordonstyp);
+    });
+
+    //save all unique property values in array
+    brands = brands.filter(uniqesOnly);
+    models = models.filter(uniqesOnly);
+    vehicleTypes = vehicleTypes.filter(uniqesOnly);
+    gearBoxes = gearBoxes.filter(uniqesOnly);
+
+    //create options for select elements
+    brands.forEach((value)=>{
+        addOption(value,selectBrand);
+    });
+    models.forEach((value)=>{
+        addOption(value,selectModel);
+    });
+    vehicleTypes.forEach((value)=>{
+        addOption(value,selectVehicleType);
+    });
+    gearBoxes.forEach((value)=>{
+        addOption(value,selectGearbox);
+    });
+
 }

@@ -1,4 +1,6 @@
-const car = require("../models/carModel");
+const
+    car = require("../models/carModel"),
+    resultDataHolder = require("../models/resultDataHolderModel");
 
 
 function getAllCars(req,res){
@@ -48,6 +50,7 @@ function checkAvailableCarsByDate(req,res){
         .exec()
         .then((cars)=>{
             let carsAfterSort = [];
+            let carIdsAfterSort = [];
             cars.forEach((car)=>{
                 let carInDbStartDate = dateParser(car.status.rented.startDate),
                     carInDbEndDate = dateParser(car.status.rented.endDate);
@@ -59,10 +62,19 @@ function checkAvailableCarsByDate(req,res){
                 ){  
                     //console.log(car);
                     carsAfterSort.push(car);
+                    carIdsAfterSort.push(car._id);
                 }
             });
             res.json(carsAfterSort);
-            //TODO send data to view
+            //Send result to dataHolder collection
+            let dateResult = new resultDataHolder({
+                identifier: "resultAfterDateQuery",
+                query:[{isAvailable:true},{startDate:startDate},{endDate:endDate}],
+                result:carIdsAfterSort
+            });
+            dateResult.save((err)=>{
+                console.log("Save Error: " + err);
+            });
             return res;
         })
         .catch((err)=>{
