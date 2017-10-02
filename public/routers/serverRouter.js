@@ -26,7 +26,7 @@ router
     .get("/date/*");
 
 router
-    .get("/result", dataHolderController.checkAvailableCarsByQuery)
+    .get("/result", carController.checkAvailableCarsByQuery)
     .get("/result/*");
 
 //Wildcard Route

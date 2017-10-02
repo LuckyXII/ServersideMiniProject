@@ -37,9 +37,9 @@ function checkAvailabillityByQuery(e){
     console.log(vehicleGearbox + " : " +vehicleModel+ " : " +vehicleBrand+ " : " +vehicleType);
     //check values
     let query = preventNullInQuery(["fordonstyp","brand","model","gearbox"],[vehicleType,vehicleBrand,vehicleModel, vehicleGearbox]);
-    findByQuery("result",query,console.logn);
+    findByQuery("result",query,console.log);
 
-    //TODO add callback to findByQuery to handle results
+    //TODO replace console.log with callback in findByQuery to handle results
 
 }
 

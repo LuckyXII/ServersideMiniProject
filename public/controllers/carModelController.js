@@ -26,7 +26,7 @@ function getCarsByQuery(req, res){
         .find({query})
         .exec()
         .then((cars)=>{
-            console.log(cars);
+            //console.log(cars);
             res.render("index",{
                 BLOCKNAME:cars
             });
@@ -39,6 +39,10 @@ function getCarsByQuery(req, res){
 
 //find cars that are available between selected dates
 function checkAvailableCarsByDate(req,res){
+
+    //reset dataholder
+    resultDataHolder.deleteOne({"identifier": "resultAfterDateQuery"});
+
     let query = req.query,
         startDate = dateParser(query.startDate),
         endDate = dateParser(query.endDate);
@@ -87,6 +91,43 @@ function checkAvailableCarsByDate(req,res){
 }
 
 
+function checkAvailableCarsByQuery(req,res){
+    //TODO I have saved car IDs but is querying by cathegory, needs to fix
+    //Maybe sort in car module and check if ID is in carholder array instead
+    let query = req.query;
+    let obj = {};
+
+    //find queries used
+    for(let prop in query){
+        obj[prop] = query[prop];
+    }
+
+    //find all _id's in dataholders resultAfterDateQuery
+    resultDataHolder
+        .find({"identifier": "resultAfterDateQuery"})
+        .exec()
+        .then((dataHolder)=>{
+            //save all _id's in query object
+            obj._id = {$in:dataHolder[0].result};
+            car
+                .find(obj)
+                .exec()
+                .then((cars)=>{
+                    //console.log("CARS: "+cars);
+                    res.json(cars);
+                })
+                .catch((err)=>{
+                    console.log(err);
+                });
+
+        })
+        .catch((err)=>{
+            console.log(err);
+        });
+
+}
+
+
 //===================================================
 //Developer Methods
 
@@ -104,5 +145,6 @@ module.exports = {
     getAllCars:getAllCars,
     getCarsByQuery:getCarsByQuery,
     checkAvailableCarsByDate: checkAvailableCarsByDate,
+    checkAvailableCarsByQuery: checkAvailableCarsByQuery
 
 };

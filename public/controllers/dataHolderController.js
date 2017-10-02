@@ -1,15 +1,15 @@
 const dataHolder = require("../models/resultDataHolderModel");
-
+/*
 function checkAvailableCarsByQuery(req,res){
     //TODO I have saved car IDs but is querying by cathegory, needs to fix
     //Maybe sort in car module and check if ID is in carholder array instead
     let query = req.query;
     let obj = {};
 
+    //find queries used
     for(let prop in query){
         obj[prop] = query[prop];
     }
-    console.log(obj);
     dataHolder
         .find(obj)
         .exec()
@@ -28,3 +28,5 @@ function checkAvailableCarsByQuery(req,res){
 module.exports = {
     checkAvailableCarsByQuery : checkAvailableCarsByQuery
 };
+
+*/
