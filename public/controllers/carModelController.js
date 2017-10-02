@@ -49,6 +49,7 @@ function checkAvailableCarsByDate(req,res){
         })
         .exec()
         .then((cars)=>{
+        console.log(cars);
             let carsAfterSort = [];
             let carIdsAfterSort = [];
             cars.forEach((car)=>{
@@ -67,6 +68,7 @@ function checkAvailableCarsByDate(req,res){
                     carIdsAfterSort.push(car._id);
                 }
             });
+            
             res.json(carsAfterSort);
             //Send result to dataHolder collection
             let dateResult = new resultDataHolder({

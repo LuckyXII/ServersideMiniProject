@@ -2,9 +2,9 @@ extends head
 block content
 
     form(id="dateForm" action="#" method="post")
-        input(type="date")
+        input(type="date" name="dateStart")
         
-        input(type="date")
+        input(type="date" name="dateEnd")
     form(id="filterForm" action="#" method="post")
         select(id="vehicleType")
             option(value="" disabled selected) VehicleType

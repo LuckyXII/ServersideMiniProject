@@ -37,15 +37,24 @@ function checkAvailabillityByQuery(e){
     console.log(vehicleGearbox + " : " +vehicleModel+ " : " +vehicleBrand+ " : " +vehicleType);
     //check values
     let query = preventNullInQuery(["fordonstyp","brand","model","gearbox"],[vehicleType,vehicleBrand,vehicleModel, vehicleGearbox]);
-    findByQuery("result",query,console.log);
+    findByQuery("result",query,console.logn);
 
     //TODO add callback to findByQuery to handle results
 
 }
 
-function checkAvailabillityByDate(){
+function checkAvailabillityByDate(e){
     dateStartValue = dateStart.value;
     dateEndValue = dateEnd.value;
+
+    //reset min and max
+    if(e.target.name === "dateStart"){
+        dateEnd.removeAttribute("min");
+        dateEnd.min = dateStartValue;
+    }else{
+        dateEnd.removeAttribute("max");
+        dateStart.max = dateEndValue;
+    }
 
     //if only first date is selected
     if((dateEndValue === null || dateEndValue === "") &&
@@ -71,7 +80,7 @@ function checkAvailabillityByDate(){
 //fetch response by query
 function findByQuery(router,query="",callback){
 
-    fetch(`${URL_BASE}${router}/?${query}`)
+    fetch(`${router}/?${query}`)
         .then((response)=> {
             //console.log(response);
             return response.json();

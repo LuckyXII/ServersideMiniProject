@@ -30,9 +30,11 @@ router
     .get("/result/*");
 
 //Wildcard Route
+/*
 router
-    .get("/*",carController.getCarsByQuery)
-    .post("/*");
+    .get("/!*",carController.getCarsByQuery)
+    .post("/!*");
+*/
 
 
 module.exports = router;
