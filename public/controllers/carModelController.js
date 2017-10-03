@@ -1,6 +1,5 @@
 const
     car = require("../models/carModel"),
-    /*index = require("../views/index"),*/
     resultDataHolder = require("../models/resultDataHolderModel");
 
 
@@ -29,7 +28,7 @@ function getCarsByQuery(req, res){
         .then((cars)=>{
             //console.log(cars);
             res.render("index",{
-                BLOCKNAME:cars
+                content:cars
             });
             //TODO Add view file, replace BLOCKNAME
         })
