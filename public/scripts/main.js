@@ -82,7 +82,7 @@ function findByQuery(router,query="",callback){
 
     fetch(`${router}/?${query}`)
         .then((response)=> {
-            //console.log(response);
+            console.log(response.json());
             return response.json();
         })
         .then((result)=> {

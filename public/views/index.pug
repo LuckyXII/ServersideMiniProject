@@ -16,11 +16,6 @@ block content
             select(id="gearbox" )
                 option(value="" disabled selected) Gearbox
             button(id="searchBtn" type="submit" disabled=true title="date must be selected" ) Search
-        ul(class="infoContent")
-        // make the info about cars visible only when a date and vehicle is selected
-        each val in cars
-            li= val
-        else
-            li There are no items.
+        
           
             script(src="../scripts/main.js")
