@@ -124,6 +124,7 @@ function checkAvailableCarsByQuery(req,res){
                 .exec()
                 .then((cars)=>{
                     //console.log("CARS: "+cars);
+                    //TODO pug file is not renderig results
                     res.render("result",{
                         result:cars
                     });
