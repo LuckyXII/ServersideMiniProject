@@ -80,7 +80,7 @@ function checkAvailableCarsByDate(req,res){
                     carIdsAfterSort.push(car._id);
                 }
             });
-            
+
             res.json(carsAfterSort);
             //Send result to dataHolder collection
             let dateResult = new resultDataHolder({
@@ -88,7 +88,7 @@ function checkAvailableCarsByDate(req,res){
                 query:[{isAvailable:true},{startDate:startDate},{endDate:endDate}],
                 result:carIdsAfterSort
             });
-            //console.log(dateResult);
+            
             dateResult.save((err)=> {
                 if (err){
                     console.log("Save Error: " + err);
@@ -119,15 +119,16 @@ function checkAvailableCarsByQuery(req,res){
         .then((dataHolder)=>{
             //save all _id's in query object
             obj._id = {$in:dataHolder[0].result};
+
+
             car
                 .find(obj)
                 .exec()
                 .then((cars)=>{
-                    //console.log("CARS: "+cars);
-                    //TODO pug file is not renderig results
-                    res.render("result",{
-                        result:cars
-                    });
+                   //console.log("CARS: " + cars);
+                    //console.log( typeof cars);
+                    //TODO append results in resultDiv
+                    res.json(cars);
                 })
                 .catch((err)=>{
                     console.log(err);
