@@ -42,7 +42,14 @@ function getCarsByQuery(req, res){
 function checkAvailableCarsByDate(req,res){
 
     //reset dataholder
-    resultDataHolder.deleteOne({"identifier": "resultAfterDateQuery"});
+    resultDataHolder
+        .deleteOne({"identifier": "resultAfterDateQuery"})
+        .exec((err,res)=>{
+            if(err){
+                console.log(err);   
+            }
+            console.log("deletedCount: " + res.deletedCount);
+        });
 
     let query = req.query,
         startDate = dateParser(query.startDate),
@@ -54,7 +61,7 @@ function checkAvailableCarsByDate(req,res){
         })
         .exec()
         .then((cars)=>{
-        console.log(cars);
+        //console.log(cars);
             let carsAfterSort = [];
             let carIdsAfterSort = [];
             cars.forEach((car)=>{
@@ -81,8 +88,11 @@ function checkAvailableCarsByDate(req,res){
                 query:[{isAvailable:true},{startDate:startDate},{endDate:endDate}],
                 result:carIdsAfterSort
             });
-            dateResult.save((err)=>{
-                console.log("Save Error: " + err);
+            //console.log(dateResult);
+            dateResult.save((err)=> {
+                if (err){
+                    console.log("Save Error: " + err);
+                }
             });
             return res;
         })
@@ -93,8 +103,7 @@ function checkAvailableCarsByDate(req,res){
 
 
 function checkAvailableCarsByQuery(req,res){
-    //TODO I have saved car IDs but is querying by cathegory, needs to fix
-    //Maybe sort in car module and check if ID is in carholder array instead
+
     let query = req.query;
     let obj = {};
 
@@ -115,7 +124,9 @@ function checkAvailableCarsByQuery(req,res){
                 .exec()
                 .then((cars)=>{
                     //console.log("CARS: "+cars);
-                    res.json(cars);
+                    res.render("result",{
+                        result:cars
+                    });
                 })
                 .catch((err)=>{
                     console.log(err);

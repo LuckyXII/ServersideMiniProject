@@ -17,8 +17,9 @@ block content
                 option(value="" disabled selected) Gearbox
             button(id="searchBtn" type="submit" disabled=true title="date must be selected" ) Search
         div(class="infoContent")
-            img(src="" alt="image")
-            p here comes some info...
-            button(type="submit") Pick
+            block result
+                img(src="" alt="image")
+                p here comes some info...
+                button(type="submit") Pick
 
             script(src="../scripts/main.js")
