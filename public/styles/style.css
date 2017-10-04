@@ -1,12 +1,14 @@
 /*!!!!!!!!!!!!!! CSS STYLESHEET!!!!!!!!!!!!!!!!!!!!!*/
+
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
-html, body {
-    font-family: monospace;
+html,
+body {
+    font-family: monospace !important;
 }
 
 h1 {
@@ -16,14 +18,68 @@ h1 {
     background-color: #254142;
     color: white;
 }
+
 .formContent {
     width: 70%;
     height: 50%;
     margin: auto;
 }
 
-#filterForm, #dateForm, .infoContent {
+#filterForm,
+#dateForm,
+.infoContent {
     border: 1px solid gray;
     padding: 30px 20px;
     margin-top: 10px;
+}
+
+#adminForm {
+    border: 1px splid gray;
+    padding: 30px;
+    margin: 50px;
+}
+
+#brandD,
+#modelD,
+#yearD,
+#gearD {
+    margin-top: 10px;
+}
+
+.form-group {
+    position: relative;
+    left: 0;
+    top: 70%;
+    width: 100%;
+    text-align: center;
+}
+
+#searchBarAdmin {
+    position: relative;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    border: 2px solid black;
+    margin-top: 2%;
+    padding: 1%;
+}
+
+#brandS,
+#modelS,
+#yearS,
+#gearS {
+    padding-left: 1%;
+}
+
+td {
+    margin: 55px;
+}
+
+#buttonsD {
+    position: relative;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    text-align: center;
 }

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+        link(rel="stylesheet", href="../styles/style.css" type="text/css")
+        title Document
+    body
+        h1 Olsson fordon AB
+
+        //Search Bar
+
+        div#searchBarAdmin
+            tr
+                td#brandS Brand 
+                td#modelS Model 
+                td#yearS Year 
+                td#gearS Gear type 
+                button(type="button") Search
+
+        // Form
+
+        form#adminForm(method='POST' action='/register')
+          div.form-group#brandD
+            label(for='brand') Brand:
+            input#brand.form-control(type='text', placeholder='Brand of the car' name='brand') 
+          div.form-group#modelD
+            label(for='model') Model:
+            input#model.form-control(type='text', placeholder='Model of the car' name='model')
+          div.form-group#yearD
+            label(for='year') Year:
+            input#year.form-control(type='text', placeholder='YYYY' name='year')
+          div.form-group#gearD
+            label(for='gear') Gear Type:
+            input#gear.form-control(type='password' name='gear')
+
+        div#buttonsD
+          button.btn.btn-primary(type='submit') ADD
+          button.btn.btn-primary(type='submit') DELETE
+          button.btn.btn-primary(type='submit') UPDATE
