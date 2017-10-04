@@ -16,6 +16,9 @@ block content
             select(id="gearbox" )
                 option(value="" disabled selected) Gearbox
             button(id="searchBtn" type="submit" disabled=true title="date must be selected" ) Search
-        
+        ul(class="infoContent")
+            img(src="#" alt="image")
+            p Here is some info about the selected car.
+            button( type="submit" id="selectBtn" disabled=true title="date must be selected" method="POST") Select Car
           
             script(src="../scripts/main.js")
