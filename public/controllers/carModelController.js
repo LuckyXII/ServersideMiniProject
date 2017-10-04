@@ -66,19 +66,37 @@ function checkAvailableCarsByDate(req,res){
             let carIdsAfterSort = [];
             cars.forEach((car)=>{
                 //TODO when rented dates is array isert nested loop for date parsing
-                let carInDbStartDate = dateParser(car.status.rented.startDate),
-                    carInDbEndDate = dateParser(car.status.rented.endDate);
+                let rentedArray = car.status.rented;
+                let dateOccupied = [];
 
-                //check valid values
-                if(
-                    (carInDbStartDate > endDate && carInDbEndDate > endDate && carInDbStartDate !== null)  ||
-                    (carInDbEndDate < startDate && carInDbStartDate < startDate && carInDbStartDate !== null)
-                    //TODO allow null later for unrented/unreserved cars
-                ){  
-                    //console.log(car);
+                //Go through all rented dates
+                rentedArray.forEach((date)=>{
+                    let carInDbStartDate = dateParser(date.startDate),
+                        carInDbEndDate = dateParser(date.endDate);
+
+                    console.log(!(carInDbStartDate > endDate && carInDbEndDate > endDate && carInDbStartDate !== null));
+                    console.log(!(carInDbEndDate < startDate && carInDbStartDate < startDate && carInDbStartDate !== null));
+                    
+                    //check valid values
+                    if(
+                        (carInDbStartDate > endDate && carInDbEndDate > endDate && carInDbStartDate !== null)  ||
+                        (carInDbEndDate < startDate && carInDbStartDate < startDate && carInDbStartDate !== null)
+                        //TODO allow null later for unrented/unreserved cars
+                    ){
+                        dateOccupied.push(false);
+                    }else{
+                        dateOccupied.push(true);
+                    }
+                });
+
+                //Find if any dates overlap
+                let occupied = dateOccupied.find((found)=>{return found === true;});
+                if(!occupied){
+                    console.log(car);
                     carsAfterSort.push(car);
                     carIdsAfterSort.push(car._id);
                 }
+
             });
 
             res.json(carsAfterSort);

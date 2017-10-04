@@ -31,10 +31,12 @@ const carSchema = new Schema({
             type: Boolean,
             required: true
         },
-        rented:{
-            startDate: String,
-            endDate: String
-        }
+        rented:[
+            {
+                startDate: String,
+                endDate: String
+            }
+        ]
     }
 });
 
