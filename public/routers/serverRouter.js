@@ -8,7 +8,7 @@ const
 //default Route
 router
     .get("/", carController.getAllCars)
-    .post("/");
+    .post("/", customerController.customerBooking);
 
 //Admin Route
 router
@@ -17,7 +17,7 @@ router
 
 //Confirmation Route
 router
-    .get("/confirmation")
+    .get("/confirmation", customerController.customerBooking)
     .post("/confirmation");
 
 //date API
