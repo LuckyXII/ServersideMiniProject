@@ -1,6 +1,5 @@
 const
     car = require("../models/carModel"),
-    /*index = require("../views/index"),*/
     resultDataHolder = require("../models/resultDataHolderModel");
 
 
@@ -29,7 +28,7 @@ function getCarsByQuery(req, res){
         .then((cars)=>{
             //console.log(cars);
             res.render("index",{
-                BLOCKNAME:cars
+                content:cars
             });
             //TODO Add view file, replace BLOCKNAME
         })
@@ -73,9 +72,6 @@ function checkAvailableCarsByDate(req,res){
                 rentedArray.forEach((date)=>{
                     let carInDbStartDate = dateParser(date.startDate),
                         carInDbEndDate = dateParser(date.endDate);
-
-                    console.log(!(carInDbStartDate > endDate && carInDbEndDate > endDate && carInDbStartDate !== null));
-                    console.log(!(carInDbEndDate < startDate && carInDbStartDate < startDate && carInDbStartDate !== null));
                     
                     //check valid values
                     if(
@@ -92,7 +88,7 @@ function checkAvailableCarsByDate(req,res){
                 //Find if any dates overlap
                 let occupied = dateOccupied.find((found)=>{return found === true;});
                 if(!occupied){
-                    console.log(car);
+                    //console.log(car);
                     carsAfterSort.push(car);
                     carIdsAfterSort.push(car._id);
                 }
