@@ -3,6 +3,7 @@
 const
     URL_BASE = "olssonsfordonab/",
     searchBtn = document.getElementById("searchBtn"),
+    selectBtn = document.getElementById("selectBtn"),
     dateStart = document.getElementById("dateForm").children[0],
     dateEnd = document.getElementById("dateForm").children[1],
     selectVehicleType = document.getElementById("vehicleType"),
@@ -72,6 +73,7 @@ function checkAvailabillityByDate(e){
     //if both dates are selected
     else if(dateEndValue !== null && dateStartValue !== null){
         searchBtn.removeAttribute("disabled");
+        selectBtn.removeAttribute("disabled");
         findByQuery("date",`startDate=${dateStartValue}&endDate=${dateEndValue}`,findUniquePropertyValue);
     }
 
@@ -82,7 +84,7 @@ function findByQuery(router,query="",callback){
 
     fetch(`${router}/?${query}`)
         .then((response)=> {
-            //console.log(response);
+            console.log(response);
             return response.json();
         })
         .then((result)=> {

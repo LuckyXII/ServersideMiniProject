@@ -8,17 +8,17 @@ block content
             input(type="date" name="dateEnd")
         form(id="filterForm" action="#" method="post")
             select(id="vehicleType")
-                option(value="" disabled selected) VehicleType
+                option(value=""  selected) VehicleType
             select(id="brand" )
-                option(value="" disabled selected) Brand
+                option(value=""  selected) Brand
             select(id="model" )
-                option(value="" disabled selected) Model
+                option(value=""  selected) Model
             select(id="gearbox" )
-                option(value="" disabled selected) Gearbox
+                option(value=""  selected) Gearbox
             button(id="searchBtn" type="submit" disabled=true title="date must be selected" ) Search
-        div(class="infoContent")
-            img(src="" alt="image")
-            p here comes some info...
-            button(type="submit") Pick
-
+        ul(class="infoContent")
+            img(src="#" alt="image")
+            p Here is some info about the selected car.
+            button( type="submit" id="selectBtn" disabled=true title="date must be selected" method="POST") Select Car
+          
             script(src="../scripts/main.js")

@@ -19,19 +19,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'pug');
 app.set('views', __dirname + '/public/views');
 
-<<<<<<< HEAD
 //Get admin page
 
-=======
->>>>>>> 1aa242de8fbcd58d23692b9e0dec3216aa8f6bcb
 app.get('/admin',(req,res)=>{
     res.render('admin');
 })
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 1aa242de8fbcd58d23692b9e0dec3216aa8f6bcb
 //listen on 3000
 app.listen(port);
 console.log('server is alive at: '+ port);

@@ -10,10 +10,16 @@
   "imgLink": "https://upload.wikimedia.org/wikipedia/commons/7/72/Mazda_323f_green_front_20080301.jpg",
    "status":{
      "isAvailable":true,
-     "rented":{
-        "startDate":null,
-        "endDate":null
-     }
+     "rented":[
+       {
+         "startDate": "2000-01-01",
+         "endDate": "2000-01-05"
+       },
+       {
+         "startDate": "2017-10-01",
+         "endDate": "2017-12-01"
+       }
+     ]
 
    }
 
@@ -29,10 +35,16 @@
     "imgLink": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Volvo-V40.jpg",
     "status":{
       "isAvailable":true,
-      "rented":{
-        "startDate":null,
-        "endDate":null
-      }
+      "rented":[
+        {
+          "startDate": "2000-01-01",
+          "endDate": "2000-01-05"
+        },
+        {
+          "startDate": "2017-10-01",
+          "endDate": "2017-12-01"
+        }
+      ]
 
     }
 
@@ -46,10 +58,16 @@
     "dagshyra": 498,
     "status":{
       "isAvailable":true,
-      "rented":{
-        "startDate":null,
-        "endDate":null
-      }
+      "rented":[
+        {
+          "startDate": "2000-01-01",
+          "endDate": "2000-01-05"
+        },
+        {
+          "startDate": "2017-10-01",
+          "endDate": "2017-12-01"
+        }
+      ]
 
     }
 
@@ -63,10 +81,16 @@
     "dagshyra": 550,
     "status":{
       "isAvailable":true,
-      "rented":{
-        "startDate":null,
-        "endDate":null
-      }
+      "rented":[
+        {
+          "startDate": "2000-01-01",
+          "endDate": "2000-01-05"
+        },
+        {
+          "startDate": "2017-10-01",
+          "endDate": "2017-12-01"
+        }
+      ]
 
     }
   },
@@ -81,10 +105,16 @@
     "imgLink": "https://upload.wikimedia.org/wikipedia/commons/4/40/Peugeot_308_5-T%C3%BCrer_front.JPG",
     "status":{
       "isAvailable":true,
-      "rented":{
-        "startDate":null,
-        "endDate":null
-      }
+      "rented":[
+        {
+          "startDate": "2000-01-01",
+          "endDate": "2000-01-05"
+        },
+        {
+          "startDate": "2017-10-01",
+          "endDate": "2017-12-01"
+        }
+      ]
 
     }
   },
@@ -101,10 +131,16 @@
     },
     "status":{
       "isAvailable":true,
-      "rented":{
-        "startDate":null,
-        "endDate":null
-      }
+      "rented":[
+        {
+          "startDate": "2000-01-01",
+          "endDate": "2000-01-05"
+        },
+        {
+          "startDate": "2017-10-01",
+          "endDate": "2017-12-01"
+        }
+      ]
 
     }
   },
@@ -120,10 +156,16 @@
     "fuel": "95",
     "status":{
       "isAvailable":true,
-      "rented":{
-        "startDate":null,
-        "endDate":null
-      }
+      "rented":[
+        {
+          "startDate": "2000-01-01",
+          "endDate": "2000-01-05"
+        },
+        {
+          "startDate": "2017-10-01",
+          "endDate": "2017-12-01"
+        }
+      ]
 
     }
   },
@@ -138,10 +180,16 @@
     "imgLink": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Volvo_V50_--_04-20-2010.jpg",
     "status":{
       "isAvailable":true,
-      "rented":{
-        "startDate":null,
-        "endDate":null
-      }
+      "rented":[
+        {
+          "startDate": "2000-01-01",
+          "endDate": "2000-01-05"
+        },
+        {
+          "startDate": "2017-10-01",
+          "endDate": "2017-12-01"
+        }
+      ]
 
     }
   },
@@ -154,10 +202,16 @@
     "dagshyra": 498,
     "status":{
       "isAvailable":true,
-      "rented":{
-        "startDate":null,
-        "endDate":null
-      }
+      "rented":[
+        {
+          "startDate": "2000-01-01",
+          "endDate": "2000-01-05"
+        },
+        {
+          "startDate": "2017-10-01",
+          "endDate": "2017-12-01"
+        }
+      ]
 
     }
   },
@@ -170,10 +224,16 @@
     "imgLink": "https://upload.wikimedia.org/wikipedia/commons/e/e1/Toyota_Aygo_front_20071204.jpg",
     "status":{
       "isAvailable":true,
-      "rented":{
-        "startDate":null,
-        "endDate":null
-      }
+      "rented":[
+        {
+          "startDate": "2000-01-01",
+          "endDate": "2000-01-05"
+        },
+        {
+          "startDate": "2017-10-01",
+          "endDate": "2017-12-01"
+        }
+      ]
 
     }
   },
@@ -186,10 +246,16 @@
     "dagshyra": 598,
     "status":{
       "isAvailable":true,
-      "rented":{
-        "startDate":null,
-        "endDate":null
-      }
+      "rented":[
+        {
+          "startDate": "2000-01-01",
+          "endDate": "2000-01-05"
+        },
+        {
+          "startDate": "2017-10-01",
+          "endDate": "2017-12-01"
+        }
+      ]
 
     }
   },
@@ -204,10 +270,16 @@
     "dagshyra": 198,
     "status":{
       "isAvailable":true,
-      "rented":{
-        "startDate":null,
-        "endDate":null
-      }
+      "rented":[
+        {
+          "startDate": "2000-01-01",
+          "endDate": "2000-01-05"
+        },
+        {
+          "startDate": "2017-10-01",
+          "endDate": "2017-12-01"
+        }
+      ]
 
     }
   },
@@ -220,10 +292,16 @@
     "imgLink": "https://upload.wikimedia.org/wikipedia/commons/5/52/BRP_Can-Am_Spyder_Roadster_20100810c.JPG",
     "status":{
       "isAvailable":true,
-      "rented":{
-        "startDate":null,
-        "endDate":null
-      }
+      "rented":[
+        {
+          "startDate": "2000-01-01",
+          "endDate": "2000-01-05"
+        },
+        {
+          "startDate": "2017-10-01",
+          "endDate": "2017-12-01"
+        }
+      ]
 
     }
   },
@@ -238,10 +316,16 @@
     "imgLink": "https://upload.wikimedia.org/wikipedia/commons/e/eb/2011_Kia_Optima_Hybrid_--_05-19-2011.jpg",
     "status":{
       "isAvailable":true,
-      "rented":{
-        "startDate":null,
-        "endDate":null
-      }
+      "rented":[
+        {
+          "startDate": "2000-01-01",
+          "endDate": "2000-01-05"
+        },
+        {
+          "startDate": "2017-10-01",
+          "endDate": "2017-12-01"
+        }
+      ]
 
     }
   },
@@ -254,10 +338,16 @@
     "dagshyra": 798,
     "status":{
       "isAvailable":true,
-      "rented":{
-        "startDate":null,
-        "endDate":null
-      }
+      "rented":[
+        {
+          "startDate": "2000-01-01",
+          "endDate": "2000-01-05"
+        },
+        {
+          "startDate": "2017-10-01",
+          "endDate": "2017-12-01"
+        }
+      ]
 
     }
   },
@@ -271,10 +361,16 @@
     "dagshyra": 198,
     "status":{
       "isAvailable":true,
-      "rented":{
-        "startDate":null,
-        "endDate":null
-      }
+      "rented":[
+        {
+          "startDate": "2000-01-01",
+          "endDate": "2000-01-05"
+        },
+        {
+          "startDate": "2017-10-01",
+          "endDate": "2017-12-01"
+        }
+      ]
 
     }
   },
@@ -290,10 +386,16 @@
     },
     "status":{
       "isAvailable":true,
-      "rented":{
-        "startDate":null,
-        "endDate":null
-      }
+      "rented":[
+        {
+          "startDate": "2000-01-01",
+          "endDate": "2000-01-05"
+        },
+        {
+          "startDate": "2017-10-03",
+          "endDate": "2017-10-20"
+        }
+      ]
 
     }
   },
@@ -307,11 +409,16 @@
     "fuel": "diesel",
     "status":{
       "isAvailable":true,
-      "rented":{
-        "startDate": "2000-01-01",
-        "endDate": "2000-01-05"
-      }
-
+      "rented":[
+        {
+          "startDate": "2000-01-01",
+          "endDate": "2000-01-05"
+        },
+        {
+          "startDate": "2017-10-01",
+          "endDate": "2017-10-02"
+        }
+      ]
     }
   }
 ]

@@ -1,6 +1,5 @@
 const
     car = require("../models/carModel"),
-    /*index = require("../views/index"),*/
     resultDataHolder = require("../models/resultDataHolderModel");
 
 
@@ -29,7 +28,7 @@ function getCarsByQuery(req, res){
         .then((cars)=>{
             //console.log(cars);
             res.render("index",{
-                BLOCKNAME:cars
+                content:cars
             });
             //TODO Add view file, replace BLOCKNAME
         })
@@ -42,7 +41,14 @@ function getCarsByQuery(req, res){
 function checkAvailableCarsByDate(req,res){
 
     //reset dataholder
-    resultDataHolder.deleteOne({"identifier": "resultAfterDateQuery"});
+    resultDataHolder
+        .deleteOne({"identifier": "resultAfterDateQuery"})
+        .exec((err,res)=>{
+            if(err){
+                console.log(err);   
+            }
+            console.log("deletedCount: " + res.deletedCount);
+        });
 
     let query = req.query,
         startDate = dateParser(query.startDate),
@@ -54,26 +60,41 @@ function checkAvailableCarsByDate(req,res){
         })
         .exec()
         .then((cars)=>{
-        console.log(cars);
+        //console.log(cars);
             let carsAfterSort = [];
             let carIdsAfterSort = [];
             cars.forEach((car)=>{
                 //TODO when rented dates is array isert nested loop for date parsing
-                let carInDbStartDate = dateParser(car.status.rented.startDate),
-                    carInDbEndDate = dateParser(car.status.rented.endDate);
+                let rentedArray = car.status.rented;
+                let dateOccupied = [];
 
-                //check valid values
-                if(
-                    (carInDbStartDate > endDate && carInDbEndDate > endDate && carInDbStartDate !== null)  ||
-                    (carInDbEndDate < startDate && carInDbStartDate < startDate && carInDbStartDate !== null)
-                    //TODO allow null later for unrented/unreserved cars
-                ){  
+                //Go through all rented dates
+                rentedArray.forEach((date)=>{
+                    let carInDbStartDate = dateParser(date.startDate),
+                        carInDbEndDate = dateParser(date.endDate);
+                    
+                    //check valid values
+                    if(
+                        (carInDbStartDate > endDate && carInDbEndDate > endDate && carInDbStartDate !== null)  ||
+                        (carInDbEndDate < startDate && carInDbStartDate < startDate && carInDbStartDate !== null)
+                        //TODO allow null later for unrented/unreserved cars
+                    ){
+                        dateOccupied.push(false);
+                    }else{
+                        dateOccupied.push(true);
+                    }
+                });
+
+                //Find if any dates overlap
+                let occupied = dateOccupied.find((found)=>{return found === true;});
+                if(!occupied){
                     //console.log(car);
                     carsAfterSort.push(car);
                     carIdsAfterSort.push(car._id);
                 }
+
             });
-            
+
             res.json(carsAfterSort);
             //Send result to dataHolder collection
             let dateResult = new resultDataHolder({
@@ -81,8 +102,11 @@ function checkAvailableCarsByDate(req,res){
                 query:[{isAvailable:true},{startDate:startDate},{endDate:endDate}],
                 result:carIdsAfterSort
             });
-            dateResult.save((err)=>{
-                console.log("Save Error: " + err);
+            
+            dateResult.save((err)=> {
+                if (err){
+                    console.log("Save Error: " + err);
+                }
             });
             return res;
         })
@@ -93,8 +117,7 @@ function checkAvailableCarsByDate(req,res){
 
 
 function checkAvailableCarsByQuery(req,res){
-    //TODO I have saved car IDs but is querying by cathegory, needs to fix
-    //Maybe sort in car module and check if ID is in carholder array instead
+
     let query = req.query;
     let obj = {};
 
@@ -110,11 +133,15 @@ function checkAvailableCarsByQuery(req,res){
         .then((dataHolder)=>{
             //save all _id's in query object
             obj._id = {$in:dataHolder[0].result};
+
+
             car
                 .find(obj)
                 .exec()
                 .then((cars)=>{
-                    //console.log("CARS: "+cars);
+                   //console.log("CARS: " + cars);
+                    //console.log( typeof cars);
+                    //TODO append results in resultDiv
                     res.json(cars);
                 })
                 .catch((err)=>{
