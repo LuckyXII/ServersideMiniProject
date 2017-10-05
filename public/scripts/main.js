@@ -9,6 +9,8 @@ const
     selectVehicleType = document.getElementById("vehicleType"),
     selectBrand = document.getElementById("brand"),
     selectModel = document.getElementById("model"),
+    carImg = document.getElementById("carImg"),
+    carInfo = document.getElementById("carInfo"),
     selectGearbox = document.getElementById("gearbox");
 
 var dateStartValue, dateEndValue;
@@ -22,6 +24,7 @@ restrictPassedDate();
 //=======================================================
 //LISTENERS
 searchBtn.addEventListener("click",checkAvailabillityByQuery);
+//selectBtn.addEventListener("click");
 dateStart.addEventListener("change",checkAvailabillityByDate);
 dateEnd.addEventListener("change",checkAvailabillityByDate);
 //=======================================================
@@ -38,7 +41,7 @@ function checkAvailabillityByQuery(e){
     console.log(vehicleGearbox + " : " +vehicleModel+ " : " +vehicleBrand+ " : " +vehicleType);
     //check values
     let query = preventNullInQuery(["fordonstyp","brand","model","gearbox"],[vehicleType,vehicleBrand,vehicleModel, vehicleGearbox]);
-    findByQuery("result",query,console.log);
+    findByQuery("result",query,addCarsToResult());
 
     //TODO replace console.log with callback in findByQuery to handle results
 
@@ -74,7 +77,7 @@ function checkAvailabillityByDate(e){
     else if(dateEndValue !== null && dateStartValue !== null){
         searchBtn.removeAttribute("disabled");
         selectBtn.removeAttribute("disabled");
-        findByQuery("date",`startDate=${dateStartValue}&endDate=${dateEndValue}`,findUniquePropertyValue);
+        findByQuery("date",`startDate=${dateStartValue}&endDate=${dateEndValue}`,addCarsToResult);
     }
 
 }
@@ -82,7 +85,7 @@ function checkAvailabillityByDate(e){
 //fetch response by query
 function findByQuery(router,query="",callback){
 
-    fetch(`${router}/?${query}`)
+    fetch(`${URL_BASE}${router}/?${query}`)
         .then((response)=> {
             console.log(response);
             return response.json();
@@ -159,6 +162,16 @@ function findUniquePropertyValue(result){
         addOption(value,selectGearbox);
     });
 
+}
+// show ALL cars available after search
+function addCarsToResult(result) {
+    
+    let data="";
+    for(data in result) {
+        console.log(data+": "+result[data])
+    }
+    findUniquePropertyValue(result)
+    // Todo fix function, make console show sorted data.
 }
 
 function preventNullInQuery(names,values){

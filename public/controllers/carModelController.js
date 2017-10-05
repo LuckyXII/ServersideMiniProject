@@ -74,6 +74,7 @@ function checkAvailableCarsByDate(req,res){
             });
             
             res.json(carsAfterSort);
+            console.log('carsAfterSort', carsAfterSort)
             //Send result to dataHolder collection
             let dateResult = new resultDataHolder({
                 identifier: "resultAfterDateQuery",
