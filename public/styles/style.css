@@ -1,11 +1,8 @@
 /*!!!!!!!!!!!!!! CSS STYLESHEET!!!!!!!!!!!!!!!!!!!!!*/
 
-<<<<<<< HEAD
-=======
 
 /*!!!!!!!!!!!!!! head and body !!!!!!!!!!!!!!!!!!!!!*/
 
->>>>>>> 1aa242de8fbcd58d23692b9e0dec3216aa8f6bcb
 * {
     padding: 0;
     margin: 0;
@@ -14,11 +11,7 @@
 
 html,
 body {
-<<<<<<< HEAD
-    font-family: monospace !important;
-=======
     font-family: monospace;
->>>>>>> 1aa242de8fbcd58d23692b9e0dec3216aa8f6bcb
 }
 
 h1 {
@@ -29,24 +22,16 @@ h1 {
     color: white;
 }
 
-<<<<<<< HEAD
-=======
 
 /*!!!!!!!!!!!!! forms and divs !!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
->>>>>>> 1aa242de8fbcd58d23692b9e0dec3216aa8f6bcb
 .formContent {
     width: 100%;
     height: 100%;
 }
 
 #filterForm,
-<<<<<<< HEAD
-#dateForm,
-.infoContent {
-=======
 #dateForm {
->>>>>>> 1aa242de8fbcd58d23692b9e0dec3216aa8f6bcb
     border: 1px solid gray;
     padding: 30px 20px;
     margin: 20px auto 0 auto;
@@ -92,22 +77,6 @@ h1 {
     margin-top: 10px;
 }
 
-<<<<<<< HEAD
-#adminForm {
-    border: 1px splid gray;
-    padding: 30px;
-    margin: 50px;
-}
-
-#brandD,
-#modelD,
-#yearD,
-#gearD {
-    margin-top: 10px;
-}
-
-=======
->>>>>>> 1aa242de8fbcd58d23692b9e0dec3216aa8f6bcb
 .form-group {
     position: relative;
     left: 0;
@@ -127,28 +96,12 @@ h1 {
     padding: 1%;
 }
 
-<<<<<<< HEAD
-#brandS,
-#modelS,
-#yearS,
-#gearS {
-    padding-left: 1%;
-}
-
-td {
-    margin: 55px;
-}
-
-=======
->>>>>>> 1aa242de8fbcd58d23692b9e0dec3216aa8f6bcb
 #buttonsD {
     position: relative;
     left: 0;
     top: 50%;
     width: 100%;
     text-align: center;
-<<<<<<< HEAD
-=======
 }
 
 table#t01 tr:nth-child(even) {
@@ -203,5 +156,4 @@ table#t01 th#tr02 {
     order: 0;
     flex: 0 1 auto;
     align-self: auto;
->>>>>>> 1aa242de8fbcd58d23692b9e0dec3216aa8f6bcb
 }

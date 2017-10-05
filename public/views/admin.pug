@@ -9,33 +9,6 @@ html(lang="en")
     body
         h1 Olsson fordon AB
 
-<<<<<<< HEAD
-        //Search Bars
-
-        div#searchBarAdmin
-            tr
-                td#brandS Brand 
-                td#modelS Model 
-                td#yearS Year 
-                td#gearS Gear type 
-                button(type="button") Search
-
-        // Form
-
-        form#adminForm(method='POST' action='/register')
-          div.form-group#brandD
-            label(for='brand') Brand:
-            input#brand.form-control(type='text', placeholder='Brand of the car' name='brand') 
-          div.form-group#modelD
-            label(for='model') Model:
-            input#model.form-control(type='text', placeholder='Model of the car' name='model')
-          div.form-group#yearD
-            label(for='year') Year:
-            input#year.form-control(type='text', placeholder='YYYY' name='year')
-          div.form-group#gearD
-            label(for='gear') Gear Type:
-            input#gear.form-control(type='password' name='gear')
-=======
         //Search Bar ************************************Update sebb ***************************************************************
     div.flex-container
         div.flex-item#searchBarAdmin
@@ -126,13 +99,8 @@ html(lang="en")
           div.form-group#commentD
             label(for='comment') 
             textarea#comment.form-control(name="comment", cols="30", rows="10",placeholder="Comment")
->>>>>>> 1aa242de8fbcd58d23692b9e0dec3216aa8f6bcb
 
         div#buttonsD
           button.btn.btn-primary(type='submit') ADD
           button.btn.btn-primary(type='submit') DELETE
-<<<<<<< HEAD
           button.btn.btn-primary(type='submit') UPDATE
-=======
-          button.btn.btn-primary(type='submit') UPDATE
->>>>>>> 1aa242de8fbcd58d23692b9e0dec3216aa8f6bcb
