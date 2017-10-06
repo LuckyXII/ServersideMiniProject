@@ -25,9 +25,17 @@ router
     .get("/date",carController.checkAvailableCarsByDate)
     .get("/date/*");
 
+//Result
 router
     .get("/result", carController.checkAvailableCarsByQuery)
     .get("/result/*");
+
+//Login
+router
+    .get("/login", customerController.checkIfCustomerExist)
+    .get("/login/createNewUser",customerController.createUser)
+    .get("/login/*");
+
 
 //Wildcard Route
 /*

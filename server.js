@@ -21,7 +21,7 @@ app.set('views', __dirname + '/public/views');
 
 app.get('/admin',(req,res)=>{
     res.render('admin');
-})
+});
 
 //listen on 3000
 app.listen(port);

@@ -6,6 +6,7 @@ const
     selectBtn = document.getElementById("selectBtn"),
     dateStart = document.getElementById("dateForm").children[0],
     dateEnd = document.getElementById("dateForm").children[1],
+    login = document.getElementById("login"),
     selectVehicleType = document.getElementById("vehicleType"),
     selectBrand = document.getElementById("brand"),
     selectModel = document.getElementById("model"),
@@ -24,8 +25,33 @@ restrictPassedDate();
 searchBtn.addEventListener("click",checkAvailabillityByQuery);
 dateStart.addEventListener("change",checkAvailabillityByDate);
 dateEnd.addEventListener("change",checkAvailabillityByDate);
+login.addEventListener("click",loginOnClick);
 //=======================================================
 //FUNCTIONS
+
+/*
+function rentCar(){
+    let car = {
+        "fordonstyp" : "personbil",
+        "requiredDrivingLicense" : "B",
+        "brand" : "Peugeot",
+        "gearbox" : "manuell",
+        "model" : "308",
+        "year" : 2007,
+        "fuel": "diesel",
+        "dagshyra" : 298,
+        "imgLink" : "https://upload.wikimedia.org/wikipedia/commons/4/40/Peugeot_308_5-T%C3%BCrer_front.JPG",
+        "isAvailable":true,
+        "kommentarer": "none"
+    };
+
+    for(let prop in car){
+
+    }
+}
+*/
+
+
 
 function checkAvailabillityByQuery(e){
     e.preventDefault();
@@ -181,4 +207,35 @@ function preventNullInQuery(names,values){
 
 
     return query;
+}
+
+
+function loginOnClick(){
+    let input = document.getElementById("loginInput").value;
+
+    if(input === "ADMIN"){
+        //TODO if input is ADMIN render admin page and do NOT run findByQuery
+        console.log("is admin");
+    }else{
+        //TODO add callback instead of console.log
+        findByQuery("login",`personnr=${input}`,handleLogin);
+    }
+
+}
+
+function handleLogin(result){
+    let input = document.getElementById("loginInput");
+    if(result.length === 0){
+        if(/^\d{6,8}[-|(\s)]{0,1}\d{4}$/.test(input.value)){
+            let name = prompt("Welcome new user we will create an account for you, please enter your name");
+            findByQuery("login/createNewUser",`personnr=${input.value}&name=${name}`);
+        }
+        return 0;
+    }
+
+    input.hidden = true;
+    login.textContent = result.name;
+    login.style.width = "200px";
+    login.style.right = "1px";
+    localStorage.setItem("logedIn", JSON.stringify(result));
 }

@@ -22,6 +22,24 @@ h1 {
     color: white;
 }
 
+#login{
+    top:0;
+    right:162px;
+    width:100px;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #34538b;
+    color: white;
+    text-align: center;
+    border:1px;
+}
+
+.loginSignup{
+    position: fixed;
+    top:0;
+    right:1px;
+    height:30px;
+}
 
 /*!!!!!!!!!!!!! forms and divs !!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
