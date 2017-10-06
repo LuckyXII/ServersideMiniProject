@@ -77,7 +77,7 @@ function checkAvailabillityByDate(e){
     else if(dateEndValue !== null && dateStartValue !== null){
         searchBtn.removeAttribute("disabled");
         selectBtn.removeAttribute("disabled");
-        findByQuery("date",`startDate=${dateStartValue}&endDate=${dateEndValue}`,addCarsToResult);
+        findByQuery("date",`startDate=${dateStartValue}&endDate=${dateEndValue}`,addCarsToResult());
     }
 
 }
@@ -166,11 +166,8 @@ function findUniquePropertyValue(result){
 // show ALL cars available after search
 function addCarsToResult(result) {
     
-    let data="";
-    for(data in result) {
-        console.log(data+": "+result[data])
-    }
-    findUniquePropertyValue(result)
+    console.log('available Cars: ' + JSON.stringify(result))
+    //findUniquePropertyValue(result)
     // Todo fix function, make console show sorted data.
 }
 
