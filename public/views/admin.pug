@@ -29,8 +29,10 @@ html(lang="en")
               th Date
               th Fuel Type
               th Gear Type
+              th Driving Licence
+              th Price / day
               th Status
-              th Comment
+              th Comment 
             
             tr#tr02
               th
@@ -40,6 +42,8 @@ html(lang="en")
               th 2017
               th Gasoline / Electricity
               th Automatic transmissions
+              th B
+              th 500 SEK
               th Available
               th Awesome car
 
@@ -50,7 +54,7 @@ html(lang="en")
 
         form.flex-item#adminForm(method='POST' action='/register')
             
-          div.form-group#brandD
+          div.form-group#typeD
             label(for='vehicleType') Vehicle Type:
             input#vehicleType.form-control(type='text', placeholder='VehicleType' name='vehicleType')
 
@@ -65,8 +69,8 @@ html(lang="en")
             input#model.form-control(type='text', placeholder='Model of the car' name='model')
 
             //Date /// Start and end of rent +++++++++++++++++++++++++++
-          div.form-group#dateD
-            label(for='date') Date:
+          div.form-group#yearD
+            label(for='date') Year:
             input#date.form-control(type='date', placeholder='YYYY' name='date')
 
             //Fuel
@@ -86,12 +90,37 @@ html(lang="en")
             select#gear.form-control(type='text', placeholder="Gear type" name='gear')
               option(value="manual") Manual
               option(value="automatic") Automatic
-              
+
+          //Licence
+
+          div.form-group#licenceD
+            label(for='licence') Licence Type:
+            select#licence.form-control(type='text', placeholder="licence type" name='licence')
+              option(value="AM") AM
+              option(value="A1") A1
+              option(value="A2") A2
+              option(value="A") A
+              option(value="B1") B1
+              option(value="B") B
+              option(value="C1") C1
+              option(value="C") C
+              option(value="D1") D1
+              option(value="D") D
+              option(value="BE") BE
+              option(value="C1E") C1E
+              option(value="CE") CE
+              option(value="D1E") D1E
+              option(value="DE") DE
+
+            //Price
+          div.form-group#priceD
+            label(for='price') Price:
+            input#price.form-control(type='text', placeholder='price of the car' name='price')
 
             //Status
-          div.form-group#statusD
-            label(for='status') Status:
-            select#status.form-control(type='text', name='status')
+          div.form-group#isAvailableD
+            label(for='isAvailable') Status:
+            select#isAvailable.form-control(type='text', name='isAvailable')
               option(value="true") Available
               option(value="false") Not Available
             
