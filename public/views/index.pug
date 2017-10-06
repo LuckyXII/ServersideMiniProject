@@ -16,10 +16,13 @@ block content
             select(id="gearbox" )
                 option(value=""  selected) Gearbox
             button(id="searchBtn" type="submit" disabled=true title="date must be selected" ) Search
-        ul(class="infoContent")
-            img(src="#" alt="image")
-            p Here is some info about the selected car.
-            button( type="submit" id="selectBtn" disabled=true title="date must be selected" method="POST") Select Car
-    
+
+        // form where the search based result is selected by the user
+        // need to add conformation page to be able to Post.
+        
+        form(class="infoContent" id="submitForm" method="post", action="/confirmation" )
+            
+            button(type="submit" id="selectBtn" ) Select Car
+
           
             script(src="../scripts/main.js")
