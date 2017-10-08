@@ -67,7 +67,7 @@ function checkAvailabillityByQuery(e){
     console.log(vehicleGearbox + " : " +vehicleModel+ " : " +vehicleBrand+ " : " +vehicleType);
     //check values
     let query = preventNullInQuery(["fordonstyp","brand","model","gearbox"],[vehicleType,vehicleBrand,vehicleModel, vehicleGearbox]);
-    findByQuery("result",query,addCarsToResult());
+    findByQuery("result",query,addCarsToResult);
 
     //TODO replace console.log with callback in findByQuery to handle results
 
@@ -103,7 +103,7 @@ function checkAvailabillityByDate(e){
     else if(dateEndValue !== null && dateStartValue !== null){
         searchBtn.removeAttribute("disabled");
         selectBtn.removeAttribute("disabled");
-        findByQuery("date",`startDate=${dateStartValue}&endDate=${dateEndValue}`,addCarsToResult());
+        findByQuery("date",`startDate=${dateStartValue}&endDate=${dateEndValue}`,findUniquePropertyValue);
     }
 
 }
@@ -111,13 +111,14 @@ function checkAvailabillityByDate(e){
 //fetch response by query
 function findByQuery(router,query="",callback){
 
-    fetch(`${URL_BASE}${router}/?${query}`)
+    fetch(`${router}/?${query}`)
         .then((response)=> {
-            console.log(response);
+           // console.log(response);
             return response.json();
         })
         .then((result)=> {
             console.log(router + " query was sucessfull");
+            console.log(result);
             callback(result);
         })
         .catch((err)=>{
@@ -188,13 +189,14 @@ function findUniquePropertyValue(result){
         addOption(value,selectGearbox);
     });
 
+    addCarsToResult(result);
+
 }
 // show ALL cars available after search
 function addCarsToResult(result) {
     
     console.log('available Cars: ' + JSON.stringify(result));
-    findUniquePropertyValue(result);
-    // Todo fix function, make console show sorted data.
+    // Todo add cars to list
 }
 
 function preventNullInQuery(names,values){
