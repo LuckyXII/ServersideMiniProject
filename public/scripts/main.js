@@ -32,8 +32,8 @@ login.addEventListener("click",loginOnClick);
 //=======================================================
 //FUNCTIONS
 
-/*
 function rentCar(){
+    //TODO add values from car item
     let car = {
         "fordonstyp" : "personbil",
         "requiredDrivingLicense" : "B",
@@ -52,7 +52,6 @@ function rentCar(){
 
     }
 }
-*/
 
 
 
@@ -196,7 +195,14 @@ function findUniquePropertyValue(result){
 function addCarsToResult(result) {
     
     console.log('available Cars: ' + JSON.stringify(result));
-    // Todo add cars to list
+    // Todo add cars to list, attach car _Id as data-id
+    /*HOW TO USE DATA-insertIdentifier TAGS TO STORE _Id EXAMPLE WOOP
+    * <div data-Id="car._Id" class="row">STUFF</div>
+    *
+    * Can later be retrieved as:
+    *  if div.row is the parent of the button
+     * "e.target.parent.attributes['data-Id'].value;"
+    * */
 }
 
 function preventNullInQuery(names,values){
