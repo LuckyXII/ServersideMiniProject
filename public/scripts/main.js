@@ -32,7 +32,7 @@ login.addEventListener("click",loginOnClick);
 
 //=======================================================
 //FUNCTIONS
-
+/*
 function rentCar(e){
     //TODO add values from car item
     let
@@ -77,7 +77,7 @@ function addClickListenerForCars(){
     cars.forEach((car)=>{
         car.addEventListener("click", rentCar);
     });
-}
+}*/
 
 function checkAvailabillityByQuery(e){
     e.preventDefault();
@@ -230,7 +230,7 @@ function addCarsToResult(result) {
 
 
     //TODO AFTER all cars are added to result edit this to match classnames
-    addClickListenerForCars();
+    //addClickListenerForCars();
 }
 
 function preventNullInQuery(names,values){
