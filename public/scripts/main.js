@@ -4,8 +4,8 @@ const
     URL_BASE = "olssonsfordonab/",
     searchBtn = document.getElementById("searchBtn"),
     selectBtn = document.getElementById("selectBtn"),
-    dateStart = document.getElementById("dateForm").children[0],
-    dateEnd = document.getElementById("dateForm").children[1],
+    dateStart = document.getElementById("dateForm").children[1],
+    dateEnd = document.getElementById("dateForm").children[3],
     login = document.getElementById("login"),
     selectVehicleType = document.getElementById("vehicleType"),
     selectBrand = document.getElementById("brand"),
@@ -32,9 +32,9 @@ login.addEventListener("click",loginOnClick);
 //=======================================================
 //FUNCTIONS
 
-function rentCar(e){
+/*function rentCar(e){
     //TODO add values from car item
-    let
+   let
         id = e.target.parent.attributes['data-Id'].value,
         logedIn = localStorage.getItem("logedIn"),
         rent = e.target.parent().children()[3], //TODO Add Correct Path
@@ -77,7 +77,7 @@ function addClickListenerForCars(){
         car.addEventListener("click", rentCar);
     });
 }
-
+*/
 function checkAvailabillityByQuery(e){
     e.preventDefault();
 
@@ -227,7 +227,7 @@ function addCarsToResult(result) {
      * "e.target.parent.attributes['data-Id'].value;"
     * */
     //TODO AFTER all cars are added to result edit this to match classnames
-    addClickListenerForCars();
+    //addClickListenerForCars();
 
 }
 

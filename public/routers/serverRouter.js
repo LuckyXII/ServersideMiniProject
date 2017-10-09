@@ -8,7 +8,7 @@ const
 //default Route
 router
     .get("/", carController.getAllCars)
-    .post("/");
+    .post("/", customerController.customerBooking);
 
 //Admin Route
 router
