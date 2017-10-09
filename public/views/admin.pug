@@ -86,8 +86,8 @@ html(lang="en")
 
             //Gear
           div.form-group#gearD
-            label(for='gear') Gear Type:
-            select#gear.form-control(type='text', placeholder="Gear type" name='gear')
+            label(for='gearbox') Gear Type:
+            select#gearbox.form-control(type='text', placeholder="Gear type" name='gearbox')
               option(value="manual") Manual
               option(value="automatic") Automatic
 
@@ -130,6 +130,8 @@ html(lang="en")
             textarea#comment.form-control(name="comment", cols="30", rows="10",placeholder="Comment")
 
         div#buttonsD
-          button.btn.btn-primary(type='submit') ADD
-          button.btn.btn-primary(type='submit') DELETE
-          button.btn.btn-primary(type='submit') UPDATE
+          button.btn.btn-primary(type='submit' id="addB") ADD
+          button.btn.btn-primary(type='submit' id="deleteB") DELETE
+          button.btn.btn-primary(type='submit' id="updateB") UPDATE
+
+script(src='../scripts/main.js')

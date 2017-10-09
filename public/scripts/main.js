@@ -13,6 +13,13 @@ const
     carImg = document.getElementById("carImg"),
     carInfo = document.getElementById("carInfo"),
     selectGearbox = document.getElementById("gearbox");
+    selectFuel = document.getElementById("fuel");
+    selectLicence = document.getElementById("price");
+    selectStatus = document.getElementById("isAvailable");
+    selectComment = document.getElementById("comment");
+    addB = document.getElementById("addB");
+    deleteB = document.getElementById("deleteB");
+    updateB = document.getElementById("updateB");
 
 var dateStartValue, dateEndValue;
 //=======================================================
