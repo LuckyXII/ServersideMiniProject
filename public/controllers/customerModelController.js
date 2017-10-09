@@ -84,6 +84,7 @@ function getAllCustomers(req,res){
         .find({})
         .exec()
         .then((customer)=>{
+            console.log("getAllCustomers" + customer)
             res.json(customer);
         })
         .catch((err)=>{

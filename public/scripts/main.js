@@ -4,13 +4,12 @@ const
     URL_BASE = "olssonsfordonab/",
     searchBtn = document.getElementById("searchBtn"),
     selectBtn = document.getElementById("selectBtn"),
-    dateStart = document.getElementById("dateForm").children[0],
-    dateEnd = document.getElementById("dateForm").children[1],
+    dateStart = document.getElementById("dateForm").children[1],
+    dateEnd = document.getElementById("dateForm").children[3],
     login = document.getElementById("login"),
     selectVehicleType = document.getElementById("vehicleType"),
     selectBrand = document.getElementById("brand"),
     selectModel = document.getElementById("model"),
-    carImg = document.getElementById("carImg"),
     carInfo = document.getElementById("carInfo"),
     selectGearbox = document.getElementById("gearbox");
 
@@ -25,17 +24,22 @@ restrictPassedDate();
 //=======================================================
 //LISTENERS
 searchBtn.addEventListener("click",checkAvailabillityByQuery);
-//selectBtn.addEventListener("click");
+//selectBtn.addEventListener("click", checkAvailabillityByQuery);
 dateStart.addEventListener("change",checkAvailabillityByDate);
 dateEnd.addEventListener("change",checkAvailabillityByDate);
 login.addEventListener("click",loginOnClick);
 
 //=======================================================
 //FUNCTIONS
+
 /*
 function rentCar(e){
+=======
+
+/*function rentCar(e){
+>>>>>>> 67678a812b04c41302311e14d49611a68675e69c
     //TODO add values from car item
-    let
+   let
         id = e.target.parent.attributes['data-Id'].value,
         logedIn = localStorage.getItem("logedIn"),
         rent = e.target.parent().children()[3], //TODO Add Correct Path
@@ -77,7 +81,11 @@ function addClickListenerForCars(){
     cars.forEach((car)=>{
         car.addEventListener("click", rentCar);
     });
+<<<<<<< HEAD
 }*/
+
+
+}
 
 function checkAvailabillityByQuery(e){
     e.preventDefault();
@@ -134,7 +142,7 @@ function checkAvailabillityByDate(e){
 //fetch response by query
 function findByQuery(router,query="",callback){
 
-    fetch(`${router}/?${query}`)
+    fetch(`${URL_BASE}${router}/?${query}`)
         .then((response)=> {
            // console.log(response);
             return response.json();
@@ -227,8 +235,6 @@ function addCarsToResult(result) {
     *  if div.row is the parent of the button
      * "e.target.parent.attributes['data-Id'].value;"
     * */
-
-
     //TODO AFTER all cars are added to result edit this to match classnames
     //addClickListenerForCars();
 }
