@@ -14,4 +14,12 @@ const
     selectPrice = document.getElementById("price")
     addB = document.getElementById("addB"),
     deleteB = document.getElementById("deleteB"),
-    updateB = document.getElementById("updateB"),
+    updateB = document.getElementById("updateB");
+
+//=======================================================
+//LISTENERS
+
+
+
+//=======================================================
+//FUNCTIONS
