@@ -24,7 +24,7 @@ restrictPassedDate();
 //=======================================================
 //LISTENERS
 searchBtn.addEventListener("click",checkAvailabillityByQuery);
-selectBtn.addEventListener("click", checkAvailabillityByDate);
+//selectBtn.addEventListener("click", checkAvailabillityByQuery);
 dateStart.addEventListener("change",checkAvailabillityByDate);
 dateEnd.addEventListener("change",checkAvailabillityByDate);
 login.addEventListener("click",loginOnClick);
@@ -202,13 +202,7 @@ function addCarsToResult(result) {
     *  if div.row is the parent of the button
      * "e.target.parent.attributes['data-Id'].value;"
     * */
-    selectBtn = "e.target.parent.attributes[data-Id].value";
-    let row = document.getElementsByClassName("row");
-    if(row === selectBtn) {
-        console.log("selectBtn was pressed with row as parent")
-    } else {
-        console.log("something went wrong with selectBtn event")
-    }
+    
 }
 
 function preventNullInQuery(names,values){
