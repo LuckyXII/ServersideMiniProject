@@ -4,14 +4,27 @@ function customerBooking(req,res) {
     //  make booking available by customer
     //  selectBtn will fetch data and POST to confirmation view
     //  check if a search is made, if not view shows message
-    
+    let query = req.query;
+
     customer
-            .find({})
+        .updateOne({"personnr":query.logedIn},{
+            rented: {$set:{
+                date:query.date,
+                car:query.car,
+                rentalPeriod:{
+                    start: query.rentalPeriod.start,
+                    end: query.rrentalPeriod.end
+                },
+                rentalCost:{
+                    day:query.rentalCost.day,
+                    total: query.rentalCost.total
+                }
+            }}
+        },{upsert:false})
         .exec()
-        .then((customers)=>{
-            console.log("customerBooking" + customers);
-            let bookedCars = [];
-            res.json(JSON.stringify(customers))
+        .then((result)=>{
+            console.log(result);
+            res.json(result);
         })
         .catch((err)=> {
             console.log(err);
