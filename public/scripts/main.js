@@ -10,7 +10,6 @@ const
     selectVehicleType = document.getElementById("vehicleType"),
     selectBrand = document.getElementById("brand"),
     selectModel = document.getElementById("model"),
-    carImg = document.getElementById("carImg"),
     carInfo = document.getElementById("carInfo"),
     selectGearbox = document.getElementById("gearbox");
 
@@ -25,7 +24,7 @@ restrictPassedDate();
 //=======================================================
 //LISTENERS
 searchBtn.addEventListener("click",checkAvailabillityByQuery);
-//selectBtn.addEventListener("click");
+selectBtn.addEventListener("click", checkAvailabillityByDate);
 dateStart.addEventListener("change",checkAvailabillityByDate);
 dateEnd.addEventListener("change",checkAvailabillityByDate);
 login.addEventListener("click",loginOnClick);
@@ -110,7 +109,7 @@ function checkAvailabillityByDate(e){
 //fetch response by query
 function findByQuery(router,query="",callback){
 
-    fetch(`${router}/?${query}`)
+    fetch(`${URL_BASE}${router}/?${query}`)
         .then((response)=> {
            // console.log(response);
             return response.json();
@@ -203,6 +202,13 @@ function addCarsToResult(result) {
     *  if div.row is the parent of the button
      * "e.target.parent.attributes['data-Id'].value;"
     * */
+    selectBtn = "e.target.parent.attributes[data-Id].value";
+    let row = document.getElementsByClassName("row");
+    if(row === selectBtn) {
+        console.log("selectBtn was pressed with row as parent")
+    } else {
+        console.log("something went wrong with selectBtn event")
+    }
 }
 
 function preventNullInQuery(names,values){

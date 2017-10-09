@@ -20,9 +20,10 @@ block content
         // form where the search based result is selected by the user
         // need to add conformation page to be able to Post.
         
-        form(class="infoContent" id="submitForm" method="post", action="/confirmation" )
-            
-            button(type="submit" id="selectBtn" ) Select Car
+        form(class="infoContent" id="submitForm" method="post"  )
+            div(class="row" data-Id="car._Id")
+                p(id="carInfo")
+                button(type="submit" id="selectBtn" ) Select Car
 
           
             script(src="../scripts/main.js")

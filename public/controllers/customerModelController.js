@@ -6,18 +6,12 @@ function customerBooking(req,res) {
     //  check if a search is made, if not view shows message
     
     customer
-            .find({
-        "status.rented": {"startDate": null, "endDate": null}
-        })
+            .find({})
         .exec()
         .then((customers)=>{
-            console.log(customers);
+            console.log("customerBooking" + customers);
             let bookedCars = [];
-            let vehicle = req.body.vehicle;
-            customers.forEach((customer)=> {
-                // DO Something!
-            });
-            return res;
+            res.json(JSON.stringify(customers))
         })
         .catch((err)=> {
             console.log(err);
@@ -77,6 +71,7 @@ function getAllCustomers(req,res){
         .find({})
         .exec()
         .then((customer)=>{
+            console.log("getAllCustomers" + customer)
             res.json(customer);
         })
         .catch((err)=>{
