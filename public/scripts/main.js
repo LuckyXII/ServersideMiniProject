@@ -29,31 +29,55 @@ searchBtn.addEventListener("click",checkAvailabillityByQuery);
 dateStart.addEventListener("change",checkAvailabillityByDate);
 dateEnd.addEventListener("change",checkAvailabillityByDate);
 login.addEventListener("click",loginOnClick);
+
 //=======================================================
 //FUNCTIONS
 
-function rentCar(){
+function rentCar(e){
     //TODO add values from car item
-    let car = {
-        "fordonstyp" : "personbil",
-        "requiredDrivingLicense" : "B",
-        "brand" : "Peugeot",
-        "gearbox" : "manuell",
-        "model" : "308",
-        "year" : 2007,
-        "fuel": "diesel",
-        "dagshyra" : 298,
-        "imgLink" : "https://upload.wikimedia.org/wikipedia/commons/4/40/Peugeot_308_5-T%C3%BCrer_front.JPG",
-        "isAvailable":true,
-        "kommentarer": "none"
+    let
+        id = e.target.parent.attributes['data-Id'].value,
+        logedIn = localStorage.getItem("logedIn"),
+        rent = e.target.parent().children()[3], //TODO Add Correct Path
+        totalRent = rent * calcRentalPeriod(dateStart.value, dateEnd.value),
+        d = new Date();
+
+
+
+    let rentInfo = {
+          logedIn:logedIn,
+          date: new Date(d.getFullYear(),d.getMonth()+1,d.getDate()),
+          car: id,
+          rentalPeriod: {
+              start: dateStart.value,
+              end: dateEnd.value
+          },
+          rentalCost:{ //TODO fix rentalcost
+              day: rent,
+              total: totalRent,
+          }
     };
 
-    for(let prop in car){
+    let query = `logedIn=${rentInfo.logedIn}&date=${rentInfo.date}&car=${rentInfo.car}&rentalPeriod.start=${rentInfo.rentalPeriod.start}&rentalPeriod.end=${rentInfo.rentalPeriod.end}&rentalCost.day=${rentInfo.rentalCost.day}&rentalCost.total=${rentInfo.rentalCost.total}`;
 
-    }
+    fetch(`/?${query}`,{method:"POST"})
+    .then((response)=> {
+    	return response.json();
+    })
+    .then((result)=> {
+    	console.log(result);
+    	
+    });
+
 }
 
-
+function addClickListenerForCars(){
+    //TODO add correct className and make sure data-id path is correct in rentCar
+    let cars = document.getElementsByClassName("carItem");
+    cars.forEach((car)=>{
+        car.addEventListener("click", rentCar);
+    });
+}
 
 function checkAvailabillityByQuery(e){
     e.preventDefault();
@@ -203,6 +227,10 @@ function addCarsToResult(result) {
     *  if div.row is the parent of the button
      * "e.target.parent.attributes['data-Id'].value;"
     * */
+
+
+    //TODO AFTER all cars are added to result edit this to match classnames
+    addClickListenerForCars();
 }
 
 function preventNullInQuery(names,values){
@@ -256,4 +284,10 @@ function handleLogin(result){
     login.style.width = "200px";
     login.style.right = "1px";
     localStorage.setItem("logedIn", JSON.stringify(result));
+}
+
+function calcRentalPeriod(start, finish){
+    let diff = Date.parse(start) - Date.parse(finish);
+    return diff / ( 1000 * 60 * 60 * 24 ); //millisec, min, hour, day
+
 }
