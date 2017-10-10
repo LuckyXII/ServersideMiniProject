@@ -11,7 +11,8 @@ const
     selectBrand = document.getElementById("brand"),
     selectModel = document.getElementById("model"),
     carInfo = document.getElementById("carInfo"),
-    selectGearbox = document.getElementById("gearbox");
+    selectGearbox = document.getElementById("gearbox"),
+    vehicleContainer = document.getElementById("vehicleContainer");
 
 var dateStartValue, dateEndValue;
 //=======================================================
@@ -226,6 +227,34 @@ function addCarsToResult(result) {
     *  if div.row is the parent of the button
      * "e.target.parent.attributes['data-Id'].value;"
     * */
+    carInfo.innerHTML = "";
+    let data = JSON.stringify(result);
+        result.forEach((car) => {
+        let carContainer = document.createElement('div');
+        carContainer.setAttribute("class", "vehicleInfo")
+        console.log(car);
+        // Checks if the searched vehicle has an image.
+        if(car.imgLink === undefined) {
+            console.log("no picture to this car")
+        } else {
+            let carImage = document.createElement("img");
+            carImage.setAttribute("src", car.imgLink)
+            carContainer.appendChild(carImage); 
+        }
+        
+        let brandName = document.createElement('div'),
+            carModel = document.createElement("div"),
+            vehicleType = document.createElement("div");
+        brandName.textContent = car.brand;
+        carModel.textContent = car.model;
+        vehicleType.textContent = car.fordonstyp;
+        carContainer.appendChild(brandName);
+        carContainer.appendChild(carModel);
+        carContainer.appendChild(vehicleType);
+        vehicleContainer.appendChild(carContainer);
+        
+        
+    })
     //TODO AFTER all cars are added to result edit this to match classnames
     //addClickListenerForCars();
 
