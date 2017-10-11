@@ -28,26 +28,20 @@ searchBtn.addEventListener("click",checkAvailabillityByQuery);
 //selectBtn.addEventListener("click", checkAvailabillityByQuery);
 dateStart.addEventListener("change",checkAvailabillityByDate);
 dateEnd.addEventListener("change",checkAvailabillityByDate);
-//login.addEventListener("click",loginOnClick);
+login.addEventListener("click",loginOnClick);
 
 //=======================================================
 //FUNCTIONS
 
-/*
 function rentCar(e){
-=======
 
-/*function rentCar(e){
->>>>>>> 67678a812b04c41302311e14d49611a68675e69c
     //TODO add values from car item
-   let
+    let
         id = e.target.parent.attributes['data-Id'].value,
         logedIn = localStorage.getItem("logedIn"),
         rent = e.target.parent().children()[3], //TODO Add Correct Path
         totalRent = rent * calcRentalPeriod(dateStart.value, dateEnd.value),
         d = new Date();
-
-
 
     let rentInfo = {
           logedIn:logedIn,
@@ -82,11 +76,9 @@ function addClickListenerForCars(){
     cars.forEach((car)=>{
         car.addEventListener("click", rentCar);
     });
-<<<<<<< HEAD
-}*/
-
 
 }
+
 
 function checkAvailabillityByQuery(e){
     e.preventDefault();
@@ -143,7 +135,7 @@ function checkAvailabillityByDate(e){
 //fetch response by query
 function findByQuery(router,query="",callback){
 
-    fetch(`${URL_BASE}${router}/?${query}`)
+    fetch(`${router}/?${query}`)
         .then((response)=> {
            // console.log(response);
             return response.json();
@@ -236,21 +228,21 @@ function addCarsToResult(result) {
     *  if div.row is the parent of the button
      * "e.target.parent.attributes['data-Id'].value;"
     * */
+    console.log(typeof result);
     carInfo.innerHTML = "";
-    let data = JSON.stringify(result);
-        result.forEach((car) => {
+    result.forEach((car) => {
         let carContainer = document.createElement('div');
-        carContainer.setAttribute("class", "vehicleInfo")
+        carContainer.setAttribute("class", "vehicleInfo");
         console.log(car);
         // Checks if the searched vehicle has an image.
         if(car.imgLink === undefined) {
-            console.log("no picture to this car")
+            console.log("no picture to this car");
         } else {
             let carImage = document.createElement("img");
-            carImage.setAttribute("src", car.imgLink)
-            carContainer.appendChild(carImage); 
+            carImage.setAttribute("src", car.imgLink);
+            carContainer.appendChild(carImage);
         }
-        
+
         let brandName = document.createElement('div'),
             carModel = document.createElement("div"),
             vehicleType = document.createElement("div");
@@ -261,9 +253,8 @@ function addCarsToResult(result) {
         carContainer.appendChild(carModel);
         carContainer.appendChild(vehicleType);
         vehicleContainer.appendChild(carContainer);
-        
-        
-    })
+    });
+
     //TODO AFTER all cars are added to result edit this to match classnames
     //addClickListenerForCars();
 }
