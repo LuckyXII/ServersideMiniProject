@@ -85,7 +85,7 @@ function addClickListenerForCars(){
 }*/
 
 
-}
+
 
 function checkAvailabillityByQuery(e){
     e.preventDefault();
@@ -268,6 +268,8 @@ function loginOnClick(){
     if(input === "ADMIN"){
         //TODO if input is ADMIN render admin page and do NOT run findByQuery
         console.log("is admin");
+        findByQuery("admin");
+        window.location.href = 'http://localhost:3000/olssonsfordonab/admin';
     }else{
         //TODO add callback instead of console.log
         findByQuery("login",`personnr=${input}`,handleLogin);

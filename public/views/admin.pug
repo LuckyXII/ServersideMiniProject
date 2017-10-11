@@ -1,137 +1,152 @@
-<!DOCTYPE html>
-html(lang="en")
-    head
-        meta(charset="UTF-8")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        meta(http-equiv="X-UA-Compatible", content="ie=edge")
-        link(rel="stylesheet", href="../styles/style.css" type="text/css")
-        title Document
-    body
-        h1 Olsson fordon AB
+extends head
+block content
+  
+
+
 
         //Search Bar ************************************Update sebb ***************************************************************
-    div.flex-container
-        div.flex-item#searchBarAdmin
-            form.form-wrapper
-              input(type="text" placeholder="Search...")#search
+
+        div.flex-container
+            div.flex-item#searchBarAdmin
+                form(id="filterForm" action="#" method="post")
+                  select(id="vehicleType")
+                    option(value=""  selected) VehicleType
+                  select(id="brand" )
+                    option(value=""  selected) Brand
+                  select(id="model" )
+                    option(value=""  selected) Model
+                  select(id="gearbox" )
+                    option(value=""  selected) Gearbox
+                  button(id="searchBtn" type="submit" disabled=true title="date must be selected" ) Search
+
+           
+
+
+
+
+            // Form *********************************************************************************************************
+            p#idHolder  
+            div.form-group#typeD
+
+            form.flex-item#adminForm(method='POST' action='/register')
+                label(for='skador') Vehicle Type:
+                input#vehicleType.form-control(type='text', placeholder='VehicleType' name='vehicleType')
+
+                //Brand
+              div.form-group#brandD
+                label(for='brand') Brand:
+                input#brand.form-control(type='text', placeholder='Brand of the car' name='brand') 
+
+                //Model
+              div.form-group#modelD
+                label(for='model') Model:
+                input#model.form-control(type='text', placeholder='Model of the car' name='model')
+
+                //Date /// Start and end of rent +++++++++++++++++++++++++++
+              div.form-group#yearD
+                label(for='date') Year:
+                input#date.form-control(type='text', placeholder='YYYY' name='date')
+
+                //Fuel
+              div.form-group#fuelD
+                label(for='fuel') Fuel Type:
+                select#fuel.form-control(type='text', placeholder="Fuel type" name='fuel')
+                  option(value="ethanol") Ethanol
+                  option(value="methanol") Methanol
+                  option(value="gasoline") Gasoline
+                  option(value="naturalGas") Natural gas
+                  option(value="hydrogen") Hydrogen
+                  option(value="biodiesel") Biodiesel
+
+                //Gear
+              div.form-group#gearD
+                label(for='gearbox') Gear Type:
+                select#gearbox.form-control(type='text', placeholder="Gear type" name='gearbox')
+                  option(value="manuall") manuall
+                  option(value="automat") automat
+
+              //Licence
+
+              div.form-group#licenceD
+                label(for='licence') Licence Type:
+                select#licence.form-control(type='text', placeholder="licence type" name='licence')
+                  option(value="AM") AM
+                  option(value="A1") A1
+                  option(value="A2") A2
+                  option(value="A") A
+                  option(value="B1") B1
+                  option(value="B") B
+                  option(value="C1") C1
+                  option(value="C") C
+                  option(value="D1") D1
+                  option(value="D") D
+                  option(value="BE") BE
+                  option(value="C1E") C1E
+                  option(value="CE") CE
+                  option(value="D1E") D1E
+                  option(value="DE") DE
+
+                //Price
+              div.form-group#priceD
+                label(for='price') Price:
+                input#price.form-control(type='text', placeholder='price of the car' name='price')
+
+                //Status
+              div.form-group#isAvailableD
+                label(for='isAvailable') Status:
+                select#isAvailable.form-control(type='text', name='isAvailable')
+                  option(value="true") Available
+                  option(value="false") Not Available
+                
+                //Comment
+              div.form-group#commentD
+                label(for='comment') 
+                textarea#comment.form-control(name="comment", cols="30", rows="10",placeholder="Comment")
+
+            div#buttonsD
+              button.btn.btn-primary(type='submit' id="addB") ADD
+              button.btn.btn-primary(type='submit' id="deleteB") DELETE
+              button.btn.btn-primary(type='submit' id="updateB") UPDATE
+
+ 
+
+            div.flex-item#searchResults
+            
+              table#t01(style = "width:100%")
               
-              input(type="submit" value="SEARCH")#searchB
+                tr
+                  th Image
+                  th Vehicle Type
+                  th Brand
+                  th Model
+                  th Date
+                  th Fuel Type
+                  th Gear Type
+                  th Driving Licence
+                  th Price / day
+                  th Is Available
+                  th Comment 
+              
+              
+                each car in content
+                  tr(class="row" data-id=car._id)
+                
+                    td 
+                      img(src=car.imgLink height='50px' width='50px' )
+                    td #{car.fordonstyp}
+                    td #{car.brand}
+                    td #{car.model}
+                    td #{car.year}
+                    td #{car.fuel}
+                    td #{car.gearbox}
+                    td #{car.requiredDrivingLicense}
+                    td #{car.dagshyra}
+                    td #{car.status.isAvailable}
+                    td #{car.kommentarer.skador}
+              
+                  
+                  
+                  
 
-        //Table Search Results *********************************************************************************************
 
-        div.flex-item#searchResults
-          table#t01(style = "width:100%")
-            tr
-              th Image
-              th Vehicle Type
-              th Brand
-              th Model
-              th Date
-              th Fuel Type
-              th Gear Type
-              th Driving Licence
-              th Price / day
-              th Status
-              th Comment 
-            
-            tr#tr02
-              th
-              th Hybrid
-              th Volvo
-              th XC60
-              th 2017
-              th Gasoline / Electricity
-              th Automatic transmissions
-              th B
-              th 500 SEK
-              th Available
-              th Awesome car
-
-
-
-
-        // Form *********************************************************************************************************
-
-        form.flex-item#adminForm(method='POST' action='/register')
-            
-          div.form-group#typeD
-            label(for='vehicleType') Vehicle Type:
-            input#vehicleType.form-control(type='text', placeholder='VehicleType' name='vehicleType')
-
-            //Brand
-          div.form-group#brandD
-            label(for='brand') Brand:
-            input#brand.form-control(type='text', placeholder='Brand of the car' name='brand') 
-
-            //Model
-          div.form-group#modelD
-            label(for='model') Model:
-            input#model.form-control(type='text', placeholder='Model of the car' name='model')
-
-            //Date /// Start and end of rent +++++++++++++++++++++++++++
-          div.form-group#yearD
-            label(for='date') Year:
-            input#date.form-control(type='date', placeholder='YYYY' name='date')
-
-            //Fuel
-          div.form-group#fuelD
-            label(for='fuel') Fuel Type:
-            select#fuel.form-control(type='text', placeholder="Fuel type" name='fuel')
-              option(value="ethanol") Ethanol
-              option(value="methanol") Methanol
-              option(value="gasoline") Gasoline
-              option(value="naturalGas") Natural gas
-              option(value="hydrogen") Hydrogen
-              option(value="biodiesel") Biodiesel
-
-            //Gear
-          div.form-group#gearD
-            label(for='gearbox') Gear Type:
-            select#gearbox.form-control(type='text', placeholder="Gear type" name='gearbox')
-              option(value="manual") Manual
-              option(value="automatic") Automatic
-
-          //Licence
-
-          div.form-group#licenceD
-            label(for='licence') Licence Type:
-            select#licence.form-control(type='text', placeholder="licence type" name='licence')
-              option(value="AM") AM
-              option(value="A1") A1
-              option(value="A2") A2
-              option(value="A") A
-              option(value="B1") B1
-              option(value="B") B
-              option(value="C1") C1
-              option(value="C") C
-              option(value="D1") D1
-              option(value="D") D
-              option(value="BE") BE
-              option(value="C1E") C1E
-              option(value="CE") CE
-              option(value="D1E") D1E
-              option(value="DE") DE
-
-            //Price
-          div.form-group#priceD
-            label(for='price') Price:
-            input#price.form-control(type='text', placeholder='price of the car' name='price')
-
-            //Status
-          div.form-group#isAvailableD
-            label(for='isAvailable') Status:
-            select#isAvailable.form-control(type='text', name='isAvailable')
-              option(value="true") Available
-              option(value="false") Not Available
-            
-            //Comment
-          div.form-group#commentD
-            label(for='comment') 
-            textarea#comment.form-control(name="comment", cols="30", rows="10",placeholder="Comment")
-
-        div#buttonsD
-          button.btn.btn-primary(type='submit' id="addB") ADD
-          button.btn.btn-primary(type='submit' id="deleteB") DELETE
-          button.btn.btn-primary(type='submit' id="updateB") UPDATE
-
-script(src='../scripts/admin.js')
+        script(src='../scripts/admin.js')
