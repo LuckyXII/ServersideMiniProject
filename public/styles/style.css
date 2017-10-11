@@ -120,6 +120,15 @@ h1 {
     background-color: #005bef;
     color: white;
 }
+/*#############################################################*/
+/*  Confirmation page                                          */
+
+#confirmRentalContainer {
+    display: flex;
+    width: 600px;
+    height: 300px;
+    border: 1px solid black;
+}
 
 #adminForm {
     border: 1px splid gray;
