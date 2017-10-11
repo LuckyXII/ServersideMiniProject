@@ -72,7 +72,7 @@ function rentCar(e){
 
 function addClickListenerForCars(){
     //TODO add correct className and make sure data-id path is correct in rentCar
-    let cars = document.getElementsByClassName("carItem");
+    let cars = document.getElementsByClassName("bookBtn");
     cars.forEach((car)=>{
         car.addEventListener("click", rentCar);
     });
@@ -245,18 +245,22 @@ function addCarsToResult(result) {
 
         let brandName = document.createElement('div'),
             carModel = document.createElement("div"),
-            vehicleType = document.createElement("div");
+            vehicleType = document.createElement("div"),
+            bookBtn = document.createElement("button");
         brandName.textContent = car.brand;
         carModel.textContent = car.model;
         vehicleType.textContent = car.fordonstyp;
+        bookBtn.textContent = "BOOK";
+        bookBtn.className="bookBtn";
         carContainer.appendChild(brandName);
         carContainer.appendChild(carModel);
         carContainer.appendChild(vehicleType);
+        carContainer.appendChild(bookBtn);
         vehicleContainer.appendChild(carContainer);
     });
 
     //TODO AFTER all cars are added to result edit this to match classnames
-    //addClickListenerForCars();
+    addClickListenerForCars();
 }
 
 function preventNullInQuery(names,values){
