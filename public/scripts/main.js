@@ -217,7 +217,7 @@ function findUniquePropertyValue(result){
 }
 // show ALL cars available after search
 function addCarsToResult(result) {
-    
+    vehicleContainer.innerHTML = "";
     console.log('available Cars: ' + JSON.stringify(result));
     // Todo add cars to list, attach car _Id as data-id
     /*HOW TO USE DATA-insertIdentifier TAGS TO STORE _Id EXAMPLE WOOP
@@ -228,32 +228,45 @@ function addCarsToResult(result) {
      * "e.target.parent.attributes['data-Id'].value;"
     * */
     carInfo.innerHTML = "";
+    carInfo.style.border = "none";
+    
     let data = JSON.stringify(result);
         result.forEach((car) => {
         let carContainer = document.createElement('div');
         carContainer.setAttribute("class", "vehicleInfo")
         console.log(car);
-        // Checks if the searched vehicle has an image.
-        if(car.imgLink === undefined) {
-            console.log("no picture to this car")
+            
+        // Checks if the searched vehicle has an image or gearbox
+        let carImage = document.createElement("img");
+        if(car.imgLink === undefined ) {
+            console.log("no picture to this car");
+            carImage.setAttribute("src", "https://bbcdn.io/bytbil-pro/news-large/b9/b90d585e-6786-4dd4-bfa7-ab00d4504964");
         } else {
-            let carImage = document.createElement("img");
-            carImage.setAttribute("src", car.imgLink)
-            carContainer.appendChild(carImage); 
+            carImage.setAttribute("src", car.imgLink);
         }
-        
-        let brandName = document.createElement('div'),
-            carModel = document.createElement("div"),
-            vehicleType = document.createElement("div");
+        let gearBoxes = document.createElement("p");
+        if(car.gearbox === undefined) {
+            console.log("no gearbox for this search")
+        } else {
+            gearBoxes.textContent = car.gearbox;
+            carContainer.appendChild(gearBoxes)
+        }
+        carContainer.appendChild(carImage);
+        let brandName = document.createElement('p'),
+            carModel = document.createElement("p"),
+            vehicleType = document.createElement("p");
+            
+            
         brandName.textContent = car.brand;
         carModel.textContent = car.model;
         vehicleType.textContent = car.fordonstyp;
+        
         carContainer.appendChild(brandName);
         carContainer.appendChild(carModel);
         carContainer.appendChild(vehicleType);
         vehicleContainer.appendChild(carContainer);
-        
-        
+          
+        selectBtn.style.visibility = "visible";
     })
     //TODO AFTER all cars are added to result edit this to match classnames
     //addClickListenerForCars();
