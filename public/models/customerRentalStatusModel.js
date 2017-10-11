@@ -13,27 +13,32 @@ const customerRentalStatusSchema = new Schema({
         required:"person nummer is required"
     },
     rented:{
+        type:Object,
         date:{
             type:Date,
+            sparse: true
         },
         car: {
             type: Schema.Types.ObjectId,
             ref:"vehicle",
-
-            unique:true
+            unique:true,
+            sparse: true
         },
         rentalPeriod:{
             type:Object,
             start: Date,
             end: Date,
+            sparse: true
 
         },
         rentalCost:{
             type: Object,
             day: Number,
             total:Number,
+            sparse: true
 
-        }
+        },
+        sparse: true
     }
 });
 

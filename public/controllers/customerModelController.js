@@ -37,13 +37,16 @@ function createUser(req,res){
         name = query.name,
         personnr=query.personnr;
     
-    let newCustomer = new customer({
+    new customer({
         "name":name,
-        "personnr":personnr
-    });
-    
-    newCustomer.save((err)=>{
-        console.log("customer save error: " + err);
+        "personnr":personnr,
+        "rented":{}
+    }).save((err)=>{
+        if(err!==null){
+            console.log("customer save error: " + err);
+        }else{
+            res.json({saved:true,name:name});
+        }
     });
         
 }

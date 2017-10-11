@@ -20,6 +20,7 @@ var dateStartValue, dateEndValue;
 
 //=======================================================
 //MAIN
+checkIfLogedin();
 restrictPassedDate();
 //=======================================================
 //LISTENERS
@@ -301,6 +302,12 @@ function preventNullInQuery(names,values){
 
 
 function loginOnClick(){
+
+    if(login.getAttribute("data-logedin")){
+        logout();
+        return;
+    }
+
     let input = document.getElementById("loginInput").value;
 
     if(input === "ADMIN"){
@@ -323,20 +330,51 @@ function handleLogin(result){
         if(/^\d{6,8}[-|(\s)]{0,1}\d{4}$/.test(input.value)){
             let name = prompt("Welcome new user we will create an account for you, please enter your name");
             console.log(name);
-            findByQuery("login/createNewUser",`personnr=${input.value}&name=${name}`);
+            findByQuery("login/createNewUser",`personnr=${input.value}&name=${name}`,userIsSaved);
         }
         return 0;
     }
     //TODO LOGIN USER EVEN IF THEY*RE NEW
     input.hidden = true;
-    login.textContent = result.name;
+    login.textContent = "Logout: " + result.name;
     login.style.width = "200px";
     login.style.right = "1px";
+    login.setAttribute("data-logedin",true);
     localStorage.setItem("logedIn", JSON.stringify(result));
+}
+
+function userIsSaved(result){
+    let input = document.getElementById("loginInput");
+    if(result.saved){
+        input.hidden = true;
+        login.textContent = "Logout: " + result.name;
+        login.style.width = "200px";
+        login.style.right = "1px";
+        login.setAttribute("data-logedin",true);
+        localStorage.setItem("logedIn", JSON.stringify(result.name));
+    }
+}
+
+function logout(){
+    console.log("LOGOUT!");
+    let input = document.getElementById("loginInput");
+    input.hidden = false;
+    login.textContent = "Login/Signup";
+    login.removeAttribute("style");
+    login.setAttribute("data-logedin",false);
+    localStorage.removeItem("logedIn");
 }
 
 function calcRentalPeriod(start, finish){
     let diff = Date.parse(start) - Date.parse(finish);
     return diff / ( 1000 * 60 * 60 * 24 ); //millisec, min, hour, day
 
+}
+
+function checkIfLogedin(){
+    if(localStorage.getItem("logedIn") !== (undefined || null) ){
+        let input = document.getElementById("loginInput");
+        input.value = JSON.parse(localStorage.getItem("logedIn")).personnr;
+        loginOnClick();
+    }
 }

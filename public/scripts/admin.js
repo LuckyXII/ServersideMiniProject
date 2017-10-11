@@ -1,17 +1,20 @@
 //=======================================================
 //GLOBALS
+const addB = document.getElementById("addB"),
+      login = document.getElementById("login");
 
 //=======================================================
 //LISTENERS
 // searchB.addEventListener('click',checkSearch);
-// addB.addEventListener('click',);
+//addB.addEventListener('click',addCar);
 // deleteB.addEventListener('click',);
 // updateB.addEventListener('click',);
   
 const carRows = document.getElementsByClassName('row');
 addClickListenerCarRow();
+loginAndLogoutAdmin();
 
-
+login.addEventListener("click", loginAndLogoutAdmin);
 //=======================================================
 //FUNCTIONS
 
@@ -23,7 +26,34 @@ function addClickListenerCarRow(){
     }
 }
 
+function loginAndLogoutAdmin(){
 
+    let input = document.getElementById("loginInput");
+
+    if(login.getAttribute("data-logedin")){
+        logout();
+        return;
+    }
+
+
+    input.hidden = true;
+    login.textContent = "Logout: ADMIN";
+    login.style.width = "200px";
+    login.style.right = "1px";
+    login.setAttribute("data-logedin",true);
+
+}
+
+function logout(){
+    console.log("LOGOUT!");
+    let input = document.getElementById("loginInput");
+    input.hidden = false;
+    login.textContent = "Login/Signup";
+    login.removeAttribute("style");
+    login.setAttribute("data-logedin",false);
+    localStorage.removeItem("logedIn");
+    window.location.href = 'http://localhost:3000/olssonsfordonab/';
+}
 
 function fillEditForm(e){
     let tableData = e.target.parentNode;
