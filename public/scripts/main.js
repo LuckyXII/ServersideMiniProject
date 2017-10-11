@@ -125,7 +125,7 @@ function checkAvailabillityByDate(e){
     //if both dates are selected
     else if(dateEndValue !== null && dateStartValue !== null){
         searchBtn.removeAttribute("disabled");
-        selectBtn.removeAttribute("disabled");
+        /*selectBtn.removeAttribute("disabled");*/
         findByQuery("date",`startDate=${dateStartValue}&endDate=${dateEndValue}`,findUniquePropertyValue);
     }
 
@@ -219,14 +219,7 @@ function findUniquePropertyValue(result){
 function addCarsToResult(result) {
     vehicleContainer.innerHTML = "";
     console.log('available Cars: ' + JSON.stringify(result));
-    // Todo add cars to list, attach car _Id as data-id
-    /*HOW TO USE DATA-insertIdentifier TAGS TO STORE _Id EXAMPLE WOOP
-    * <div data-Id="car._Id" class="row">STUFF</div>
-    *
-    * Can later be retrieved as:
-    *  if div.row is the parent of the button
-     * "e.target.parent.attributes['data-Id'].value;"
-    * */
+    
     carInfo.innerHTML = "";
     carInfo.style.border = "none";
     
@@ -266,7 +259,6 @@ function addCarsToResult(result) {
         carContainer.appendChild(vehicleType);
         vehicleContainer.appendChild(carContainer);
           
-        selectBtn.style.visibility = "visible";
     })
     //TODO AFTER all cars are added to result edit this to match classnames
     //addClickListenerForCars();
