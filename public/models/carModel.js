@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const carSchema = new Schema({
-    reqLicense: String,
+    requiredDrivingLicense: String,
     fordonstyp:{
         type:String,
         required: true
@@ -17,7 +17,7 @@ const carSchema = new Schema({
     },
     year: Number,
     gearbox:String,
-    dagsHyra: {
+    dagshyra: {
         type:Number,
         required: true
     },

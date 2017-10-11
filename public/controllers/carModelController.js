@@ -19,6 +19,22 @@ function getAllCars(req,res){
         });
 }
 
+function getAllCarsAdmin(req,res){
+    car
+        .find({})
+        .exec()
+        .then((cars)=>{
+            console.log(cars);
+            res.render("admin",{
+                content: cars
+            });
+            //TODO Add view file, replace BLOCKNAME
+        })
+        .catch((err)=>{
+            console.log(err);
+        });
+}
+
 //finds matching cars by url queries
 function getCarsByQuery(req, res){
     let query = req.query;
@@ -174,6 +190,7 @@ module.exports = {
     getAllCars:getAllCars,
     getCarsByQuery:getCarsByQuery,
     checkAvailableCarsByDate: checkAvailableCarsByDate,
-    checkAvailableCarsByQuery: checkAvailableCarsByQuery
+    checkAvailableCarsByQuery: checkAvailableCarsByQuery,
+    getAllCarsAdmin:getAllCarsAdmin
 
 };
