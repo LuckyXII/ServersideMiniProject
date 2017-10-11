@@ -19,7 +19,7 @@ h1 {
     text-align: center;
     padding: 20px 10px;
     text-transform: uppercase;
-    background-color: #005bef;
+    background-color: #4575c1;
     color: white;
 }
 
@@ -41,7 +41,19 @@ h1 {
     right:1px;
     height:30px;
 }
-
+#cancelCar {
+    position: absolute;
+    top:50;
+    right:142px;
+    width:100px;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #34538b;
+    color: white;
+    text-align: center;
+    border:1px;
+    visibility: hidden;
+}
 /*!!!!!!!!!!!!! forms, flex and divs !!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
 .formContent {
@@ -89,7 +101,7 @@ h1 {
 }
 .row {
     margin: auto;
-    border: 1px solid red;
+    
 }
 .row p{
     display: flex;
@@ -107,6 +119,7 @@ h1 {
 }
 #carInfo {
     font-weight: bold;
+    font-size: 1.8em;
     display: flex;
 }
 
