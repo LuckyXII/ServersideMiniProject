@@ -13,7 +13,7 @@ const
     selectGearbox = document.getElementById("gearbox"),
     vehicleContainer = document.getElementById("vehicleContainer");
 
-var dateStartValue, dateEndValue;
+var dateStartValue, dateEndValue, isLogedin = false;
 //=======================================================
 //CLASSES
 
@@ -218,7 +218,6 @@ function findUniquePropertyValue(result){
 function addCarsToResult(result) {
     vehicleContainer.innerHTML = "";
     console.log('available Cars: ' + JSON.stringify(result));
-
     carInfo.innerHTML = "";
 
     result.forEach((car) => {
@@ -236,44 +235,41 @@ function addCarsToResult(result) {
         carModel.textContent = car.model;
         vehicleType.textContent = car.fordonstyp;
         bookBtn.textContent = "BOOK";
-        bookBtn.className="bookBtn";
+        bookBtn.className = "bookBtn";
 
-            
+
         // Checks if the searched vehicle has an image or gearbox
         let carImage = document.createElement("img");
-        if(car.imgLink === undefined ) {
+        if (car.imgLink === undefined) {
             console.log("no picture to this car");
             carImage.setAttribute("src", "https://bbcdn.io/bytbil-pro/news-large/b9/b90d585e-6786-4dd4-bfa7-ab00d4504964");
         } else {
             carImage.setAttribute("src", car.imgLink);
         }
         let gearBoxes = document.createElement("p");
-        if(car.gearbox === undefined) {
+        if (car.gearbox === undefined) {
             console.log("no gearbox for this search");
         } else {
             gearBoxes.textContent = car.gearbox;
             carContainer.appendChild(gearBoxes);
         }
         carContainer.appendChild(carImage);
-            brandName = document.createElement('p');
-            carModel = document.createElement("p");
-            vehicleType = document.createElement("p");
-            
-            
+        brandName = document.createElement('p');
+        carModel = document.createElement("p");
+        vehicleType = document.createElement("p");
+
+
         brandName.textContent = car.brand;
         carModel.textContent = car.model;
         vehicleType.textContent = car.fordonstyp;
-        
+
 
         carContainer.appendChild(brandName);
         carContainer.appendChild(carModel);
         carContainer.appendChild(vehicleType);
         carContainer.appendChild(bookBtn);
         vehicleContainer.appendChild(carContainer);
-
     });
-
-
     //TODO AFTER all cars are added to result edit this to match classnames
     addClickListenerForCars();
 }
@@ -302,8 +298,8 @@ function preventNullInQuery(names,values){
 
 
 function loginOnClick(){
+    if(isLogedin){
 
-    if(login.getAttribute("data-logedin")){
         logout();
         return;
     }
@@ -339,7 +335,7 @@ function handleLogin(result){
     login.textContent = "Logout: " + result.name;
     login.style.width = "200px";
     login.style.right = "1px";
-    login.setAttribute("data-logedin",true);
+    isLogedin = true;
     localStorage.setItem("logedIn", JSON.stringify(result));
 }
 
@@ -350,18 +346,19 @@ function userIsSaved(result){
         login.textContent = "Logout: " + result.name;
         login.style.width = "200px";
         login.style.right = "1px";
-        login.setAttribute("data-logedin",true);
+        isLogedin = true;
         localStorage.setItem("logedIn", JSON.stringify(result.name));
     }
 }
 
 function logout(){
-    console.log("LOGOUT!");
+
     let input = document.getElementById("loginInput");
     input.hidden = false;
     login.textContent = "Login/Signup";
     login.removeAttribute("style");
-    login.setAttribute("data-logedin",false);
+    isLogedin = false;
+    console.log(login.attributes["data-logedin"]);
     localStorage.removeItem("logedIn");
 }
 
