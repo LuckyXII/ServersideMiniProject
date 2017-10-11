@@ -27,7 +27,7 @@ searchBtn.addEventListener("click",checkAvailabillityByQuery);
 //selectBtn.addEventListener("click", checkAvailabillityByQuery);
 dateStart.addEventListener("change",checkAvailabillityByDate);
 dateEnd.addEventListener("change",checkAvailabillityByDate);
-login.addEventListener("click",loginOnClick);
+//login.addEventListener("click",loginOnClick);
 
 //=======================================================
 //FUNCTIONS

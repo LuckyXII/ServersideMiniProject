@@ -13,7 +13,7 @@ function customerBooking(req,res) {
                 car:query.car,
                 rentalPeriod:{
                     start: query.rentalPeriod.start,
-                    end: query.rrentalPeriod.end
+                    end: query.rentalPeriod.end
                 },
                 rentalCost:{
                     day:query.rentalCost.day,
@@ -92,12 +92,8 @@ function getAllCustomers(req,res){
         });
 }
 
-function login(req,res){
-
-}
 
 module.exports = {
-    login:login,
     getAllCustomers : getAllCustomers,
     getCustomersByQuery: getCustomersByQuery,
     createUser: createUser,
