@@ -56,7 +56,11 @@ function checkIfCustomerExist(req,res){
         .exec()
         .then((customer)=>{
             console.log(customer);
-            res.json(customer[0]);
+            if(customer.length > 0){
+                res.json(customer[0]);
+            }else{
+                res.json(customer);
+            }
         })
         .catch((err)=>{
             console.log(err);

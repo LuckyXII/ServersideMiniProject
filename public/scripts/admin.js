@@ -1,20 +1,5 @@
 //=======================================================
 //GLOBALS
-const
-    searchB = document.getElementById("searchB"),
-    selectFuel = document.getElementById("fuel"),
-    selectLicence = document.getElementById("licence"),
-    selectStatus = document.getElementById("isAvailable"),
-    selectComment = document.getElementById("comment"),
-    selectGearbox = document.getElementById("gearbox"),
-    selectBrand = document.getElementById("brand"),
-    selectModel = document.getElementById("model"),
-    selectVehicleType = document.getElementById("vehicleType"),
-    selectDate = document.getElementById("date"),
-    selectPrice = document.getElementById("price")
-    addB = document.getElementById("addB"),
-    deleteB = document.getElementById("deleteB"),
-    updateB = document.getElementById("updateB");
 
 //=======================================================
 //LISTENERS
@@ -43,7 +28,7 @@ function addClickListenerCarRow(){
 function fillEditForm(e){
     let tableData = e.target.parentNode;
 
-    console.log(tableData.attributes)
+    console.log(tableData.attributes);
     let _id = tableData.attributes["data-id"].value;
     let image = tableData.children[0].children[0].src;
     let fordonstyp = tableData.children[1].textContent;
@@ -61,7 +46,7 @@ function fillEditForm(e){
 
     let idHolder = document.getElementById("idHolder");
     idHolder.textContent = _id;
-    let vehicleTypeInput = formData.children[1].children[1];
+    let vehicleTypeInput = formData.children[1];
     vehicleTypeInput.value = fordonstyp;
     let brandInput = formData.children[2].children[1];
     brandInput.value = brand;
@@ -70,9 +55,12 @@ function fillEditForm(e){
     let yearInput = formData.children[4].children[1];
     yearInput.value = year;
     let fuelSelect = formData.children[5].children[1];
+
     for(let i=0; i<fuelSelect.children.length; i++ ){
+        console.log(fuelSelect.children[i].textContent +  " : " + fuel);
         if(fuelSelect.children[i].textContent === fuel){
             fuelSelect.children[i].selected = true;
+            console.log("TRUE");
         }
     }
 

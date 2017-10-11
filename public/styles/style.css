@@ -47,7 +47,6 @@ h1 {
 .formContent {
     width: 100%;
     height: 100%;
-    border-radius: 5px;
     padding: 20px;
 }
 .formContent input {
@@ -71,11 +70,9 @@ h1 {
 
 
 .infoContent {
-    border: 1px solid gray;
-    height: 100px;
-    width: 900px;
     margin: 20px auto 0px auto;
     display: flex;
+    height: 400px;
 }
 
 .infoContent img,
@@ -88,14 +85,25 @@ h1 {
 .infoContent p {
     font-weight: bold;
     font-size: 1.5em;
-    float: left;
+   /* float: left;*/
 }
-.row div{
+.row {
+    margin: auto;
+    border: 1px solid red;
+}
+.row p{
     display: flex;
     flex-direction: row;
-    padding: 4px;
-    margin-left: 6px;
     font-weight: bold;
+    border: 1px solid black;
+    padding: 0px 10px 10px 10px;
+}
+.row div {
+    display: flex;
+}
+.row img {
+    height: 100px;
+    width: 200px;
 }
 #carInfo {
     font-weight: bold;
@@ -111,6 +119,15 @@ h1 {
     padding: 4px;
     background-color: #005bef;
     color: white;
+}
+/*#############################################################*/
+/*  Confirmation page                                          */
+
+#confirmRentalContainer {
+    display: flex;
+    width: 600px;
+    height: 300px;
+    border: 1px solid black;
 }
 
 #adminForm {

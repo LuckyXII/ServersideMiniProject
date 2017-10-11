@@ -3,7 +3,6 @@
 const
     URL_BASE = "olssonsfordonab/",
     searchBtn = document.getElementById("searchBtn"),
-    selectBtn = document.getElementById("selectBtn"),
     dateStart = document.getElementById("dateForm").children[1],
     dateEnd = document.getElementById("dateForm").children[3],
     login = document.getElementById("login"),
@@ -25,7 +24,6 @@ restrictPassedDate();
 //=======================================================
 //LISTENERS
 searchBtn.addEventListener("click",checkAvailabillityByQuery);
-//selectBtn.addEventListener("click", checkAvailabillityByQuery);
 dateStart.addEventListener("change",checkAvailabillityByDate);
 dateEnd.addEventListener("change",checkAvailabillityByDate);
 login.addEventListener("click",loginOnClick);
@@ -70,13 +68,13 @@ function rentCar(e){
 
 }
 
-function addClickListenerForCars(){
+function addClickListenerForCars() {
     //TODO add correct className and make sure data-id path is correct in rentCar
     let cars = document.getElementsByClassName("bookBtn");
-    cars.forEach((car)=>{
+    cars.forEach((car) => {
         car.addEventListener("click", rentCar);
     });
-
+}
 
 
 
@@ -126,7 +124,6 @@ function checkAvailabillityByDate(e){
     //if both dates are selected
     else if(dateEndValue !== null && dateStartValue !== null){
         searchBtn.removeAttribute("disabled");
-        selectBtn.removeAttribute("disabled");
         findByQuery("date",`startDate=${dateStartValue}&endDate=${dateEndValue}`,findUniquePropertyValue);
     }
 
@@ -137,7 +134,7 @@ function findByQuery(router,query="",callback){
 
     fetch(`${router}/?${query}`)
         .then((response)=> {
-           // console.log(response);
+            console.log(response);
             return response.json();
         })
         .then((result)=> {
@@ -218,30 +215,17 @@ function findUniquePropertyValue(result){
 }
 // show ALL cars available after search
 function addCarsToResult(result) {
-    
+    vehicleContainer.innerHTML = "";
     console.log('available Cars: ' + JSON.stringify(result));
-    // Todo add cars to list, attach car _Id as data-id
-    /*HOW TO USE DATA-insertIdentifier TAGS TO STORE _Id EXAMPLE WOOP
-    * <div data-Id="car._Id" class="row">STUFF</div>
-    *
-    * Can later be retrieved as:
-    *  if div.row is the parent of the button
-     * "e.target.parent.attributes['data-Id'].value;"
-    * */
-    console.log(typeof result);
+
     carInfo.innerHTML = "";
+
     result.forEach((car) => {
+        carInfo.style.border = "none";
         let carContainer = document.createElement('div');
         carContainer.setAttribute("class", "vehicleInfo");
+        carContainer.setAttribute("data-id", car._id);
         console.log(car);
-        // Checks if the searched vehicle has an image.
-        if(car.imgLink === undefined) {
-            console.log("no picture to this car");
-        } else {
-            let carImage = document.createElement("img");
-            carImage.setAttribute("src", car.imgLink);
-            carContainer.appendChild(carImage);
-        }
 
         let brandName = document.createElement('div'),
             carModel = document.createElement("div"),
@@ -252,12 +236,42 @@ function addCarsToResult(result) {
         vehicleType.textContent = car.fordonstyp;
         bookBtn.textContent = "BOOK";
         bookBtn.className="bookBtn";
+
+            
+        // Checks if the searched vehicle has an image or gearbox
+        let carImage = document.createElement("img");
+        if(car.imgLink === undefined ) {
+            console.log("no picture to this car");
+            carImage.setAttribute("src", "https://bbcdn.io/bytbil-pro/news-large/b9/b90d585e-6786-4dd4-bfa7-ab00d4504964");
+        } else {
+            carImage.setAttribute("src", car.imgLink);
+        }
+        let gearBoxes = document.createElement("p");
+        if(car.gearbox === undefined) {
+            console.log("no gearbox for this search");
+        } else {
+            gearBoxes.textContent = car.gearbox;
+            carContainer.appendChild(gearBoxes);
+        }
+        carContainer.appendChild(carImage);
+            brandName = document.createElement('p');
+            carModel = document.createElement("p");
+            vehicleType = document.createElement("p");
+            
+            
+        brandName.textContent = car.brand;
+        carModel.textContent = car.model;
+        vehicleType.textContent = car.fordonstyp;
+        
+
         carContainer.appendChild(brandName);
         carContainer.appendChild(carModel);
         carContainer.appendChild(vehicleType);
         carContainer.appendChild(bookBtn);
         vehicleContainer.appendChild(carContainer);
+
     });
+
 
     //TODO AFTER all cars are added to result edit this to match classnames
     addClickListenerForCars();
@@ -302,15 +316,18 @@ function loginOnClick(){
 }
 
 function handleLogin(result){
+    console.log(result);
     let input = document.getElementById("loginInput");
     if(result.length === 0){
+        
         if(/^\d{6,8}[-|(\s)]{0,1}\d{4}$/.test(input.value)){
             let name = prompt("Welcome new user we will create an account for you, please enter your name");
+            console.log(name);
             findByQuery("login/createNewUser",`personnr=${input.value}&name=${name}`);
         }
         return 0;
     }
-
+    //TODO LOGIN USER EVEN IF THEY*RE NEW
     input.hidden = true;
     login.textContent = result.name;
     login.style.width = "200px";
