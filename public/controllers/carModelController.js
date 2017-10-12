@@ -1,7 +1,23 @@
 const
     car = require("../models/carModel"),
-    resultDataHolder = require("../models/resultDataHolderModel");
+    resultDataHolder = require("../models/resultDataHolderModel"),
+    ObjectId = require('mongodb').ObjectId;
 
+
+function deleteCars(req, res){
+    let
+        id = req.query.id,
+        ID = new ObjectId(id);
+    car
+        .deleteOne({"_id": ID})
+        .exec()
+        .then((result)=>{
+            console.log(result);
+        })
+        .catch((err)=>{
+            console.log(err);
+        });
+}
 
 function getAllCars(req,res){
     car
@@ -191,6 +207,7 @@ module.exports = {
     getCarsByQuery:getCarsByQuery,
     checkAvailableCarsByDate: checkAvailableCarsByDate,
     checkAvailableCarsByQuery: checkAvailableCarsByQuery,
-    getAllCarsAdmin:getAllCarsAdmin
+    getAllCarsAdmin:getAllCarsAdmin,
+    deleteCars : deleteCars
 
 };

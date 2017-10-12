@@ -13,6 +13,8 @@ router
 //Admin Route
 router
     .get("/admin",carController.getAllCarsAdmin)
+    .get("/admin/delete", carController.deleteCars)
+    .get("/admin/update")
     .post("/admin");
 
 //Confirmation Route

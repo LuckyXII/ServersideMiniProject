@@ -1,7 +1,8 @@
 //=======================================================
 //GLOBALS
 const addB = document.getElementById("addB"),
-      login = document.getElementById("login");
+      login = document.getElementById("login"),
+       deleteBtn = document.getElementById("deleteB");
 
 //=======================================================
 //LISTENERS
@@ -15,6 +16,7 @@ addClickListenerCarRow();
 loginAndLogoutAdmin();
 
 login.addEventListener("click", loginAndLogoutAdmin);
+deleteBtn.addEventListener("click",deleteCar);
 //=======================================================
 //FUNCTIONS
 
@@ -123,4 +125,29 @@ function fillEditForm(e){
     let commentInputValue = formData.children[10].children[1];
     commentInputValue.textContent = skador;
     
+}
+
+function deleteCar(){
+    let id = document.getElementById("adminForm").lastElementChild.textContent;
+    findByQuery("admin/delete",`id=${id}`);
+}
+
+
+//fetch response by query
+function findByQuery(router,query="",callback){
+
+    fetch(`${router}/?${query}`)
+        .then((response)=> {
+            console.log(response);
+            return response.json();
+        })
+        .then((result)=> {
+            console.log(router + " query was sucessfull");
+            console.log(result);
+            callback(result);
+        })
+        .catch((err)=>{
+            console.log(err);
+        });
+
 }
