@@ -1,9 +1,7 @@
 const customer = require("../models/customerRentalStatusModel");
 
 function customerBooking(req,res) {
-    //  make booking available by customer
-    //  selectBtn will fetch data and POST to confirmation view
-    //  check if a search is made, if not view shows message
+    
     let query = req.query;
 
     customer

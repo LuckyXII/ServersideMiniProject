@@ -77,7 +77,10 @@ function addClickListenerForCars() {
     let cars = document.getElementsByClassName("bookBtn");
     cars.forEach((car) => {
         car.addEventListener("click", rentCar);
+        console.log("addClickListenerForCars körs");
+        console.log(cars)
     });
+    console.log(cars)
 }
 
 
@@ -133,7 +136,7 @@ function checkAvailabillityByDate(e){
     }
 
 }
-// ${URL_BASE}
+
 //fetch response by query
 function findByQuery(router,query="",callback){
 
@@ -272,6 +275,7 @@ function addCarsToResult(result) {
     });
     //TODO AFTER all cars are added to result edit this to match classnames
     addClickListenerForCars();
+    console.log("hello")
 }
 
 function preventNullInQuery(names,values){
@@ -362,10 +366,14 @@ function logout(){
     localStorage.removeItem("logedIn");
 }
 //  cancel booking function
-function cancelBooking() {
+function cancelBooking(e) {
     if(cancelCar) {
-        window.history.back();
+        e.preventDefault();
+        prompt("your car booking is now canceled");
+        rentCar = false;
     }
+    console.log(rentCar);
+    
 }
 
 function calcRentalPeriod(start, finish){
