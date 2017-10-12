@@ -12,7 +12,7 @@ const
     carInfo = document.getElementById("carInfo"),
     selectGearbox = document.getElementById("gearbox"),
     cancelCar = document.getElementById("cancelCar"),
-    vehicleContainer = document.getElementById("vehicleContainer");
+    vehicleContainer = document.getElementById("searchResults");
     
     
 
@@ -36,37 +36,50 @@ cancelCar.addEventListener("click", cancelBooking);
 //FUNCTIONS
 
 function rentCar(e){
+    e.preventDefault();
+    if(localStorage.getItem("logedIn") === (undefined || null) ){
+        return;
+    }
 
-    //TODO add values from car item
     let
-        id = e.target.parent.attributes['data-Id'].value,
-        logedIn = localStorage.getItem("logedIn"),
-        rent = e.target.parent().children()[3], //TODO Add Correct Path
+        id = e.target.attributes['data-id'],
+        logedIn = JSON.parse(localStorage.getItem("logedIn")),
+        rent = e.target.parentNode.children[8].textContent,
         totalRent = rent * calcRentalPeriod(dateStart.value, dateEnd.value),
         d = new Date();
 
     let rentInfo = {
-          logedIn:logedIn,
+          logedIn:logedIn.personnr,
           date: new Date(d.getFullYear(),d.getMonth()+1,d.getDate()),
           car: id,
           rentalPeriod: {
               start: dateStart.value,
               end: dateEnd.value
           },
-          rentalCost:{ //TODO fix rentalcost
+          rentalCost:{
               day: rent,
               total: totalRent,
           }
     };
 
-    let query = `logedIn=${rentInfo.logedIn}&date=${rentInfo.date}&car=${rentInfo.car}&rentalPeriod.start=${rentInfo.rentalPeriod.start}&rentalPeriod.end=${rentInfo.rentalPeriod.end}&rentalCost.day=${rentInfo.rentalCost.day}&rentalCost.total=${rentInfo.rentalCost.total}`;
+    logedIn.bookedCar = rentInfo.car;
+    console.log(logedIn);
+    localStorage.setItem("logedIn",JSON.stringify(logedIn));
 
-    fetch(`/?${query}`,{method:"POST"})
+    let query = `${URL_BASE}?logedIn=${rentInfo.logedIn}&date=${rentInfo.date}&car=${rentInfo.car}&rentalPeriodStart=${rentInfo.rentalPeriod.start}&rentalPeriodEnd=${rentInfo.rentalPeriod.end}&rentalCostDay=${rentInfo.rentalCost.day}&rentalCostTotal=${rentInfo.rentalCost.total}`;
+
+    let init = {
+      method:'POST'
+    };
+
+    fetch(`/${query}`,init)
     .then((response)=> {
     	return response.json();
     })
     .then((result)=> {
-    	console.log(result);
+        console.log(result);
+        console.log("VISIBLE");
+        cancelCar.style.visibility = "visible";
     	
     });
 
@@ -75,12 +88,16 @@ function rentCar(e){
 function addClickListenerForCars() {
     //TODO add correct className and make sure data-id path is correct in rentCar
     let cars = document.getElementsByClassName("bookBtn");
-    cars.forEach((car) => {
-        car.addEventListener("click", rentCar);
-        console.log("addClickListenerForCars körs");
-        console.log(cars)
+    console.log(cars);
+    /*cars.forEach((car) => {
+        console.log(car);
+
     });
-    console.log(cars)
+    */
+    for(let i = 0; i < cars.length; i++){
+        cars[i].addEventListener("click", rentCar);
+    }
+
 }
 
 
@@ -97,8 +114,6 @@ function checkAvailabillityByQuery(e){
     //check values
     let query = preventNullInQuery(["fordonstyp","brand","model","gearbox"],[vehicleType,vehicleBrand,vehicleModel, vehicleGearbox]);
     findByQuery("result",query,addCarsToResult);
-
-    //TODO replace console.log with callback in findByQuery to handle results
 
 }
 
@@ -130,7 +145,7 @@ function checkAvailabillityByDate(e){
     }
     //if both dates are selected
     else if(dateEndValue !== null && dateStartValue !== null){
-        cancelCar.style.visibility = "visible";
+
         searchBtn.removeAttribute("disabled");
         findByQuery("date",`startDate=${dateStartValue}&endDate=${dateEndValue}`,findUniquePropertyValue);
     }
@@ -224,58 +239,85 @@ function findUniquePropertyValue(result){
 // show ALL cars available after search
 function addCarsToResult(result) {
     
-    console.log('available Cars: ' + JSON.stringify(result));
-    
+    //console.log('available Cars: ' + JSON.stringify(result));
     carInfo.style.display = "none";
+
+    let carTable = document.getElementById("t01");
     
     result.forEach((car) => {
         
-        let carContainer = document.createElement('div');
-        carContainer.setAttribute("class", "vehicleInfo");
-        carContainer.setAttribute("data-id", car._id);
-        console.log(car);
+        let tr = createElm("tr");
+        tr.className = "row";
 
-        let bookBtn = document.createElement("button");
+        let imgTd = createElm("td");
+        let img = createElm("img");
+        img.src=result.imgLink;
+        img.alt ="Image";
+        imgTd.appendChild(img);
+        tr.appendChild(imgTd);
+
+        let type = createElm("td");
+        type.className="fordonstyp";
+        type.textContent = car.fordonstyp;
+        tr.appendChild(type);
+
+        let brand = createElm("td");
+        brand.className="brand";
+        brand.textContent = car.brand;
+        tr.appendChild(brand);
+
+        let model = createElm("td");
+        model.className="brand";
+        model.textContent = car.model;
+        tr.appendChild(model);
+
+        let year = createElm("td");
+        year.className="year";
+        year.textContent = car.year;
+        tr.appendChild(year);
+
+        let fuel = createElm("td");
+        fuel.className="fuel";
+        fuel.textContent = car.fuel;
+        tr.appendChild(fuel);
+
+        let gearbox = createElm("td");
+        gearbox.className="gearbox";
+        gearbox.textContent = car.gearbox;
+        tr.appendChild(gearbox);
+
+        let requiredDrivingLicense = createElm("td");
+        requiredDrivingLicense.className="reqLicense";
+        requiredDrivingLicense.textContent = car.requiredDrivingLicense;
+        tr.appendChild(requiredDrivingLicense);
+
+        let dagshyra = createElm("td");
+        dagshyra.className="dagshyra";
+        dagshyra.textContent = car.dagshyra;
+        tr.appendChild(dagshyra);
+
+        let bookBtn = createElm("button");
         bookBtn.textContent = "BOOK";
         bookBtn.className = "bookBtn";
+        bookBtn.attributes["data-id"]=car._id;
+        tr.appendChild(bookBtn);
+
+        let kommentarer = createElm("td");
+        kommentarer.className="comments";
+        try{
+            kommentarer.textContent = car.kommentarer.skador;
+        }catch(e){/*IGNORE*/}
+        tr.appendChild(kommentarer);
+
+        carTable.appendChild(tr);
 
 
-        // Checks if the searched vehicle has an image or gearbox
-        let carImage = document.createElement("img");
-        if (car.imgLink === undefined) {
-            
-            carImage.setAttribute("src", "https://bbcdn.io/bytbil-pro/news-large/b9/b90d585e-6786-4dd4-bfa7-ab00d4504964");
-        } else {
-            carImage.setAttribute("src", car.imgLink);
-        }
-        let gearBoxes = document.createElement("p");
-        if (car.gearbox === undefined) {
-           console.log("this vehicle has no gearbox")
-        } else {
-            gearBoxes.textContent = car.gearbox;
-            carContainer.appendChild(gearBoxes);
-        }
-        carContainer.appendChild(carImage);
-        let brandName = document.createElement('p'),
-        carModel = document.createElement("p"),
-        vehicleType = document.createElement("p"),
-        rentalCost = document.createElement("p");
 
-        brandName.textContent = car.brand;
-        carModel.textContent = car.model;
-        vehicleType.textContent = car.fordonstyp;
-        rentalCost.textContent = car.dagshyra;
-
-        carContainer.appendChild(brandName);
-        carContainer.appendChild(carModel);
-        carContainer.appendChild(vehicleType);
-        carContainer.appendChild(rentalCost);
-        carContainer.appendChild(bookBtn);
-        vehicleContainer.appendChild(carContainer);
     });
-    //TODO AFTER all cars are added to result edit this to match classnames
+    vehicleContainer.appendChild(carTable);
+
     addClickListenerForCars();
-    console.log("hello")
+    console.log("hello");
 }
 
 function preventNullInQuery(names,values){
@@ -364,20 +406,19 @@ function logout(){
     isLogedin = false;
     console.log(login.attributes["data-logedin"]);
     localStorage.removeItem("logedIn");
+    cancelCar.style.visibility = "visible";
 }
 //  cancel booking function
 function cancelBooking(e) {
-    if(cancelCar) {
-        e.preventDefault();
-        prompt("your car booking is now canceled");
-        rentCar = false;
-    }
-    console.log(rentCar);
-    
+    let logedIn = JSON.parse(localStorage.getItem("logedIn"));
+    findByQuery("update/cancelBooking",`carId=${logedIn.bookedCar}&personnr=${logedIn.personnr}`);
+    alert("your car booking is now canceled");
+    cancelCar.style.visibility = "hidden";
 }
 
 function calcRentalPeriod(start, finish){
-    let diff = Date.parse(start) - Date.parse(finish);
+    let diff = (Date.parse(start) - Date.parse(finish));
+    diff = diff > 0 ? diff : diff*-1;
     return diff / ( 1000 * 60 * 60 * 24 ); //millisec, min, hour, day
 
 }
@@ -389,3 +430,8 @@ function checkIfLogedin(){
         loginOnClick();
     }
 }
+
+function createElm(elm){
+    return document.createElement(""+elm);
+}
+

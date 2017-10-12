@@ -134,7 +134,6 @@ function deleteCar(){
 }
 
 //Delete car from database
-
 function findByQuery(router,query="",callback){
 
     fetch(`${router}/?${query}`)

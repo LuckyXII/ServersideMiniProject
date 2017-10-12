@@ -10,6 +10,10 @@ router
     .get("/", carController.getAllCars)
     .post("/", customerController.customerBooking);
 
+//update
+router
+    .get("/update/cancelBooking", customerController.cancelBooking);
+
 //Admin Route
 router
     .get("/admin",carController.getAllCarsAdmin)
@@ -35,8 +39,7 @@ router
 //Login
 router
     .get("/login", customerController.checkIfCustomerExist)
-    .get("/login/createNewUser",customerController.createUser)
-    .get("/login/*");
+    .get("/login/createNewUser",customerController.createUser);
 
 
 //Wildcard Route

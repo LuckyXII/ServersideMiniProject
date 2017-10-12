@@ -120,8 +120,8 @@ h1 {
     display: flex;
 }
 .row img {
-    height: 100px;
-    width: 200px;
+    height: 50px;
+    width: 80px;
 }
 #carInfo {
     font-weight: bold;
@@ -252,4 +252,9 @@ table#t01 th#tr02 {
     order: 0;
     flex: 0 1 auto;
     align-self: auto;
+}
+
+#resultHeader p{
+    font-size: 0.8em;
+    display: inline;
 }

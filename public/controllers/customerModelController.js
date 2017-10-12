@@ -1,28 +1,89 @@
-const customer = require("../models/customerRentalStatusModel");
+const
+    customer = require("../models/customerRentalStatusModel"),
+    car = require("../models/carModel");
 
-function customerBooking(req,res) {
-    
+
+function cancelBooking(req,res){
+    console.log(req.method);
     let query = req.query;
-
+    let id = query.carId;
+    console.log();
     customer
-        .updateOne({"personnr":query.logedIn},{
-            rented: {$set:{
-                date:query.date,
-                car:query.car,
-                rentalPeriod:{
-                    start: query.rentalPeriod.start,
-                    end: query.rentalPeriod.end
-                },
-                rentalCost:{
-                    day:query.rentalCost.day,
-                    total: query.rentalCost.total
-                }
-            }}
+        .updateOne({"personnr":query.personnr},{
+            $set: {
+                rented:null
+            }
         },{upsert:false})
         .exec()
         .then((result)=>{
-            console.log(result);
+            console.log("REMOVE BOOKING: " + JSON.stringify(result));
             res.json(result);
+        })
+        .catch((err)=> {
+            console.log(err);
+        });
+
+    console.log(id);
+    car
+        .updateOne({"_id":id},{
+            $pop:{
+                "status.rented":1
+            }
+        })
+        .exec()
+        .then((result)=>{
+            console.log("REMOVE BOOKING FROM CAR: " + JSON.stringify(result));
+        })
+        .catch((err)=> {
+            console.log(err);
+        });
+}
+
+function customerBooking(req,res) {
+    
+    console.log(req.method);
+    let query = req.query;
+    let id = query.car;
+    customer
+        .updateOne({"personnr":query.logedIn},{
+            $set: {
+                rented:{
+                    "date":query.date,
+                    "car":query.car,
+                    rentalPeriod:{
+                        start: query.rentalPeriodStart,
+                        end: query.rentalPeriodEnd
+                    },
+                    rentalCost:{
+                        day:query.rentalCostDay,
+                        total: query.rentalCostTotal
+                    }
+                }
+            }
+
+        },{upsert:false})
+        .exec()
+        .then((result)=>{
+            console.log("BOOK CAR: " + JSON.stringify(result));
+            res.json(result);
+        })
+        .catch((err)=> {
+            console.log(err);
+        });
+    
+    console.log(id);
+    car
+        .updateOne({"_id":id},{
+            $push:{
+                "status.rented":{
+                    start: query.rentalPeriodStart,
+                    end: query.rentalPeriodEnd
+                }
+            }
+        })
+        .exec()
+        .then((result)=>{
+            console.log("UPDATE CAR: " + JSON.stringify(result));
         })
         .catch((err)=> {
             console.log(err);
@@ -103,5 +164,6 @@ module.exports = {
     getCustomersByQuery: getCustomersByQuery,
     createUser: createUser,
     checkIfCustomerExist:checkIfCustomerExist,
-    customerBooking: customerBooking
+    customerBooking: customerBooking,
+    cancelBooking : cancelBooking
 };
