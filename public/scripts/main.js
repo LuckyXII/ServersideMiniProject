@@ -376,7 +376,13 @@ function handleLogin(result){
         }
         return 0;
     }
-    //TODO LOGIN USER EVEN IF THEY*RE NEW
+
+    let rentedCar = result.rented;
+
+    if(rentedCar !== null){
+        cancelCar.style.visibility = "visible";
+    }
+
     input.hidden = true;
     login.textContent = "Logout: " + result.name;
     login.style.width = "200px";
@@ -406,12 +412,14 @@ function logout(){
     isLogedin = false;
     console.log(login.attributes["data-logedin"]);
     localStorage.removeItem("logedIn");
-    cancelCar.style.visibility = "visible";
+    cancelCar.style.visibility = "hidden";
 }
 //  cancel booking function
 function cancelBooking(e) {
     let logedIn = JSON.parse(localStorage.getItem("logedIn"));
     findByQuery("update/cancelBooking",`carId=${logedIn.bookedCar}&personnr=${logedIn.personnr}`);
+    logedIn.rented = null;
+    localStorage.setItem("logedIn", JSON.stringify(logedIn));
     alert("your car booking is now canceled");
     cancelCar.style.visibility = "hidden";
 }
