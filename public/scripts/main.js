@@ -317,7 +317,7 @@ function addCarsToResult(result) {
     vehicleContainer.appendChild(carTable);
 
     addClickListenerForCars();
-    console.log("hello");
+
 }
 
 function preventNullInQuery(names,values){

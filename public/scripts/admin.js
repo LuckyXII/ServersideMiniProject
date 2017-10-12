@@ -2,7 +2,9 @@
 //GLOBALS
 const addB = document.getElementById("addB"),
       login = document.getElementById("login"),
-       deleteBtn = document.getElementById("deleteB");
+      deleteBtn = document.getElementById("deleteB"),
+      updateBtn = document.getElementById("updateB");
+
 
 //=======================================================
 //LISTENERS
@@ -17,6 +19,8 @@ loginAndLogoutAdmin();
 
 login.addEventListener("click", loginAndLogoutAdmin);
 deleteBtn.addEventListener("click",deleteCar);
+updateBtn.addEventListener("click", updateCar);
+
 //=======================================================
 //FUNCTIONS
 
@@ -60,7 +64,7 @@ function logout(){
 function fillEditForm(e){
     let tableData = e.target.parentNode;
 
-    console.log(tableData.attributes);
+    console.log(tableData);
     let _id = tableData.attributes["data-id"].value;
     let image = tableData.children[0].children[0].src;
     let fordonstyp = tableData.children[1].textContent;
@@ -126,6 +130,27 @@ function fillEditForm(e){
     commentInputValue.textContent = skador;
     
 }
+// update car from database
+function updateCar(e) {
+    e.preventDefault();
+    let tableData = e.target.parentNode;
+    /*let image = tableData.children[0].children[0].src;*/
+    let fordonstyp = tableData.children[1].textContent;
+    let brand = tableData.children[2].textContent;
+    let model = tableData.children[3].textContent;
+    let year = tableData.children[4].textContent;
+    let fuel = tableData.children[5].textContent;
+    let gearbox = tableData.children[6].textContent;
+    let reqLicense = tableData.children[7].textContent;
+    let dagsHyra = tableData.children[8].textContent;
+    let isAvailable = tableData.children[9].textContent;
+    let skador = tableData.children[10].textContent;
+    let id = document.getElementById("adminForm").lastElementChild.textContent;
+    
+    let query =`id=${id}&brand=${brand}&image=${null/*image*/}&fordon=${fordonstyp}&model=${model}&year=${year}&fuel=${fuel}&gearbox=${gearbox}&reqLicense=${reqLicense}&dagshyra=${dagsHyra}&isAvailable=${isAvailable}&skador=${skador}`;
+    findByQuery("admin/update",query);
+    console.log(id);
+}
 
 
 function deleteCar(){
@@ -149,6 +174,5 @@ function findByQuery(router,query="",callback){
         .catch((err)=>{
             console.log(err);
         });
-
-
 }
+

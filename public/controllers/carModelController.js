@@ -3,7 +3,6 @@ const
     resultDataHolder = require("../models/resultDataHolderModel"),
     ObjectId = require('mongodb').ObjectId;
 
-
 function deleteCars(req, res){
     let
         id = req.query.id,
@@ -19,6 +18,54 @@ function deleteCars(req, res){
         });
 }
 
+    
+// update cars as admin
+function updateCars(req,res) {
+    let id = req.query.id,
+        ID = new ObjectId(id)
+    car
+    .updateOne({"_id":ID}, {
+        requiredDrivingLicense: req.query.reqLicense,
+    fordonstyp:{
+        type:req.query.fordon,
+        required: true
+    },
+    brand:{
+        type:req.query.brand,
+        required:true
+    },
+    model:{
+        type:req.query.model,
+        required:true
+    },
+    year: req.query.year,
+    gearbox:req.query.gearbox,
+    dagshyra: {
+        type:req.query.dagshyra,
+        required: true
+    },
+    fuel: req.query.fuel,
+    imgLink: req.query.image,
+    kommentarer: {
+        skador: req.query.skador
+    },
+    status:{
+        isAvailable:{
+            type: req.query.isAvailable,
+            required: true
+        }
+        
+    }}, {upsert:false})
+    .exec()
+    .then((result)=>{
+        console.log(result)
+        res.json(result)
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
+}
+// get all cars from database to index view
 function getAllCars(req,res){
     car
         .find({})
@@ -208,6 +255,8 @@ module.exports = {
     checkAvailableCarsByDate: checkAvailableCarsByDate,
     checkAvailableCarsByQuery: checkAvailableCarsByQuery,
     getAllCarsAdmin:getAllCarsAdmin,
-    deleteCars : deleteCars
+    deleteCars : deleteCars,
+    updateCars: updateCars
+
 
 };
