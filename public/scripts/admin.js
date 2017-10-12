@@ -127,13 +127,14 @@ function fillEditForm(e){
     
 }
 
+
 function deleteCar(){
     let id = document.getElementById("adminForm").lastElementChild.textContent;
     findByQuery("admin/delete",`id=${id}`);
 }
 
+//Delete car from database
 
-//fetch response by query
 function findByQuery(router,query="",callback){
 
     fetch(`${router}/?${query}`)
@@ -149,5 +150,6 @@ function findByQuery(router,query="",callback){
         .catch((err)=>{
             console.log(err);
         });
+
 
 }
