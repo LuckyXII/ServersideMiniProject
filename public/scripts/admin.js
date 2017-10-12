@@ -1,7 +1,8 @@
 //=======================================================
 //GLOBALS
 const addB = document.getElementById("addB"),
-      login = document.getElementById("login");
+      login = document.getElementById("login"),
+      updateBtn = document.getElementById("updateB");
 
 //=======================================================
 //LISTENERS
@@ -124,6 +125,10 @@ function fillEditForm(e){
     commentInputValue.textContent = skador;
     
 }
+// update car 
+function updateCar() {
+    
+}
 
 //Delete car from database
 
@@ -143,10 +148,10 @@ function findByQuery(router,query="",callback){
             console.log(err);
         });
 
-findByQuery("damin/update",`id=${id}}`,findUniquePropertyValue);
+findByQuery("admin/update",`id=${id}}`,findUniquePropertyValue);
 	
 	
-	.get("/adminn/delete" , carController.deleteCar)
+	.get("/admin/delete" , carController.deleteCar)
 	
 	
 	
