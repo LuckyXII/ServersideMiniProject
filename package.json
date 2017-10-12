@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "express": "^4.15.5",
+    "mongo": "^0.1.0",
     "mongodb": "^2.2.31",
     "mongoose": "^4.11.13",
     "pug": "^2.0.0-rc.4",
