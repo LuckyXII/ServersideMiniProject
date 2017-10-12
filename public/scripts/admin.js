@@ -124,3 +124,29 @@ function fillEditForm(e){
     commentInputValue.textContent = skador;
     
 }
+
+//Delete car from database
+
+function findByQuery(router,query="",callback){
+
+    fetch(`${router}/?${query}`)
+        .then((response)=> {
+            console.log(response);
+            return response.json();
+        })
+        .then((result)=> {
+            console.log(router + " query was sucessfull");
+            console.log(result);
+            callback(result);
+        })
+        .catch((err)=>{
+            console.log(err);
+        });
+
+findByQuery("damin/update",`id=${id}}`,findUniquePropertyValue);
+	
+	
+	.get("/adminn/delete" , carController.deleteCar)
+	
+	
+	
