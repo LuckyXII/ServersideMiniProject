@@ -275,7 +275,6 @@ function addCarsToResult(result) {
     });
     //TODO AFTER all cars are added to result edit this to match classnames
     addClickListenerForCars();
-    console.log("hello")
 }
 
 function preventNullInQuery(names,values){
