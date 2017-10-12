@@ -11,7 +11,10 @@ const
     selectModel = document.getElementById("model"),
     carInfo = document.getElementById("carInfo"),
     selectGearbox = document.getElementById("gearbox"),
+    cancelCar = document.getElementById("cancelCar"),
     vehicleContainer = document.getElementById("vehicleContainer");
+    
+    
 
 var dateStartValue, dateEndValue, isLogedin = false;
 //=======================================================
@@ -28,7 +31,7 @@ searchBtn.addEventListener("click",checkAvailabillityByQuery);
 dateStart.addEventListener("change",checkAvailabillityByDate);
 dateEnd.addEventListener("change",checkAvailabillityByDate);
 login.addEventListener("click",loginOnClick);
-
+cancelCar.addEventListener("click", cancelBooking);
 //=======================================================
 //FUNCTIONS
 
@@ -124,12 +127,13 @@ function checkAvailabillityByDate(e){
     }
     //if both dates are selected
     else if(dateEndValue !== null && dateStartValue !== null){
+        cancelCar.style.visibility = "visible";
         searchBtn.removeAttribute("disabled");
         findByQuery("date",`startDate=${dateStartValue}&endDate=${dateEndValue}`,findUniquePropertyValue);
     }
 
 }
-
+// ${URL_BASE}
 //fetch response by query
 function findByQuery(router,query="",callback){
 
@@ -216,24 +220,19 @@ function findUniquePropertyValue(result){
 }
 // show ALL cars available after search
 function addCarsToResult(result) {
-    vehicleContainer.innerHTML = "";
+    
     console.log('available Cars: ' + JSON.stringify(result));
-    carInfo.innerHTML = "";
-
+    
+    carInfo.style.display = "none";
+    
     result.forEach((car) => {
-        carInfo.style.border = "none";
+        
         let carContainer = document.createElement('div');
         carContainer.setAttribute("class", "vehicleInfo");
         carContainer.setAttribute("data-id", car._id);
         console.log(car);
 
-        let brandName = document.createElement('div'),
-            carModel = document.createElement("div"),
-            vehicleType = document.createElement("div"),
-            bookBtn = document.createElement("button");
-        brandName.textContent = car.brand;
-        carModel.textContent = car.model;
-        vehicleType.textContent = car.fordonstyp;
+        let bookBtn = document.createElement("button");
         bookBtn.textContent = "BOOK";
         bookBtn.className = "bookBtn";
 
@@ -241,32 +240,33 @@ function addCarsToResult(result) {
         // Checks if the searched vehicle has an image or gearbox
         let carImage = document.createElement("img");
         if (car.imgLink === undefined) {
-            console.log("no picture to this car");
+            
             carImage.setAttribute("src", "https://bbcdn.io/bytbil-pro/news-large/b9/b90d585e-6786-4dd4-bfa7-ab00d4504964");
         } else {
             carImage.setAttribute("src", car.imgLink);
         }
         let gearBoxes = document.createElement("p");
         if (car.gearbox === undefined) {
-            console.log("no gearbox for this search");
+           console.log("this vehicle has no gearbox")
         } else {
             gearBoxes.textContent = car.gearbox;
             carContainer.appendChild(gearBoxes);
         }
         carContainer.appendChild(carImage);
-        brandName = document.createElement('p');
-        carModel = document.createElement("p");
-        vehicleType = document.createElement("p");
-
+        let brandName = document.createElement('p'),
+        carModel = document.createElement("p"),
+        vehicleType = document.createElement("p"),
+        rentalCost = document.createElement("p");
 
         brandName.textContent = car.brand;
         carModel.textContent = car.model;
         vehicleType.textContent = car.fordonstyp;
-
+        rentalCost.textContent = car.dagshyra;
 
         carContainer.appendChild(brandName);
         carContainer.appendChild(carModel);
         carContainer.appendChild(vehicleType);
+        carContainer.appendChild(rentalCost);
         carContainer.appendChild(bookBtn);
         vehicleContainer.appendChild(carContainer);
     });
@@ -360,6 +360,12 @@ function logout(){
     isLogedin = false;
     console.log(login.attributes["data-logedin"]);
     localStorage.removeItem("logedIn");
+}
+//  cancel booking function
+function cancelBooking() {
+    if(cancelCar) {
+        window.history.back();
+    }
 }
 
 function calcRentalPeriod(start, finish){

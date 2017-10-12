@@ -4,10 +4,15 @@ block content
 
 
 
-        //Search Bar ************************************Update sebb ***************************************************************
+        
 
         div.flex-container
             div.flex-item#searchBarAdmin
+                form(id="dateForm" action="#" method="post")
+                    label(for="fname") Start datum:
+                    input(type="date" name="dateStart")
+                    label(for="lname") Slut datum:
+                    input(type="date" name="dateEnd")
                 form(id="filterForm" action="#" method="post")
                   select(id="vehicleType")
                     option(value=""  selected) VehicleType
@@ -24,7 +29,9 @@ block content
 
 
 
-            // Form *********************************************************************************************************
+            form(class="infoContent" id="submitForm" method="post"  )
+                div(class="row" id="vehicleContainer" data-Id="car._Id")
+                    div(id="carInfo") Välkommen till Olssons Fordon AB sök i menyn för att få fram ett fordon som passar just dig.
 
             div.form-group#typeD
 

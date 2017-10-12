@@ -23,6 +23,7 @@ h1 {
     color: white;
 }
 
+
 #login{
     top:0;
     right:162px;
@@ -33,6 +34,11 @@ h1 {
     color: white;
     text-align: center;
     border:1px;
+}
+.bookBtn {
+    background-color: #005bef;
+    color: white;
+    cursor: pointer;
 }
 
 .loginSignup{
@@ -121,17 +127,21 @@ h1 {
     font-weight: bold;
     font-size: 1.8em;
     display: flex;
+    top: 0px;
 }
+
 
 #selectBtn {
     background-color: #005bef;
     color: white;
     visibility: hidden;
+    cursor: pointer;
 }
 #searchBtn {
     padding: 4px;
     background-color: #005bef;
     color: white;
+    cursor: pointer;
 }
 /*#############################################################*/
 /*  Confirmation page                                          */
