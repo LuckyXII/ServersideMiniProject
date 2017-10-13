@@ -28,7 +28,7 @@ function updateCars(req,res) {
     .updateOne({"_id":ID}, {
         requiredDrivingLicense: req.query.reqLicense,
     fordonstyp:{
-        type:req.query.fordon,
+        type:req.query.fordonstyp,
         required: true
     },
     brand:{

@@ -7,28 +7,8 @@ block content
         
 
         div.flex-container
-            div.flex-item#searchBarAdmin
-                
-                form(id="filterForm" action="#" method="post")
-                  select(id="vehicleType")
-                    option(value=""  selected) VehicleType
-                  select(id="brand" )
-                    option(value=""  selected) Brand
-                  select(id="model" )
-                    option(value=""  selected) Model
-                  select(id="gearbox" )
-                    option(value=""  selected) Gearbox
-                  button(id="searchBtn" type="submit" disabled=true title="date must be selected" ) Search
-
-           
-
-
-
-
-            form(class="infoContent" id="submitForm" method="post"  )
-                div(class="row" id="vehicleContainer" data-Id="car._Id")
-                    div(id="carInfo") Välkommen till Olssons Fordon AB sök i menyn för att få fram ett fordon som passar just dig.
-
+            
+               
             div.form-group#typeD
 
               form.flex-item#adminForm(method='POST' action='/register')
@@ -107,10 +87,10 @@ block content
                     label(for='comment')
                     textarea#comment.form-control(name="comment", cols="30", rows="10",placeholder="Comment")
                   p#idHolder
-                  div#buttonsD
-                   button.btn.btn-primary(type='submit' id="addB") ADD
-                   button.btn.btn-primary(type='submit' id="deleteB") DELETE
-                   button.btn.btn-primary(type='submit' id="updateB") UPDATE
+              div#buttonsD
+               button.btn.btn-primary(type='submit' id="addB") ADD
+               button.btn.btn-primary(type='submit' id="deleteB") DELETE
+               button.btn.btn-primary(type='submit' id="updateB") UPDATE
 
 
               div.flex-item#searchResults

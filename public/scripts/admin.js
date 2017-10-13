@@ -8,11 +8,8 @@ const addB = document.getElementById("addB"),
 
 //=======================================================
 //LISTENERS
-//TODO SHOULD THESE BE USED?
-// searchB.addEventListener('click',checkSearch);
-//addB.addEventListener('click',addCar);
-// deleteB.addEventListener('click',);
-// updateB.addEventListener('click',);
+
+
   
 
 addClickListenerCarRow();
@@ -78,7 +75,8 @@ function fillEditForm(e){
     let dagsHyra = tableData.children[8].textContent;
     let isAvailable = tableData.children[9].textContent;
     let skador = tableData.children[10].textContent;
-
+    
+    console.log("tabledataChild!"+tableData.children[1].textContent)
     var formData = document.getElementById('adminForm');
 
     let idHolder = document.getElementById("idHolder");
@@ -134,23 +132,23 @@ function fillEditForm(e){
 // update car from database
 function updateCar(e) {
     e.preventDefault();
-    let tableData = e.target.parentNode;
-    /*let image = tableData.children[0].children[0].src;*/
-    let fordonstyp = tableData.children[1].textContent;
-    let brand = tableData.children[2].textContent;
-    let model = tableData.children[3].textContent;
-    let year = tableData.children[4].textContent;
-    let fuel = tableData.children[5].textContent;
-    let gearbox = tableData.children[6].textContent;
-    let reqLicense = tableData.children[7].textContent;
-    let dagsHyra = tableData.children[8].textContent;
-    let isAvailable = tableData.children[9].textContent;
-    let skador = tableData.children[10].textContent;
-    let id = document.getElementById("adminForm").lastElementChild.textContent;
+    let tableData = e.target.parentNode,
+     fordonstyp = document.getElementById('vehicleTypeInput').value,
+     brand = document.getElementById('brandInput').value,
+     model = document.getElementById('model').value,
+     year = document.getElementById('year').value,
+     fuel = document.getElementById('fuel').options[fuel.selectedInput].value,
+     gearbox = document.getElementById('gearbox').value,
+     reqLicense = document.getElementById('licence').value,
+     dagsHyra = document.getElementById('dagshyra').value,
+     isAvailable = document.getElementById('isAvailable').value,
+     /*skador = tableData.children[10].textContent,*/
+     id = document.getElementById("idHolder").value;
     
-    let query =`id=${id}&brand=${brand}&image=${null/*image*/}&fordon=${fordonstyp}&model=${model}&year=${year}&fuel=${fuel}&gearbox=${gearbox}&reqLicense=${reqLicense}&dagshyra=${dagsHyra}&isAvailable=${isAvailable}&skador=${skador}`;
+    let query =`id=${id}&brand=${brand}&image=${null/*image*/}&fordonstyp=${fordonstyp}&model=${model}&year=${year}&fuel=${fuel}&gearbox=${gearbox}&reqLicense=${reqLicense}&dagshyra=${dagsHyra}&isAvailable=${isAvailable}`;
     findByQuery("admin/update",query);
-    console.log(id);
+    console.log("id:"+ id)
+    console.log("query::"+ query);
 }
 
 //delete car

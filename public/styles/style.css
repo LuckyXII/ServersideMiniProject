@@ -19,7 +19,7 @@ h1 {
     text-align: center;
     padding: 20px 10px;
     text-transform: uppercase;
-    background-color: #4575c1;
+    background-color: #30353d;
     color: white;
 }
 
@@ -90,7 +90,8 @@ h1 {
 .infoContent {
     margin: 20px auto 0px auto;
     display: flex;
-    height: 400px;
+    height: 100vh;
+    background-color: #ccd2dd;
 }
 
 .infoContent img,
@@ -106,7 +107,8 @@ h1 {
    /* float: left;*/
 }
 .row {
-    margin: auto;
+    margin: 0 auto;
+    
     
 }
 .row p{
@@ -132,14 +134,14 @@ h1 {
 
 
 #selectBtn {
-    background-color: #005bef;
+    background-color: #34538b;
     color: white;
     visibility: hidden;
     cursor: pointer;
 }
 #searchBtn {
     padding: 4px;
-    background-color: #005bef;
+    background-color: #34538b;
     color: white;
     cursor: pointer;
 }
