@@ -385,7 +385,8 @@ function handleLogin(result){
 
     //if logedin user has rented a car show cancel cars button
     let rentedCar = result.rented;
-    if(rentedCar !== null){
+    if(rentedCar !== null && rentedCar !== undefined){
+        console.log(rentedCar);
         cancelCar.style.visibility = "visible";
     }
 
@@ -408,7 +409,7 @@ function userIsSaved(result){
         login.style.width = "200px";
         login.style.right = "1px";
         isLogedin = true;
-        localStorage.setItem("logedIn", JSON.stringify(result.name));
+        localStorage.setItem("logedIn", JSON.stringify(result));
     }
 }
 
@@ -445,7 +446,8 @@ function calcRentalPeriod(start, finish){
 
 //check if a user is already signed in
 function checkIfLogedin(){
-    if(localStorage.getItem("logedIn") !== (undefined || null) ){
+    let logedIn = localStorage.getItem("logedIn");
+    if(logedIn !== undefined && logedIn !== null ){
         let input = document.getElementById("loginInput");
         input.value = JSON.parse(localStorage.getItem("logedIn")).personnr;
         loginOnClick();

@@ -84,8 +84,8 @@ function customerBooking(req,res) {
         .updateOne({"_id":id},{
             $push:{
                 "status.rented":{
-                    start: query.rentalPeriodStart,
-                    end: query.rentalPeriodEnd
+                    "startDate": query.rentalPeriodStart,
+                    "endDate": query.rentalPeriodEnd
                 }
             }
         })
@@ -113,7 +113,13 @@ function createUser(req,res){
         if(err!==null){
             console.log("customer save error: " + err);
         }else{
-            res.json({saved:true,name:name});
+            res.json({
+                saved:true,
+                name:name,
+                personnr:personnr,
+                rented:null
+
+            });
         }
     });
         
