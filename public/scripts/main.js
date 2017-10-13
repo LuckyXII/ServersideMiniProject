@@ -49,7 +49,6 @@ function rentCar(e){
         rent = e.target.parentNode.children[8].textContent,
         totalRent = rent * calcRentalPeriod(dateStart.value, dateEnd.value),
         d = new Date();
-    console.log("rent: "+ rent)
 
 		console.log(logedIn)
 
@@ -85,7 +84,7 @@ function rentCar(e){
     .then((result)=> {
         //show cancel booking button
         console.log(result);
-        console.log("VISIBLE");
+        console.log("VISIBLE" + rentInfo.rentalPeriod.start);
         cancelCar.style.visibility = "visible";
     	
     });
