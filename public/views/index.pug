@@ -2,12 +2,12 @@ extends head
 block content
     
     div(class="formContent")
-        form(id="dateForm" action="#" method="post")
-            label(for="fname") Start datum
+        form(id="dateForm")
+            label(for="fname") Start datum:
             input(type="date" name="dateStart")
-            label(for="lname") Slut datum
+            label(for="lname") Slut datum:
             input(type="date" name="dateEnd")
-        form(id="filterForm" action="#" method="post")
+        form(id="filterForm" ) Alternativ:
             select(id="vehicleType")
                 option(value=""  selected) VehicleType
             select(id="brand" )
@@ -16,13 +16,29 @@ block content
                 option(value=""  selected) Model
             select(id="gearbox" )
                 option(value=""  selected) Gearbox
-            button(id="searchBtn" type="submit" disabled=true title="date must be selected" ) Sök
-
-        // form where the search based result is selected by the user
-        // need to add conformation page to be able to Post.
+            button(id="searchBtn" disabled=true title="date must be selected" ) Sök
         
-        form(class="infoContent" id="submitForm" method="post"  )
-            div(class="row" id="vehicleContainer" data-Id="car._Id")
+        form(class="infoContent" id="submitForm"  )
+            div(class="row" id="vehicleContainer")
                 div(id="carInfo") Välkommen till Olssons Fordon AB sök i menyn för att få fram ett fordon som passar just dig.
-          
-            script(src="../scripts/main.js")
+                div.flex-item#searchResults
+
+                    table#t01(style = "width:100%")
+
+                        tr#carHeader
+                            th Image
+                            th Vehicle Type
+                            th Brand
+                            th Model
+                            th Date
+                            th Fuel Type
+                            th Gear Type
+                            th Driving Licence
+                            th Price / day
+                            th Book Car
+                            th Comment
+
+
+                
+        
+    script(src="../scripts/main.js")

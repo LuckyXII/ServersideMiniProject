@@ -11,12 +11,14 @@ const
     selectModel = document.getElementById("model"),
     carInfo = document.getElementById("carInfo"),
     selectGearbox = document.getElementById("gearbox"),
-    vehicleContainer = document.getElementById("vehicleContainer");
+    cancelCar = document.getElementById("cancelCar"),
+    vehicleContainer = document.getElementById("searchResults");
+    
+    
 
 var dateStartValue, dateEndValue, isLogedin = false;
 //=======================================================
 //CLASSES
-
 
 //=======================================================
 //MAIN
@@ -28,57 +30,78 @@ searchBtn.addEventListener("click",checkAvailabillityByQuery);
 dateStart.addEventListener("change",checkAvailabillityByDate);
 dateEnd.addEventListener("change",checkAvailabillityByDate);
 login.addEventListener("click",loginOnClick);
-
+cancelCar.addEventListener("click", cancelBooking);
 //=======================================================
 //FUNCTIONS
 
+//rent car
 function rentCar(e){
+    e.preventDefault();
 
-    //TODO add values from car item
+    //can only rent if loged in
+    if(localStorage.getItem("logedIn") === (undefined || null) ){
+        return;
+    }
+
     let
-        id = e.target.parent.attributes['data-Id'].value,
-        logedIn = localStorage.getItem("logedIn"),
-        rent = e.target.parent().children()[3], //TODO Add Correct Path
+        id = e.target.attributes['data-id'],
+        logedIn = JSON.parse(localStorage.getItem("logedIn")),
+        rent = e.target.parentNode.children[8].textContent,
         totalRent = rent * calcRentalPeriod(dateStart.value, dateEnd.value),
         d = new Date();
 
     let rentInfo = {
-          logedIn:logedIn,
+          logedIn:logedIn.personnr,
           date: new Date(d.getFullYear(),d.getMonth()+1,d.getDate()),
           car: id,
           rentalPeriod: {
               start: dateStart.value,
               end: dateEnd.value
           },
-          rentalCost:{ //TODO fix rentalcost
+          rentalCost:{
               day: rent,
               total: totalRent,
           }
     };
 
-    let query = `logedIn=${rentInfo.logedIn}&date=${rentInfo.date}&car=${rentInfo.car}&rentalPeriod.start=${rentInfo.rentalPeriod.start}&rentalPeriod.end=${rentInfo.rentalPeriod.end}&rentalCost.day=${rentInfo.rentalCost.day}&rentalCost.total=${rentInfo.rentalCost.total}`;
+    //update logedin with rented car
+    logedIn.bookedCar = rentInfo.car;
+    localStorage.setItem("logedIn",JSON.stringify(logedIn));
 
-    fetch(`/?${query}`,{method:"POST"})
+    //query
+    let query = `${URL_BASE}?logedIn=${rentInfo.logedIn}&date=${rentInfo.date}&car=${rentInfo.car}&rentalPeriodStart=${rentInfo.rentalPeriod.start}&rentalPeriodEnd=${rentInfo.rentalPeriod.end}&rentalCostDay=${rentInfo.rentalCost.day}&rentalCostTotal=${rentInfo.rentalCost.total}`;
+
+    let init = {
+      method:'POST'
+    };
+
+    fetch(`/${query}`,init)
     .then((response)=> {
     	return response.json();
     })
     .then((result)=> {
-    	console.log(result);
+        //show cancel booking button
+        console.log(result);
+        console.log("VISIBLE");
+        cancelCar.style.visibility = "visible";
     	
     });
 
 }
 
+//add clicklistener to all cars
 function addClickListenerForCars() {
     //TODO add correct className and make sure data-id path is correct in rentCar
     let cars = document.getElementsByClassName("bookBtn");
-    cars.forEach((car) => {
-        car.addEventListener("click", rentCar);
-    });
+    console.log(cars);
+    for(let i = 0; i < cars.length; i++){
+        cars[i].addEventListener("click", rentCar);
+    }
+
 }
 
 
-
+//find available cars by query
 function checkAvailabillityByQuery(e){
     e.preventDefault();
 
@@ -92,10 +115,9 @@ function checkAvailabillityByQuery(e){
     let query = preventNullInQuery(["fordonstyp","brand","model","gearbox"],[vehicleType,vehicleBrand,vehicleModel, vehicleGearbox]);
     findByQuery("result",query,addCarsToResult);
 
-    //TODO replace console.log with callback in findByQuery to handle results
-
 }
 
+//sort by date
 function checkAvailabillityByDate(e){
     dateStartValue = dateStart.value;
     dateEndValue = dateEnd.value;
@@ -124,6 +146,7 @@ function checkAvailabillityByDate(e){
     }
     //if both dates are selected
     else if(dateEndValue !== null && dateStartValue !== null){
+
         searchBtn.removeAttribute("disabled");
         findByQuery("date",`startDate=${dateStartValue}&endDate=${dateEndValue}`,findUniquePropertyValue);
     }
@@ -216,64 +239,90 @@ function findUniquePropertyValue(result){
 }
 // show ALL cars available after search
 function addCarsToResult(result) {
-    vehicleContainer.innerHTML = "";
-    console.log('available Cars: ' + JSON.stringify(result));
-    carInfo.innerHTML = "";
+    
+    //console.log('available Cars: ' + JSON.stringify(result));
+    carInfo.style.display = "none";
 
+    let carTable = document.getElementById("t01");
+
+    //create car row
     result.forEach((car) => {
-        carInfo.style.border = "none";
-        let carContainer = document.createElement('div');
-        carContainer.setAttribute("class", "vehicleInfo");
-        carContainer.setAttribute("data-id", car._id);
-        console.log(car);
+        
+        let tr = createElm("tr");
+        tr.className = "row";
 
-        let brandName = document.createElement('div'),
-            carModel = document.createElement("div"),
-            vehicleType = document.createElement("div"),
-            bookBtn = document.createElement("button");
-        brandName.textContent = car.brand;
-        carModel.textContent = car.model;
-        vehicleType.textContent = car.fordonstyp;
+        let imgTd = createElm("td");
+        let img = createElm("img");
+        img.src=result.imgLink;
+        img.alt ="Image";
+        imgTd.appendChild(img);
+        tr.appendChild(imgTd);
+
+        let type = createElm("td");
+        type.className="fordonstyp";
+        type.textContent = car.fordonstyp;
+        tr.appendChild(type);
+
+        let brand = createElm("td");
+        brand.className="brand";
+        brand.textContent = car.brand;
+        tr.appendChild(brand);
+
+        let model = createElm("td");
+        model.className="brand";
+        model.textContent = car.model;
+        tr.appendChild(model);
+
+        let year = createElm("td");
+        year.className="year";
+        year.textContent = car.year;
+        tr.appendChild(year);
+
+        let fuel = createElm("td");
+        fuel.className="fuel";
+        fuel.textContent = car.fuel;
+        tr.appendChild(fuel);
+
+        let gearbox = createElm("td");
+        gearbox.className="gearbox";
+        gearbox.textContent = car.gearbox;
+        tr.appendChild(gearbox);
+
+        let requiredDrivingLicense = createElm("td");
+        requiredDrivingLicense.className="reqLicense";
+        requiredDrivingLicense.textContent = car.requiredDrivingLicense;
+        tr.appendChild(requiredDrivingLicense);
+
+        let dagshyra = createElm("td");
+        dagshyra.className="dagshyra";
+        dagshyra.textContent = car.dagshyra;
+        tr.appendChild(dagshyra);
+
+        let bookBtn = createElm("button");
         bookBtn.textContent = "BOOK";
         bookBtn.className = "bookBtn";
+        bookBtn.attributes["data-id"]=car._id;
+        tr.appendChild(bookBtn);
 
+        let kommentarer = createElm("td");
+        kommentarer.className="comments";
+        try{
+            kommentarer.textContent = car.kommentarer.skador;
+        }catch(e){/*IGNORE*/}
+        tr.appendChild(kommentarer);
 
-        // Checks if the searched vehicle has an image or gearbox
-        let carImage = document.createElement("img");
-        if (car.imgLink === undefined) {
-            console.log("no picture to this car");
-            carImage.setAttribute("src", "https://bbcdn.io/bytbil-pro/news-large/b9/b90d585e-6786-4dd4-bfa7-ab00d4504964");
-        } else {
-            carImage.setAttribute("src", car.imgLink);
-        }
-        let gearBoxes = document.createElement("p");
-        if (car.gearbox === undefined) {
-            console.log("no gearbox for this search");
-        } else {
-            gearBoxes.textContent = car.gearbox;
-            carContainer.appendChild(gearBoxes);
-        }
-        carContainer.appendChild(carImage);
-        brandName = document.createElement('p');
-        carModel = document.createElement("p");
-        vehicleType = document.createElement("p");
+        carTable.appendChild(tr);
 
-
-        brandName.textContent = car.brand;
-        carModel.textContent = car.model;
-        vehicleType.textContent = car.fordonstyp;
-
-
-        carContainer.appendChild(brandName);
-        carContainer.appendChild(carModel);
-        carContainer.appendChild(vehicleType);
-        carContainer.appendChild(bookBtn);
-        vehicleContainer.appendChild(carContainer);
     });
-    //TODO AFTER all cars are added to result edit this to match classnames
+    //add cars to result
+    vehicleContainer.appendChild(carTable);
+
+    //when all cars are added add listeners
     addClickListenerForCars();
+
 }
 
+//prevents not allowed values in query
 function preventNullInQuery(names,values){
     let query = "";
     values.forEach((val,i)=>{
@@ -296,7 +345,7 @@ function preventNullInQuery(names,values){
     return query;
 }
 
-
+//login
 function loginOnClick(){
     if(isLogedin){
 
@@ -306,18 +355,18 @@ function loginOnClick(){
 
     let input = document.getElementById("loginInput").value;
 
+    //check if ADMIN or user
     if(input === "ADMIN"){
-        //TODO if input is ADMIN render admin page and do NOT run findByQuery
         console.log("is admin");
         findByQuery("admin");
         window.location.href = 'http://localhost:3000/olssonsfordonab/admin';
     }else{
-        //TODO add callback instead of console.log
         findByQuery("login",`personnr=${input}`,handleLogin);
     }
 
 }
 
+//log in existing user or create new
 function handleLogin(result){
     console.log(result);
     let input = document.getElementById("loginInput");
@@ -330,7 +379,13 @@ function handleLogin(result){
         }
         return 0;
     }
-    //TODO LOGIN USER EVEN IF THEY*RE NEW
+
+    //if logedin user has rented a car show cancel cars button
+    let rentedCar = result.rented;
+    if(rentedCar !== null){
+        cancelCar.style.visibility = "visible";
+    }
+
     input.hidden = true;
     login.textContent = "Logout: " + result.name;
     login.style.width = "200px";
@@ -339,6 +394,7 @@ function handleLogin(result){
     localStorage.setItem("logedIn", JSON.stringify(result));
 }
 
+//if user was sucessfully saved
 function userIsSaved(result){
     let input = document.getElementById("loginInput");
     if(result.saved){
@@ -351,6 +407,7 @@ function userIsSaved(result){
     }
 }
 
+//logout
 function logout(){
 
     let input = document.getElementById("loginInput");
@@ -360,14 +417,28 @@ function logout(){
     isLogedin = false;
     console.log(login.attributes["data-logedin"]);
     localStorage.removeItem("logedIn");
+    cancelCar.style.visibility = "hidden";
 }
 
+//  cancel booking function
+function cancelBooking() {
+    let logedIn = JSON.parse(localStorage.getItem("logedIn"));
+    findByQuery("update/cancelBooking",`carId=${logedIn.bookedCar}&personnr=${logedIn.personnr}`);
+    logedIn.rented = null;
+    localStorage.setItem("logedIn", JSON.stringify(logedIn));
+    alert("your car booking is now canceled");
+    cancelCar.style.visibility = "hidden";
+}
+
+//cancel booked car
 function calcRentalPeriod(start, finish){
-    let diff = Date.parse(start) - Date.parse(finish);
+    let diff = (Date.parse(start) - Date.parse(finish));
+    diff = diff > 0 ? diff : diff*-1;
     return diff / ( 1000 * 60 * 60 * 24 ); //millisec, min, hour, day
 
 }
 
+//check if a user is already signed in
 function checkIfLogedin(){
     if(localStorage.getItem("logedIn") !== (undefined || null) ){
         let input = document.getElementById("loginInput");
@@ -375,3 +446,9 @@ function checkIfLogedin(){
         loginOnClick();
     }
 }
+
+//create new element
+function createElm(elm){
+    return document.createElement(""+elm);
+}
+

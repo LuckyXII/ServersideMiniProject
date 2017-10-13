@@ -2,17 +2,22 @@ const
     express = require("express"),
     router = express.Router(),
     carController = require("../controllers/carModelController"),
-    customerController = require("../controllers/customerModelController"),
-    dataHolderController = require("../controllers/dataHolderController");
+    customerController = require("../controllers/customerModelController");
 
 //default Route
 router
     .get("/", carController.getAllCars)
     .post("/", customerController.customerBooking);
 
+//update
+router
+    .get("/update/cancelBooking", customerController.cancelBooking);
+
 //Admin Route
 router
     .get("/admin",carController.getAllCarsAdmin)
+    .get("/admin/delete", carController.deleteCars)
+    .get("admin/update", carController.updateCars)
     .post("/admin");
 
 //Confirmation Route
@@ -33,11 +38,10 @@ router
 //Login
 router
     .get("/login", customerController.checkIfCustomerExist)
-    .get("/login/createNewUser",customerController.createUser)
-    .get("/login/*");
+    .get("/login/createNewUser",customerController.createUser);
 
 
-//Wildcard Route
+//Wildcard Route //TODO error route 404
 /*
 router
     .get("/!*",carController.getCarsByQuery)

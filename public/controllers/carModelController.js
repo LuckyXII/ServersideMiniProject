@@ -1,24 +1,92 @@
 const
     car = require("../models/carModel"),
-    resultDataHolder = require("../models/resultDataHolderModel");
+    resultDataHolder = require("../models/resultDataHolderModel"),
+    ObjectId = require('mongodb').ObjectId;
 
-
-function getAllCars(req,res){
+//delete car
+function deleteCars(req, res){
+    let
+        id = req.query.id,
+        ID = new ObjectId(id);
     car
-        .find({})
+        .deleteOne({"_id": ID})
         .exec()
-        .then((cars)=>{
-            //console.log(cars);
-            res.render("index",{
-                content: cars
-            });
-            //TODO Add view file, replace BLOCKNAME
+        .then((result)=>{
+            console.log(result);
         })
         .catch((err)=>{
             console.log(err);
         });
 }
 
+    
+// update cars as admin
+function updateCars(req,res) {
+	console.log("inne i updateCars")
+    let id = req.query.id,
+        ID = new ObjectId(id)
+		console.log('ID____"" '+id)
+    car
+    .updateOne({"_id":ID}, {
+        requiredDrivingLicense: req.query.reqLicense,
+    fordonstyp:{
+        type:req.query.fordonstyp,
+        required: true
+    },
+    brand:{
+        type:req.query.brand,
+        required:true
+    },
+    model:{
+        type:req.query.model,
+        required:true
+    },
+    year: req.query.year,
+    gearbox:req.query.gearbox,
+    dagshyra: {
+        type:req.query.dagshyra,
+        required: true
+    },
+    fuel: req.query.fuel,
+    imgLink: req.query.image,
+    kommentarer: {
+        skador: req.query.skador
+    },
+    status:{
+        isAvailable:{
+            type: req.query.isAvailable,
+            required: true
+        }
+        
+    }}, {upsert:true})
+    .exec()
+    .then((result)=>{
+        console.log("kommer hit"+result);
+        res.json(result);
+    })
+    .catch((err)=>{
+		        console.log("kommer hit"+Fail);
+        console.log(err);
+    });
+}
+
+//TODO should all cars be visible before date sort?
+// get all cars from database to index view
+function getAllCars(req,res){
+    car
+        .find({})
+        .exec()
+        .then((cars)=>{
+            res.render("index",{
+                content: cars
+            });
+        })
+        .catch((err)=>{
+            console.log(err);
+        });
+}
+
+//get all cars and send to admin page
 function getAllCarsAdmin(req,res){
     car
         .find({})
@@ -28,7 +96,6 @@ function getAllCarsAdmin(req,res){
             res.render("admin",{
                 content: cars
             });
-            //TODO Add view file, replace BLOCKNAME
         })
         .catch((err)=>{
             console.log(err);
@@ -46,7 +113,6 @@ function getCarsByQuery(req, res){
             res.render("index",{
                 content:cars
             });
-            //TODO Add view file, replace BLOCKNAME
         })
         .catch((err)=>{
             console.log(err);
@@ -54,6 +120,10 @@ function getCarsByQuery(req, res){
 }
 
 //find cars that are available between selected dates
+/*
+*dateParser is middleware that parses selected date and date in Database to
+* type Date so that they can be compared
+*/
 function checkAvailableCarsByDate(req,res){
 
     //reset dataholder
@@ -80,7 +150,6 @@ function checkAvailableCarsByDate(req,res){
             let carsAfterSort = [];
             let carIdsAfterSort = [];
             cars.forEach((car)=>{
-                //TODO when rented dates is array isert nested loop for date parsing
                 let rentedArray = car.status.rented;
                 let dateOccupied = [];
 
@@ -132,7 +201,7 @@ function checkAvailableCarsByDate(req,res){
         });
 }
 
-
+//find available cars by any query
 function checkAvailableCarsByQuery(req,res){
 
     let query = req.query;
@@ -151,14 +220,11 @@ function checkAvailableCarsByQuery(req,res){
             //save all _id's in query object
             obj._id = {$in:dataHolder[0].result};
 
-
             car
                 .find(obj)
                 .exec()
                 .then((cars)=>{
                    //console.log("CARS: " + cars);
-                    //console.log( typeof cars);
-                    //TODO append results in resultDiv
                     res.json(cars);
                 })
                 .catch((err)=>{
@@ -174,7 +240,7 @@ function checkAvailableCarsByQuery(req,res){
 
 
 //===================================================
-//Developer Methods
+//Middleware Methods
 
 //Turn string dates YYYY-MM-DD in to date object
 function dateParser(date){
@@ -185,12 +251,15 @@ function dateParser(date){
 //=====================================================
 
 
-
+//Exports
 module.exports = {
     getAllCars:getAllCars,
     getCarsByQuery:getCarsByQuery,
     checkAvailableCarsByDate: checkAvailableCarsByDate,
     checkAvailableCarsByQuery: checkAvailableCarsByQuery,
-    getAllCarsAdmin:getAllCarsAdmin
+    getAllCarsAdmin:getAllCarsAdmin,
+    deleteCars : deleteCars,
+    updateCars: updateCars
+
 
 };

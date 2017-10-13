@@ -23,6 +23,7 @@ h1 {
     color: white;
 }
 
+
 #login{
     top:0;
     right:162px;
@@ -33,6 +34,11 @@ h1 {
     color: white;
     text-align: center;
     border:1px;
+}
+.bookBtn {
+    background-color: #005bef;
+    color: white;
+    cursor: pointer;
 }
 
 .loginSignup{
@@ -114,24 +120,28 @@ h1 {
     display: flex;
 }
 .row img {
-    height: 100px;
-    width: 200px;
+    height: 50px;
+    width: 80px;
 }
 #carInfo {
     font-weight: bold;
     font-size: 1.8em;
     display: flex;
+    top: 0px;
 }
+
 
 #selectBtn {
     background-color: #005bef;
     color: white;
     visibility: hidden;
+    cursor: pointer;
 }
 #searchBtn {
     padding: 4px;
     background-color: #005bef;
     color: white;
+    cursor: pointer;
 }
 /*#############################################################*/
 /*  Confirmation page                                          */
@@ -242,4 +252,9 @@ table#t01 th#tr02 {
     order: 0;
     flex: 0 1 auto;
     align-self: auto;
+}
+
+#resultHeader p{
+    font-size: 0.8em;
+    display: inline;
 }

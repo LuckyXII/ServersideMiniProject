@@ -1,36 +1,104 @@
-const customer = require("../models/customerRentalStatusModel");
+const
+    customer = require("../models/customerRentalStatusModel"),
+    car = require("../models/carModel");
 
-function customerBooking(req,res) {
-    //  make booking available by customer
-    //  selectBtn will fetch data and POST to confirmation view
-    //  check if a search is made, if not view shows message
+//Cancel Booking
+/*
+* Customer sets rented Object to null
+* Car pops last Object in rented Array
+*/
+function cancelBooking(req,res){
+
     let query = req.query;
-
+    let id = query.carId;
+    console.log();
     customer
-        .updateOne({"personnr":query.logedIn},{
-            rented: {$set:{
-                date:query.date,
-                car:query.car,
-                rentalPeriod:{
-                    start: query.rentalPeriod.start,
-                    end: query.rentalPeriod.end
-                },
-                rentalCost:{
-                    day:query.rentalCost.day,
-                    total: query.rentalCost.total
-                }
-            }}
+        .updateOne({"personnr":query.personnr},{
+            $set: {
+                rented:null
+            }
         },{upsert:false})
         .exec()
         .then((result)=>{
-            console.log(result);
+            console.log("REMOVE BOOKING: " + JSON.stringify(result));
             res.json(result);
+        })
+        .catch((err)=> {
+            console.log(err);
+        });
+
+    console.log(id);
+    car
+        .updateOne({"_id":id},{
+            $pop:{
+                "status.rented":1
+            }
+        })
+        .exec()
+        .then((result)=>{
+            console.log("REMOVE BOOKING FROM CAR: " + JSON.stringify(result));
         })
         .catch((err)=> {
             console.log(err);
         });
 }
 
+/*
+* customer updates prop rented with Object containing booking infromation
+* car pushes Object to rented Array with start and end dates
+*/
+function customerBooking(req,res) {
+    
+    console.log(req.method);
+    let query = req.query;
+    let id = query.car;
+    customer
+        .updateOne({"personnr":query.logedIn},{
+            $set: {
+                rented:{
+                    "date":query.date,
+                    "car":query.car,
+                    rentalPeriod:{
+                        start: query.rentalPeriodStart,
+                        end: query.rentalPeriodEnd
+                    },
+                    rentalCost:{
+                        day:query.rentalCostDay,
+                        total: query.rentalCostTotal
+                    }
+                }
+            }
+
+        },{upsert:false})
+        .exec()
+        .then((result)=>{
+            console.log("BOOK CAR: " + JSON.stringify(result));
+            res.json(result);
+        })
+        .catch((err)=> {
+            console.log(err);
+        });
+    
+    console.log(id);
+    car
+        .updateOne({"_id":id},{
+            $push:{
+                "status.rented":{
+                    start: query.rentalPeriodStart,
+                    end: query.rentalPeriodEnd
+                }
+            }
+        })
+        .exec()
+        .then((result)=>{
+            console.log("UPDATE CAR: " + JSON.stringify(result));
+        })
+        .catch((err)=> {
+            console.log(err);
+        });
+}
+
+//create new user
 function createUser(req,res){
     let
         query = req.query,
@@ -51,6 +119,8 @@ function createUser(req,res){
         
 }
 
+//look for customer unique personnr otherwise send
+//results to tell a new user must be created
 function checkIfCustomerExist(req,res){
     let personnr = Number(req.query.personnr);
     console.log("personnr: " + JSON.stringify(personnr));
@@ -70,6 +140,7 @@ function checkIfCustomerExist(req,res){
         });
 }
 
+//find customer by any query
 function getCustomersByQuery(req,res){
     let query = req.query;
     console.log("query: " + JSON.stringify(query));
@@ -85,7 +156,7 @@ function getCustomersByQuery(req,res){
         });
 }
 
-
+//get all customers
 function getAllCustomers(req,res){
     customer
         .find({})
@@ -99,11 +170,12 @@ function getAllCustomers(req,res){
         });
 }
 
-
+//Exports
 module.exports = {
     getAllCustomers : getAllCustomers,
     getCustomersByQuery: getCustomersByQuery,
     createUser: createUser,
     checkIfCustomerExist:checkIfCustomerExist,
-    customerBooking: customerBooking
+    customerBooking: customerBooking,
+    cancelBooking : cancelBooking
 };

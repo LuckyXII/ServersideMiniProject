@@ -1,40 +1,45 @@
 //=======================================================
 //GLOBALS
 const addB = document.getElementById("addB"),
-      login = document.getElementById("login");
+      login = document.getElementById("login"),
+      deleteBtn = document.getElementById("deleteB"),
+      updateBtn = document.getElementById("updateB"),
+      carRows = document.getElementsByClassName('row');
 
 //=======================================================
 //LISTENERS
+//TODO SHOULD THESE BE USED?
 // searchB.addEventListener('click',checkSearch);
 //addB.addEventListener('click',addCar);
 // deleteB.addEventListener('click',);
 // updateB.addEventListener('click',);
   
-const carRows = document.getElementsByClassName('row');
+
 addClickListenerCarRow();
 loginAndLogoutAdmin();
 
 login.addEventListener("click", loginAndLogoutAdmin);
+deleteBtn.addEventListener("click",deleteCar);
+updateBtn.addEventListener("click", updateCar);
+
 //=======================================================
 //FUNCTIONS
 
+//add listeners to all car rows
 function addClickListenerCarRow(){
-
     for(let i = 0; i<carRows.length;i++){
         carRows[i].addEventListener('click',fillEditForm);
        
     }
 }
 
+// login AND out ADMIN
 function loginAndLogoutAdmin(){
-
     let input = document.getElementById("loginInput");
-
     if(login.getAttribute("data-logedin")){
         logout();
         return;
     }
-
 
     input.hidden = true;
     login.textContent = "Logout: ADMIN";
@@ -44,6 +49,7 @@ function loginAndLogoutAdmin(){
 
 }
 
+//logs ADMIN out and sends him to index
 function logout(){
     console.log("LOGOUT!");
     let input = document.getElementById("loginInput");
@@ -55,10 +61,9 @@ function logout(){
     window.location.href = 'http://localhost:3000/olssonsfordonab/';
 }
 
+//fills edit form with values from selected car
 function fillEditForm(e){
     let tableData = e.target.parentNode;
-
-    console.log(tableData.attributes);
     let _id = tableData.attributes["data-id"].value;
     let image = tableData.children[0].children[0].src;
     let fordonstyp = tableData.children[1].textContent;
@@ -93,8 +98,6 @@ function fillEditForm(e){
             console.log("TRUE");
         }
     }
-
-    
     
     let gearboxSelect = formData.children[6].children[1];
     for(let i=0; i<gearboxSelect.children.length; i++ ){
@@ -125,14 +128,42 @@ function fillEditForm(e){
     
 }
 
-//Delete car from database
 
 
-function deleteCar() {
-	let id = document.getElementById('adminForm')
-	findByQuery("damin/delete",`id=${id}}`);
-	
+// update car from database
+function updateCar(e) {
+    e.preventDefault();
+    let tableData = e.target.parentNode;
+    /*let image = tableData.children[0].children[0].src;*/
+    let fordonstyp = document.getElementById('vehicleTypeInput').value;
+     brand = document.getElementById('brandInput').value,
+     model = document.getElementById('modelInput').value,
+     year = document.getElementById('date').value,
+     fuel = document.getElementById('fuel').options[fuel.selectedIndex].value,
+		 console.log("FUEL::: ", fuel)
+     gearbox = document.getElementById('gearboxFormSelect').value,
+     reqLicense = document.getElementById('licence').value,
+     dagsHyra = document.getElementById('price').value,
+     isAvailable = document.getElementById('isAvailable').value,
+     //skador = document.getElementById('comment').value,
+     id = document.getElementById("idHolder").textContent;
+	console.log("Table brand: "+brand);
+    
+    let query =`id=${id}&brand=${brand}&image=${null/*image*/}&fordonstyp=${fordonstyp}&model=${model}&year=${year}&fuel=${fuel}&gearbox=${gearbox}&reqLicense=${reqLicense}&dagshyra=${dagsHyra}&isAvailable=${isAvailable}`;
+    findByQuery("admin/update",query);
+    console.log("ID:: "+id);
+	console.log('QUERY:::'+query)
 }
+
+//delete car
+function deleteCar(e){
+	e.preventDefault()
+    let id = document.getElementById("idHolder").textContent;
+	console.log(id)
+    findByQuery("admin/delete",`id=${id}`);
+	window.location.href='/olssonsfordonab/admin'
+}
+
 
 function findByQuery(router,query="",callback){
 
@@ -149,8 +180,10 @@ function findByQuery(router,query="",callback){
         .catch((err)=>{
             console.log(err);
         });
-
 }
+
+
+
 	/*
 	
 	app.get("/adminn/delete" , carController.deleteCar)
@@ -166,4 +199,4 @@ function findByQuery(router,query="",callback){
  message. result.response.deletecount =	}
 	
 	res.json(result)*/
-	
+
