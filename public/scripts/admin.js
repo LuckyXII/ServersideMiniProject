@@ -127,9 +127,16 @@ function fillEditForm(e){
 
 //Delete car from database
 
+
+function deleteCar() {
+	let id = document.getElementById('adminForm')
+	findByQuery("damin/delete",`id=${id}}`);
+	
+}
+
 function findByQuery(router,query="",callback){
 
-    fetch(`${router}/?${query}`)
+    fetch(`${router}/?${query}`, )
         .then((response)=> {
             console.log(response);
             return response.json();
@@ -143,10 +150,20 @@ function findByQuery(router,query="",callback){
             console.log(err);
         });
 
-findByQuery("damin/update",`id=${id}}`,findUniquePropertyValue);
+}
+	/*
 	
+	app.get("/adminn/delete" , carController.deleteCar)
 	
-	.get("/adminn/delete" , carController.deleteCar)
+	}
+	function callback(result) {
+		findByQuery("admin/delete",`id=${id}}`);
 	
+	function callback(result) {
+		result.leng>0 {
+		findByQurey("admin")	
+		} 
+ message. result.response.deletecount =	}
 	
+	res.json(result)*/
 	
