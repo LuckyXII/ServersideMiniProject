@@ -37,18 +37,20 @@ cancelCar.addEventListener("click", cancelBooking);
 //rent car
 function rentCar(e){
     e.preventDefault();
-
     //can only rent if loged in
+
     if(localStorage.getItem("logedIn") === (undefined || null) ){
         return;
     }
-
+	
     let
         id = e.target.attributes['data-id'],
         logedIn = JSON.parse(localStorage.getItem("logedIn")),
         rent = e.target.parentNode.children[8].textContent,
         totalRent = rent * calcRentalPeriod(dateStart.value, dateEnd.value),
         d = new Date();
+
+		console.log(logedIn)
 
     let rentInfo = {
           logedIn:logedIn.personnr,
@@ -63,7 +65,7 @@ function rentCar(e){
               total: totalRent,
           }
     };
-
+	console.log(rentInfo)
     //update logedin with rented car
     logedIn.bookedCar = rentInfo.car;
     localStorage.setItem("logedIn",JSON.stringify(logedIn));
@@ -93,7 +95,6 @@ function rentCar(e){
 function addClickListenerForCars() {
     //TODO add correct className and make sure data-id path is correct in rentCar
     let cars = document.getElementsByClassName("bookBtn");
-    console.log(cars);
     for(let i = 0; i < cars.length; i++){
         cars[i].addEventListener("click", rentCar);
     }
@@ -368,14 +369,15 @@ function loginOnClick(){
 
 //log in existing user or create new
 function handleLogin(result){
-    console.log(result);
     let input = document.getElementById("loginInput");
     if(result.length === 0){
         
         if(/^\d{6,8}[-|(\s)]{0,1}\d{4}$/.test(input.value)){
             let name = prompt("Welcome new user we will create an account for you, please enter your name");
             console.log(name);
+			console.log(input.value)
             findByQuery("login/createNewUser",`personnr=${input.value}&name=${name}`,userIsSaved);
+			console.log("Efter FindByQ på 381")
         }
         return 0;
     }
@@ -396,6 +398,8 @@ function handleLogin(result){
 
 //if user was sucessfully saved
 function userIsSaved(result){
+	console.log("userIsSaved at 402")
+	console.log(result)
     let input = document.getElementById("loginInput");
     if(result.saved){
         input.hidden = true;
