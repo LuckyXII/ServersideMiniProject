@@ -2,9 +2,13 @@ const
     customer = require("../models/customerRentalStatusModel"),
     car = require("../models/carModel");
 
-
+//Cancel Booking
+/*
+* Customer sets rented Object to null
+* Car pops last Object in rented Array
+*/
 function cancelBooking(req,res){
-    console.log(req.method);
+
     let query = req.query;
     let id = query.carId;
     console.log();
@@ -39,6 +43,10 @@ function cancelBooking(req,res){
         });
 }
 
+/*
+* customer updates prop rented with Object containing booking infromation
+* car pushes Object to rented Array with start and end dates
+*/
 function customerBooking(req,res) {
     
     console.log(req.method);
@@ -90,6 +98,7 @@ function customerBooking(req,res) {
         });
 }
 
+//create new user
 function createUser(req,res){
     let
         query = req.query,
@@ -110,6 +119,8 @@ function createUser(req,res){
         
 }
 
+//look for customer unique personnr otherwise send
+//results to tell a new user must be created
 function checkIfCustomerExist(req,res){
     let personnr = Number(req.query.personnr);
     console.log("personnr: " + JSON.stringify(personnr));
@@ -129,6 +140,7 @@ function checkIfCustomerExist(req,res){
         });
 }
 
+//find customer by any query
 function getCustomersByQuery(req,res){
     let query = req.query;
     console.log("query: " + JSON.stringify(query));
@@ -144,7 +156,7 @@ function getCustomersByQuery(req,res){
         });
 }
 
-
+//get all customers
 function getAllCustomers(req,res){
     customer
         .find({})
@@ -158,7 +170,7 @@ function getAllCustomers(req,res){
         });
 }
 
-
+//Exports
 module.exports = {
     getAllCustomers : getAllCustomers,
     getCustomersByQuery: getCustomersByQuery,

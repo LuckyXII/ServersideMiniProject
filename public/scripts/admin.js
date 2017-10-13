@@ -3,17 +3,18 @@
 const addB = document.getElementById("addB"),
       login = document.getElementById("login"),
       deleteBtn = document.getElementById("deleteB"),
-      updateBtn = document.getElementById("updateB");
-
+      updateBtn = document.getElementById("updateB"),
+      carRows = document.getElementsByClassName('row');
 
 //=======================================================
 //LISTENERS
+//TODO SHOULD THESE BE USED?
 // searchB.addEventListener('click',checkSearch);
 //addB.addEventListener('click',addCar);
 // deleteB.addEventListener('click',);
 // updateB.addEventListener('click',);
   
-const carRows = document.getElementsByClassName('row');
+
 addClickListenerCarRow();
 loginAndLogoutAdmin();
 
@@ -24,23 +25,21 @@ updateBtn.addEventListener("click", updateCar);
 //=======================================================
 //FUNCTIONS
 
+//add listeners to all car rows
 function addClickListenerCarRow(){
-
     for(let i = 0; i<carRows.length;i++){
         carRows[i].addEventListener('click',fillEditForm);
        
     }
 }
 
+// login AND out ADMIN
 function loginAndLogoutAdmin(){
-
     let input = document.getElementById("loginInput");
-
     if(login.getAttribute("data-logedin")){
         logout();
         return;
     }
-
 
     input.hidden = true;
     login.textContent = "Logout: ADMIN";
@@ -50,6 +49,7 @@ function loginAndLogoutAdmin(){
 
 }
 
+//logs ADMIN out and sends him to index
 function logout(){
     console.log("LOGOUT!");
     let input = document.getElementById("loginInput");
@@ -61,6 +61,7 @@ function logout(){
     window.location.href = 'http://localhost:3000/olssonsfordonab/';
 }
 
+//fills edit form with values from selected car
 function fillEditForm(e){
     let tableData = e.target.parentNode;
 
@@ -99,8 +100,6 @@ function fillEditForm(e){
             console.log("TRUE");
         }
     }
-
-    
     
     let gearboxSelect = formData.children[6].children[1];
     for(let i=0; i<gearboxSelect.children.length; i++ ){
@@ -130,6 +129,8 @@ function fillEditForm(e){
     commentInputValue.textContent = skador;
     
 }
+
+
 // update car from database
 function updateCar(e) {
     e.preventDefault();
@@ -152,13 +153,13 @@ function updateCar(e) {
     console.log(id);
 }
 
-
+//delete car
 function deleteCar(){
     let id = document.getElementById("adminForm").lastElementChild.textContent;
     findByQuery("admin/delete",`id=${id}`);
 }
 
-//Delete car from database
+//fetch method get
 function findByQuery(router,query="",callback){
 
     fetch(`${router}/?${query}`)

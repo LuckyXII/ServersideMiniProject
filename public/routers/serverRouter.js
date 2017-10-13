@@ -2,8 +2,7 @@ const
     express = require("express"),
     router = express.Router(),
     carController = require("../controllers/carModelController"),
-    customerController = require("../controllers/customerModelController"),
-    dataHolderController = require("../controllers/dataHolderController");
+    customerController = require("../controllers/customerModelController");
 
 //default Route
 router
@@ -42,7 +41,7 @@ router
     .get("/login/createNewUser",customerController.createUser);
 
 
-//Wildcard Route
+//Wildcard Route //TODO error route 404
 /*
 router
     .get("/!*",carController.getCarsByQuery)

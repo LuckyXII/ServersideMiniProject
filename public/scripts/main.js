@@ -20,7 +20,6 @@ var dateStartValue, dateEndValue, isLogedin = false;
 //=======================================================
 //CLASSES
 
-
 //=======================================================
 //MAIN
 checkIfLogedin();
@@ -35,8 +34,11 @@ cancelCar.addEventListener("click", cancelBooking);
 //=======================================================
 //FUNCTIONS
 
+//rent car
 function rentCar(e){
     e.preventDefault();
+
+    //can only rent if loged in
     if(localStorage.getItem("logedIn") === (undefined || null) ){
         return;
     }
@@ -62,10 +64,11 @@ function rentCar(e){
           }
     };
 
+    //update logedin with rented car
     logedIn.bookedCar = rentInfo.car;
-    console.log(logedIn);
     localStorage.setItem("logedIn",JSON.stringify(logedIn));
 
+    //query
     let query = `${URL_BASE}?logedIn=${rentInfo.logedIn}&date=${rentInfo.date}&car=${rentInfo.car}&rentalPeriodStart=${rentInfo.rentalPeriod.start}&rentalPeriodEnd=${rentInfo.rentalPeriod.end}&rentalCostDay=${rentInfo.rentalCost.day}&rentalCostTotal=${rentInfo.rentalCost.total}`;
 
     let init = {
@@ -77,6 +80,7 @@ function rentCar(e){
     	return response.json();
     })
     .then((result)=> {
+        //show cancel booking button
         console.log(result);
         console.log("VISIBLE");
         cancelCar.style.visibility = "visible";
@@ -85,15 +89,11 @@ function rentCar(e){
 
 }
 
+//add clicklistener to all cars
 function addClickListenerForCars() {
     //TODO add correct className and make sure data-id path is correct in rentCar
     let cars = document.getElementsByClassName("bookBtn");
     console.log(cars);
-    /*cars.forEach((car) => {
-        console.log(car);
-
-    });
-    */
     for(let i = 0; i < cars.length; i++){
         cars[i].addEventListener("click", rentCar);
     }
@@ -101,7 +101,7 @@ function addClickListenerForCars() {
 }
 
 
-
+//find available cars by query
 function checkAvailabillityByQuery(e){
     e.preventDefault();
 
@@ -117,6 +117,7 @@ function checkAvailabillityByQuery(e){
 
 }
 
+//sort by date
 function checkAvailabillityByDate(e){
     dateStartValue = dateStart.value;
     dateEndValue = dateEnd.value;
@@ -243,7 +244,8 @@ function addCarsToResult(result) {
     carInfo.style.display = "none";
 
     let carTable = document.getElementById("t01");
-    
+
+    //create car row
     result.forEach((car) => {
         
         let tr = createElm("tr");
@@ -311,15 +313,16 @@ function addCarsToResult(result) {
 
         carTable.appendChild(tr);
 
-
-
     });
+    //add cars to result
     vehicleContainer.appendChild(carTable);
 
+    //when all cars are added add listeners
     addClickListenerForCars();
 
 }
 
+//prevents not allowed values in query
 function preventNullInQuery(names,values){
     let query = "";
     values.forEach((val,i)=>{
@@ -342,7 +345,7 @@ function preventNullInQuery(names,values){
     return query;
 }
 
-
+//login
 function loginOnClick(){
     if(isLogedin){
 
@@ -352,18 +355,18 @@ function loginOnClick(){
 
     let input = document.getElementById("loginInput").value;
 
+    //check if ADMIN or user
     if(input === "ADMIN"){
-        //TODO if input is ADMIN render admin page and do NOT run findByQuery
         console.log("is admin");
         findByQuery("admin");
         window.location.href = 'http://localhost:3000/olssonsfordonab/admin';
     }else{
-        //TODO add callback instead of console.log
         findByQuery("login",`personnr=${input}`,handleLogin);
     }
 
 }
 
+//log in existing user or create new
 function handleLogin(result){
     console.log(result);
     let input = document.getElementById("loginInput");
@@ -377,8 +380,8 @@ function handleLogin(result){
         return 0;
     }
 
+    //if logedin user has rented a car show cancel cars button
     let rentedCar = result.rented;
-
     if(rentedCar !== null){
         cancelCar.style.visibility = "visible";
     }
@@ -391,6 +394,7 @@ function handleLogin(result){
     localStorage.setItem("logedIn", JSON.stringify(result));
 }
 
+//if user was sucessfully saved
 function userIsSaved(result){
     let input = document.getElementById("loginInput");
     if(result.saved){
@@ -403,6 +407,7 @@ function userIsSaved(result){
     }
 }
 
+//logout
 function logout(){
 
     let input = document.getElementById("loginInput");
@@ -414,8 +419,9 @@ function logout(){
     localStorage.removeItem("logedIn");
     cancelCar.style.visibility = "hidden";
 }
+
 //  cancel booking function
-function cancelBooking(e) {
+function cancelBooking() {
     let logedIn = JSON.parse(localStorage.getItem("logedIn"));
     findByQuery("update/cancelBooking",`carId=${logedIn.bookedCar}&personnr=${logedIn.personnr}`);
     logedIn.rented = null;
@@ -424,6 +430,7 @@ function cancelBooking(e) {
     cancelCar.style.visibility = "hidden";
 }
 
+//cancel booked car
 function calcRentalPeriod(start, finish){
     let diff = (Date.parse(start) - Date.parse(finish));
     diff = diff > 0 ? diff : diff*-1;
@@ -431,6 +438,7 @@ function calcRentalPeriod(start, finish){
 
 }
 
+//check if a user is already signed in
 function checkIfLogedin(){
     if(localStorage.getItem("logedIn") !== (undefined || null) ){
         let input = document.getElementById("loginInput");
@@ -439,6 +447,7 @@ function checkIfLogedin(){
     }
 }
 
+//create new element
 function createElm(elm){
     return document.createElement(""+elm);
 }
