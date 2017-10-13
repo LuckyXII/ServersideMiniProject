@@ -241,7 +241,7 @@ function findUniquePropertyValue(result){
 // show ALL cars available after search
 function addCarsToResult(result) {
     
-    //console.log('available Cars: ' + JSON.stringify(result));
+    
     carInfo.style.display = "none";
 
     let carTable = document.getElementById("t01");
@@ -327,7 +327,7 @@ function addCarsToResult(result) {
 function preventNullInQuery(names,values){
     let query = "";
     values.forEach((val,i)=>{
-        //console.log(val + " : " + (val !== "Gearbox"));
+        
         if(
             (val !== null || val !== undefined) &&
             val !== "Gearbox" && val !== "VehicleType" &&

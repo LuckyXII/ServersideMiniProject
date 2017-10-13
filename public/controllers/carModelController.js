@@ -61,16 +61,15 @@ function updateCars(req,res) {
     }}, {upsert:true})
     .exec()
     .then((result)=>{
-        console.log("kommer hit"+result);
+        console.log("Update Car Admin" + JSON.stringify(result))
         res.json(result);
     })
     .catch((err)=>{
-		        console.log("kommer hit"+Fail);
+		        
         console.log(err);
     });
 }
 
-//TODO should all cars be visible before date sort?
 // get all cars from database to index view
 function getAllCars(req,res){
     car
