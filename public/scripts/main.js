@@ -49,6 +49,7 @@ function rentCar(e){
         rent = e.target.parentNode.children[8].textContent,
         totalRent = rent * calcRentalPeriod(dateStart.value, dateEnd.value),
         d = new Date();
+    console.log("rent: "+ rent)
 
     let rentInfo = {
           logedIn:logedIn.personnr,
