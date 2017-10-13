@@ -134,7 +134,6 @@ function updateCar(e) {
     e.preventDefault();
 
     let tableData = e.target.parentNode;
-    /*let image = tableData.children[0].children[0].src;*/
     let fordonstyp = document.getElementById('vehicleTypeInput').value;
      brand = document.getElementById('brandInput').value,
      model = document.getElementById('modelInput').value,
@@ -144,10 +143,10 @@ function updateCar(e) {
      reqLicense = document.getElementById('licence').value,
      dagsHyra = document.getElementById('price').value,
      isAvailable = document.getElementById('isAvailable').value,
-     //skador = document.getElementById('comment').value,
      id = document.getElementById("idHolder").textContent;
-	console.log("Table brand: "+brand);
+	 console.log("Table brand: "+brand);
     
+
     let query =`id=${id}&brand=${brand}&fordonstyp=${fordonstyp}&model=${model}&year=${year}&fuel=${fuel}&gearbox=${gearbox}&reqLicense=${reqLicense}&dagsHyra=${dagsHyra}&isAvailable=${isAvailable}`;
     findByQuery("admin/update",query);
     console.log("ID:: "+id);
@@ -181,22 +180,4 @@ function findByQuery(router,query="",callback){
             console.log(err);
         });
 }
-
-
-
-	/*
-	
-	app.get("/adminn/delete" , carController.deleteCar)
-	
-	}
-	function callback(result) {
-		findByQuery("admin/delete",`id=${id}}`);
-	
-	function callback(result) {
-		result.leng>0 {
-		findByQurey("admin")	
-		} 
- message. result.response.deletecount =	}
-	
-	res.json(result)*/
 

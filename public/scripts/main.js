@@ -50,7 +50,6 @@ function rentCar(e){
         rent = e.target.parentNode.children[8].textContent,
         totalRent = rent * calcRentalPeriod(dateStart.value, dateEnd.value),
         d = new Date();
-    console.log("rent: "+ rent)
 
 		console.log(logedIn)
 
@@ -244,7 +243,7 @@ function findUniquePropertyValue(result){
 // show ALL cars available after search
 function addCarsToResult(result) {
     
-    //console.log('available Cars: ' + JSON.stringify(result));
+    
     carInfo.style.display = "none";
 
     let carTable = document.getElementById("t01");
@@ -330,7 +329,7 @@ function addCarsToResult(result) {
 function preventNullInQuery(names,values){
     let query = "";
     values.forEach((val,i)=>{
-        //console.log(val + " : " + (val !== "Gearbox"));
+        
         if(
             (val !== null || val !== undefined) &&
             val !== "Gearbox" && val !== "VehicleType" &&

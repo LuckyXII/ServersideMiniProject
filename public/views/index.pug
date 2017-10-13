@@ -3,24 +3,24 @@ block content
     
     div(class="formContent")
         form(id="dateForm")
-            label(for="fname") Start datum:
+            label(for="fname") Start date:
             input(type="date" name="dateStart")
-            label(for="lname") Slut datum:
+            label(for="lname") End date:
             input(type="date" name="dateEnd")
-        form(id="filterForm" ) Alternativ:
+        form(id="filterForm" ) Options:
             select(id="vehicleType")
-                option(value=""  selected) Fordonstyp
+                option(value=""  selected) Vehicletype
             select(id="brand" )
-                option(value=""  selected) Märke
+                option(value=""  selected) Brand
             select(id="model" )
-                option(value=""  selected) Modell
+                option(value=""  selected) Model
             select(id="gearbox" )
-                option(value=""  selected) Växellåda
-            button(id="searchBtn" disabled=true title="date must be selected" ) Sök
+                option(value=""  selected) Gearbox
+            button(id="searchBtn" disabled=true title="date must be selected" ) Search
         
         form(class="infoContent" id="submitForm"  )
             div(class="row" id="vehicleContainer")
-                div(id="carInfo") Välkommen till Olssons Fordon AB sök i menyn för att få fram ett fordon som passar just dig.
+                div(id="carInfo") Wellcome to Olsson Fordon AB select dates and options in the form and search for your ride.
                 div.flex-item#searchResults
 
                     table#t01(style = "width:100%")
