@@ -150,24 +150,21 @@ function updateCar(e) {
     
     let query =`id=${id}&brand=${brand}&fordonstyp=${fordonstyp}&model=${model}&year=${year}&fuel=${fuel}&gearbox=${gearbox}&reqLicense=${reqLicense}&dagsHyra=${dagsHyra}&isAvailable=${isAvailable}`;
     findByQuery("admin/update",query);
-    console.log("ID:: "+id);
-	console.log('QUERY:::'+query)
+
 
 }
 
 //delete car
 function deleteCar(e){
-	e.preventDefault()
+	e.preventDefault();
     let id = document.getElementById("idHolder").textContent;
-	console.log(id)
     findByQuery("admin/delete",`id=${id}`);
-	window.location.href='/olssonsfordonab/admin'
+	window.location.href='/olssonsfordonab/admin';
 }
 
 
 function findByQuery(router,query="",callback){
-	console.log("ddsadsadsa : "+`${router}/?${query}`)
-    fetch(`${router}/?${query}`, )
+    fetch(`${router}/?${query}`)
         .then((response)=> {
             console.log(response);
             return response.json();
