@@ -22,52 +22,33 @@ function deleteCars(req, res){
     
 // update cars as admin
 function updateCars(req,res) {
-	console.log("inne i updateCars")
+	console.log("inne i updateCars");
     let id = req.query.id,
-        ID = new ObjectId(id)
-		console.log('ID____"" '+id)
+        ID = new ObjectId(id);
+		console.log(req.query);
     car
-    .updateOne({"_id":ID}, {
-        requiredDrivingLicense: req.query.reqLicense,
-    fordonstyp:{
-        type:req.query.fordonstyp,
-        required: true
-    },
-    brand:{
-        type:req.query.brand,
-        required:true
-    },
-    model:{
-        type:req.query.model,
-        required:true
-    },
-    year: req.query.year,
-    gearbox:req.query.gearbox,
-    dagshyra: {
-        type:req.query.dagshyra,
-        required: true
-    },
-    fuel: req.query.fuel,
-    imgLink: req.query.image,
-    kommentarer: {
-        skador: req.query.skador
-    },
-    status:{
-        isAvailable:{
-            type: req.query.isAvailable,
-            required: true
-        }
-        
-    }}, {upsert:true})
-    .exec()
-    .then((result)=>{
-        console.log("kommer hit"+result);
-        res.json(result);
-    })
-    .catch((err)=>{
-		        console.log("kommer hit"+Fail);
-        console.log(err);
-    });
+        .updateOne({"_id":ID}, {
+            $set:{
+                "requiredDrivingLicense": req.query.reqLicense,
+                "fordonstyp":req.query.fordonstyp,
+                "brand":req.query.brand,
+                "model": req.query.model,
+                "year": req.query.year,
+                "gearbox":req.query.gearbox,
+                "dagshyra":req.query.dagsHyra,
+                "fuel": req.query.fuel,
+                "kommentarer.skador":req.query.skador,
+                "status.isAvailable":req.query.isAvailable
+        }}, {upsert:true})
+        .exec()
+        .then((result)=>{
+            console.log("update car status: "+JSON.stringify(result));
+            res.json(result);
+        })
+        .catch((err)=>{
+            console.log("update car error");
+            console.log(err);
+        });
 }
 
 //TODO should all cars be visible before date sort?
@@ -92,7 +73,7 @@ function getAllCarsAdmin(req,res){
         .find({})
         .exec()
         .then((cars)=>{
-            console.log(cars);
+            //console.log(cars);
             res.render("admin",{
                 content: cars
             });

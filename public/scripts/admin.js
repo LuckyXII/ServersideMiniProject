@@ -135,11 +135,11 @@ function updateCar(e) {
 
     let tableData = e.target.parentNode;
     /*let image = tableData.children[0].children[0].src;*/
-    let fordonstyp = document.getElementById('vehicleTypeInput').value;
+    let fordonstyp = document.getElementById('vehicleTypeInput').value,
      brand = document.getElementById('brandInput').value,
      model = document.getElementById('modelInput').value,
      year = document.getElementById('date').value,
-     fuel = document.getElementById('fuel').options[fuel.selectedIndex].value,
+     fuel = document.getElementById('fuel').selectedOptions[0].value,
      gearbox = document.getElementById('gearboxFormSelect').value,
      reqLicense = document.getElementById('licence').value,
      dagsHyra = document.getElementById('price').value,
