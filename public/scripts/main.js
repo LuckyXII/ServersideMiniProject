@@ -12,7 +12,8 @@ const
     carInfo = document.getElementById("carInfo"),
     selectGearbox = document.getElementById("gearbox"),
     cancelCar = document.getElementById("cancelCar"),
-    vehicleContainer = document.getElementById("searchResults");
+    vehicleContainer = document.getElementById("searchResults"),
+	dateBooked = document.getElementById("dateBooked");
     
     
 
@@ -85,7 +86,8 @@ function rentCar(e){
     .then((result)=> {
         //show cancel booking button
         console.log(result);
-        console.log("VISIBLE");
+		dateBooked.style.visibility ="visible";
+		dateBooked.textContent = rentInfo.rentalPeriod.start +" "+rentInfo.rentalPeriod.end;
         cancelCar.style.visibility = "visible";
     	
     });
