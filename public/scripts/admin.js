@@ -4,7 +4,8 @@ const addB = document.getElementById("addB"),
       login = document.getElementById("login"),
       deleteBtn = document.getElementById("deleteB"),
       updateBtn = document.getElementById("updateB"),
-      carRows = document.getElementsByClassName('row');
+      carRows = document.getElementsByClassName('row'),
+	  URL_BASE = "olssonsfordonab/update";
 
 //=======================================================
 //LISTENERS
@@ -139,7 +140,6 @@ function updateCar(e) {
      model = document.getElementById('modelInput').value,
      year = document.getElementById('date').value,
      fuel = document.getElementById('fuel').options[fuel.selectedIndex].value,
-		 console.log("FUEL::: ", fuel)
      gearbox = document.getElementById('gearboxFormSelect').value,
      reqLicense = document.getElementById('licence').value,
      dagsHyra = document.getElementById('price').value,
@@ -148,7 +148,7 @@ function updateCar(e) {
      id = document.getElementById("idHolder").textContent;
 	console.log("Table brand: "+brand);
     
-    let query =`id=${id}&brand=${brand}&image=${null/*image*/}&fordonstyp=${fordonstyp}&model=${model}&year=${year}&fuel=${fuel}&gearbox=${gearbox}&reqLicense=${reqLicense}&dagshyra=${dagsHyra}&isAvailable=${isAvailable}`;
+    let query =`id=${id}&brand=${brand}&fordonstyp=${fordonstyp}&model=${model}&year=${year}&fuel=${fuel}&gearbox=${gearbox}&reqLicense=${reqLicense}&dagsHyra=${dagsHyra}&isAvailable=${isAvailable}`;
     findByQuery("admin/update",query);
     console.log("ID:: "+id);
 	console.log('QUERY:::'+query)
@@ -166,7 +166,7 @@ function deleteCar(e){
 
 
 function findByQuery(router,query="",callback){
-
+	console.log("ddsadsadsa : "+`${router}/?${query}`)
     fetch(`${router}/?${query}`, )
         .then((response)=> {
             console.log(response);

@@ -388,7 +388,9 @@ function handleLogin(result){
     //if logedin user has rented a car show cancel cars button
     let rentedCar = result.rented;
     if(rentedCar !== null && rentedCar !== undefined){
-        console.log(rentedCar);
+        console.log(rentedCar.rentalPeriod.end);
+		dateBooked.style.visibility ="visible";
+		dateBooked.textContent = rentedCar.rentalPeriod.start +" "+ rentedCar.rentalPeriod.end;
         cancelCar.style.visibility = "visible";
     }
 
@@ -426,6 +428,7 @@ function logout(){
     console.log(login.attributes["data-logedin"]);
     localStorage.removeItem("logedIn");
     cancelCar.style.visibility = "hidden";
+	dateBooked.style.visibility ="hidden";
 }
 
 //  cancel booking function
@@ -436,6 +439,7 @@ function cancelBooking() {
     localStorage.setItem("logedIn", JSON.stringify(logedIn));
     alert("your car booking is now canceled");
     cancelCar.style.visibility = "hidden";
+	dateBooked.style.visibility ="hidden";
 }
 
 //cancel booked car
