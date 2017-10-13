@@ -22,8 +22,10 @@ function deleteCars(req, res){
     
 // update cars as admin
 function updateCars(req,res) {
+	console.log("inne i updateCars")
     let id = req.query.id,
         ID = new ObjectId(id)
+		console.log('ID____"" '+id)
     car
     .updateOne({"_id":ID}, {
         requiredDrivingLicense: req.query.reqLicense,
@@ -56,13 +58,14 @@ function updateCars(req,res) {
             required: true
         }
         
-    }}, {upsert:false})
+    }}, {upsert:true})
     .exec()
     .then((result)=>{
-        console.log(result);
+        console.log("kommer hit"+result);
         res.json(result);
     })
     .catch((err)=>{
+		        console.log("kommer hit"+Fail);
         console.log(err);
     });
 }

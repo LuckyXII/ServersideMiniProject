@@ -5,7 +5,7 @@ const carSchema = new Schema({
     requiredDrivingLicense: String,
     fordonstyp:{
         type:String,
-        required: true
+        required: false
     },
     brand:{
         type:String,

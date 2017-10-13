@@ -61,8 +61,6 @@ function logout(){
 //fills edit form with values from selected car
 function fillEditForm(e){
     let tableData = e.target.parentNode;
-
-    console.log(tableData);
     let _id = tableData.attributes["data-id"].value;
     let image = tableData.children[0].children[0].src;
     let fordonstyp = tableData.children[1].textContent;
@@ -129,38 +127,47 @@ function fillEditForm(e){
 }
 
 
+
 // update car from database
 function updateCar(e) {
     e.preventDefault();
-    let tableData = e.target.parentNode,
-     fordonstyp = document.getElementById('vehicleTypeInput').value,
+
+    let tableData = e.target.parentNode;
+    /*let image = tableData.children[0].children[0].src;*/
+    let fordonstyp = document.getElementById('vehicleTypeInput').value;
      brand = document.getElementById('brandInput').value,
-     model = document.getElementById('model').value,
-     year = document.getElementById('year').value,
-     fuel = document.getElementById('fuel').options[fuel.selectedInput].value,
-     gearbox = document.getElementById('gearbox').value,
+     model = document.getElementById('modelInput').value,
+     year = document.getElementById('date').value,
+     fuel = document.getElementById('fuel').options[fuel.selectedIndex].value,
+		 console.log("FUEL::: ", fuel)
+     gearbox = document.getElementById('gearboxFormSelect').value,
      reqLicense = document.getElementById('licence').value,
-     dagsHyra = document.getElementById('dagshyra').value,
+     dagsHyra = document.getElementById('price').value,
      isAvailable = document.getElementById('isAvailable').value,
-     /*skador = tableData.children[10].textContent,*/
-     id = document.getElementById("idHolder").value;
+     //skador = document.getElementById('comment').value,
+     id = document.getElementById("idHolder").textContent;
+	console.log("Table brand: "+brand);
     
     let query =`id=${id}&brand=${brand}&image=${null/*image*/}&fordonstyp=${fordonstyp}&model=${model}&year=${year}&fuel=${fuel}&gearbox=${gearbox}&reqLicense=${reqLicense}&dagshyra=${dagsHyra}&isAvailable=${isAvailable}`;
     findByQuery("admin/update",query);
-    console.log("id:"+ id)
-    console.log("query::"+ query);
+    console.log("ID:: "+id);
+	console.log('QUERY:::'+query)
+
 }
 
 //delete car
-function deleteCar(){
-    let id = document.getElementById("adminForm").lastElementChild.textContent;
+function deleteCar(e){
+	e.preventDefault()
+    let id = document.getElementById("idHolder").textContent;
+	console.log(id)
     findByQuery("admin/delete",`id=${id}`);
+	window.location.href='/olssonsfordonab/admin'
 }
 
-//fetch method get
+
 function findByQuery(router,query="",callback){
 
-    fetch(`${router}/?${query}`)
+    fetch(`${router}/?${query}`, )
         .then((response)=> {
             console.log(response);
             return response.json();
@@ -174,4 +181,22 @@ function findByQuery(router,query="",callback){
             console.log(err);
         });
 }
+
+
+
+	/*
+	
+	app.get("/adminn/delete" , carController.deleteCar)
+	
+	}
+	function callback(result) {
+		findByQuery("admin/delete",`id=${id}}`);
+	
+	function callback(result) {
+		result.leng>0 {
+		findByQurey("admin")	
+		} 
+ message. result.response.deletecount =	}
+	
+	res.json(result)*/
 
