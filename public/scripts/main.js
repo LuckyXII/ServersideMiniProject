@@ -12,7 +12,8 @@ const
     carInfo = document.getElementById("carInfo"),
     selectGearbox = document.getElementById("gearbox"),
     cancelCar = document.getElementById("cancelCar"),
-    vehicleContainer = document.getElementById("searchResults");
+    vehicleContainer = document.getElementById("searchResults"),
+	dateBooked = document.getElementById("dateBooked");
     
     
 
@@ -49,6 +50,7 @@ function rentCar(e){
         rent = e.target.parentNode.children[8].textContent,
         totalRent = rent * calcRentalPeriod(dateStart.value, dateEnd.value),
         d = new Date();
+    console.log("rent: "+ rent)
 
 		console.log(logedIn)
 
@@ -84,7 +86,8 @@ function rentCar(e){
     .then((result)=> {
         //show cancel booking button
         console.log(result);
-        console.log("VISIBLE" + rentInfo.rentalPeriod.start);
+		dateBooked.style.visibility ="visible";
+		dateBooked.textContent = rentInfo.rentalPeriod.start +" "+rentInfo.rentalPeriod.end;
         cancelCar.style.visibility = "visible";
     	
     });
@@ -241,7 +244,7 @@ function findUniquePropertyValue(result){
 // show ALL cars available after search
 function addCarsToResult(result) {
     
-    
+    //console.log('available Cars: ' + JSON.stringify(result));
     carInfo.style.display = "none";
 
     let carTable = document.getElementById("t01");
@@ -327,7 +330,7 @@ function addCarsToResult(result) {
 function preventNullInQuery(names,values){
     let query = "";
     values.forEach((val,i)=>{
-        
+        //console.log(val + " : " + (val !== "Gearbox"));
         if(
             (val !== null || val !== undefined) &&
             val !== "Gearbox" && val !== "VehicleType" &&
@@ -385,7 +388,9 @@ function handleLogin(result){
     //if logedin user has rented a car show cancel cars button
     let rentedCar = result.rented;
     if(rentedCar !== null && rentedCar !== undefined){
-        console.log(rentedCar);
+        console.log(rentedCar.rentalPeriod.end);
+		dateBooked.style.visibility ="visible";
+		dateBooked.textContent = rentedCar.rentalPeriod.start +" "+ rentedCar.rentalPeriod.end;
         cancelCar.style.visibility = "visible";
     }
 
@@ -423,6 +428,7 @@ function logout(){
     console.log(login.attributes["data-logedin"]);
     localStorage.removeItem("logedIn");
     cancelCar.style.visibility = "hidden";
+	dateBooked.style.visibility ="hidden";
 }
 
 //  cancel booking function
@@ -433,6 +439,7 @@ function cancelBooking() {
     localStorage.setItem("logedIn", JSON.stringify(logedIn));
     alert("your car booking is now canceled");
     cancelCar.style.visibility = "hidden";
+	dateBooked.style.visibility ="hidden";
 }
 
 //cancel booked car
