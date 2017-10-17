@@ -15,7 +15,7 @@ const addB = document.getElementById("addB"),
 
 addClickListenerCarRow();
 loginAndLogoutAdmin();
-
+addB.addEventListener("click", addCar);
 login.addEventListener("click", loginAndLogoutAdmin);
 deleteBtn.addEventListener("click",deleteCar);
 updateBtn.addEventListener("click", updateCar);
@@ -75,7 +75,7 @@ function fillEditForm(e){
     let isAvailable = tableData.children[9].textContent;
     let skador = tableData.children[10].textContent;
     
-    console.log("tabledataChild!"+tableData.children[1].textContent)
+    console.log("tabledataChild!"+tableData.children[1].textContent);
     var formData = document.getElementById('adminForm');
 
     let idHolder = document.getElementById("idHolder");
@@ -132,24 +132,26 @@ function fillEditForm(e){
 // update car from database
 function updateCar(e) {
     e.preventDefault();
+    findByQuery("admin/update",getFormInfo());
+}
 
-    let tableData = e.target.parentNode;
+function getFormInfo(){
+
     /*let image = tableData.children[0].children[0].src;*/
     let fordonstyp = document.getElementById('vehicleTypeInput').value,
-     brand = document.getElementById('brandInput').value,
-     model = document.getElementById('modelInput').value,
-     year = document.getElementById('date').value,
-     fuel = document.getElementById('fuel').selectedOptions[0].value,
-     gearbox = document.getElementById('gearboxFormSelect').value,
-     reqLicense = document.getElementById('licence').value,
-     dagsHyra = document.getElementById('price').value,
-     isAvailable = document.getElementById('isAvailable').value,
-     //skador = document.getElementById('comment').value,
-     id = document.getElementById("idHolder").textContent;
-	console.log("Table brand: "+brand);
-    
-    let query =`id=${id}&brand=${brand}&fordonstyp=${fordonstyp}&model=${model}&year=${year}&fuel=${fuel}&gearbox=${gearbox}&reqLicense=${reqLicense}&dagsHyra=${dagsHyra}&isAvailable=${isAvailable}`;
-    findByQuery("admin/update",query);
+        brand = document.getElementById('brandInput').value,
+        model = document.getElementById('modelInput').value,
+        year = document.getElementById('date').value,
+        fuel = document.getElementById('fuel').selectedOptions[0].value,
+        gearbox = document.getElementById('gearboxFormSelect').value,
+        reqLicense = document.getElementById('licence').value,
+        dagsHyra = document.getElementById('price').value,
+        isAvailable = document.getElementById('isAvailable').value,
+        skador = document.getElementById('comment').value,
+        id = document.getElementById("idHolder").textContent;
+    console.log("Table brand: "+brand);
+
+ return `id=${id}&brand=${brand}&fordonstyp=${fordonstyp}&model=${model}&year=${year}&fuel=${fuel}&gearbox=${gearbox}&reqLicense=${reqLicense}&dagsHyra=${dagsHyra}&isAvailable=${isAvailable}&skador=${skador}`;
 
 
 }
@@ -158,13 +160,17 @@ function updateCar(e) {
 function deleteCar(e){
 	e.preventDefault();
     let id = document.getElementById("idHolder").textContent;
-    findByQuery("admin/delete",`id=${id}`);
-	window.location.href='/olssonsfordonab/admin';
+    findByQuery("admin/delete",`id=${id}`),reload();
+
+}
+
+function reload(){
+    window.location.reload();
 }
 
 
-function findByQuery(router,query="",callback){
-    fetch(`${router}/?${query}`)
+function findByQuery(router,query="",callback,method="GET"){
+    fetch(`${router}/?${query}`,{method:method})
         .then((response)=> {
             console.log(response);
             return response.json();
@@ -183,19 +189,7 @@ function findByQuery(router,query="",callback){
 
 
 
-	/*
-	
-	app.get("/adminn/delete" , carController.deleteCar)
-	
-	}
-	function callback(result) {
-		findByQuery("admin/delete",`id=${id}}`);
-	
-	function callback(result) {
-		result.leng>0 {
-		findByQurey("admin")	
-		} 
- message. result.response.deletecount =	}
-	
-	res.json(result)*/
-
+function addCar(e){
+    e.preventDefault();
+    findByQuery("admin/addCar",getFormInfo(),reload());
+}

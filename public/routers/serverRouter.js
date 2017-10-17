@@ -18,7 +18,7 @@ router
     .get("/admin",carController.getAllCarsAdmin)
     .get("/admin/delete", carController.deleteCars)
     .get("/admin/update", carController.updateCars)
-    .post("/admin");
+    .get("/admin/addCar", carController.addCar);
 
 //Confirmation Route
 router

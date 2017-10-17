@@ -50,9 +50,9 @@ function rentCar(e){
         rent = e.target.parentNode.children[8].textContent,
         totalRent = rent * calcRentalPeriod(dateStart.value, dateEnd.value),
         d = new Date();
-    console.log("rent: "+ rent)
+        console.log("rent: "+ rent);
 
-		console.log(logedIn)
+		console.log(logedIn);
 
     let rentInfo = {
           logedIn:logedIn.personnr,
@@ -67,7 +67,7 @@ function rentCar(e){
               total: totalRent,
           }
     };
-	console.log(rentInfo)
+	console.log(rentInfo);
     //update logedin with rented car
     logedIn.bookedCar = rentInfo.car;
     localStorage.setItem("logedIn",JSON.stringify(logedIn));
@@ -159,7 +159,6 @@ function checkAvailabillityByDate(e){
 
 //fetch response by query
 function findByQuery(router,query="",callback){
-
     fetch(`${router}/?${query}`)
         .then((response)=> {
             console.log(response);
@@ -168,13 +167,15 @@ function findByQuery(router,query="",callback){
         .then((result)=> {
             console.log(router + " query was sucessfull");
             console.log(result);
-            callback(result);
+            if(arguments[2] !== undefined){
+                callback(result);
+            }
         })
         .catch((err)=>{
             console.log(err);
         });
-
 }
+
 
 //prevent passed dates to be selected
 function restrictPassedDate(){
@@ -378,9 +379,9 @@ function handleLogin(result){
         if(/^\d{6,8}[-|(\s)]{0,1}\d{4}$/.test(input.value)){
             let name = prompt("Welcome new user we will create an account for you, please enter your name");
             console.log(name);
-			console.log(input.value)
+			console.log(input.value);
             findByQuery("login/createNewUser",`personnr=${input.value}&name=${name}`,userIsSaved);
-			console.log("Efter FindByQ på 381")
+			console.log("Efter FindByQ på 381");
         }
         return 0;
     }
@@ -404,8 +405,8 @@ function handleLogin(result){
 
 //if user was sucessfully saved
 function userIsSaved(result){
-	console.log("userIsSaved at 402")
-	console.log(result)
+	console.log("userIsSaved at 402");
+	console.log(result);
     let input = document.getElementById("loginInput");
     if(result.saved){
         input.hidden = true;

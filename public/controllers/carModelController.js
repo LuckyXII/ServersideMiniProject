@@ -3,6 +3,28 @@ const
     resultDataHolder = require("../models/resultDataHolderModel"),
     ObjectId = require('mongodb').ObjectId;
 
+
+//add car
+function addCar(req,res){
+    let id = req.query.id;
+    console.log(req.query);
+    
+    new car({
+        "requiredDrivingLicense": req.query.reqLicense,
+        "fordonstyp":req.query.fordonstyp,
+        "brand":req.query.brand,
+        "model": req.query.model,
+        "year": req.query.year,
+        "gearbox":req.query.gearbox,
+        "dagshyra":req.query.dagsHyra,
+        "fuel": req.query.fuel,
+        "kommentarer.skador":req.query.skador,
+        "status.isAvailable":req.query.isAvailable
+    }).save((err)=>{
+        console.log("Save new car: " + err);
+    });
+}
+
 //delete car
 function deleteCars(req, res){
     let
@@ -240,7 +262,8 @@ module.exports = {
     checkAvailableCarsByQuery: checkAvailableCarsByQuery,
     getAllCarsAdmin:getAllCarsAdmin,
     deleteCars : deleteCars,
-    updateCars: updateCars
+    updateCars: updateCars,
+    addCar:addCar
 
 
 };
