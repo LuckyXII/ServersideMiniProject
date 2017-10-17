@@ -172,7 +172,9 @@ function findByQuery(router,query="",callback){
         .then((result)=> {
             console.log(router + " query was sucessfull");
             console.log(result);
-            callback(result);
+            if(arguments[2] !== undefined){
+                callback(result);
+            }
         })
         .catch((err)=>{
             console.log(err);
