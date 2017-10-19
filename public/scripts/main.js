@@ -6,6 +6,7 @@ const
     dateStart = document.getElementById("dateForm").children[1],
     dateEnd = document.getElementById("dateForm").children[3],
     login = document.getElementById("login"),
+    loginInput = document.getElementById("loginInput"),
     selectVehicleType = document.getElementById("vehicleType"),
     selectBrand = document.getElementById("brand"),
     selectModel = document.getElementById("model"),
@@ -31,6 +32,12 @@ searchBtn.addEventListener("click",checkAvailabillityByQuery);
 dateStart.addEventListener("change",checkAvailabillityByDate);
 dateEnd.addEventListener("change",checkAvailabillityByDate);
 login.addEventListener("click",loginOnClick);
+loginInput.addEventListener("keydown",(e)=>{
+    console.log(e.keyCode);
+    if(e.keyCode === 13){
+        loginOnClick();
+    }
+});
 cancelCar.addEventListener("click", cancelBooking);
 //=======================================================
 //FUNCTIONS

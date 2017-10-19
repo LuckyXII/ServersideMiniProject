@@ -151,7 +151,7 @@ function getFormInfo(){
         id = document.getElementById("idHolder").textContent;
     console.log("Table brand: "+brand);
 
- return `id=${id}&brand=${brand}&fordonstyp=${fordonstyp}&model=${model}&year=${year}&fuel=${fuel}&gearbox=${gearbox}&reqLicense=${reqLicense}&dagsHyra=${dagsHyra}&isAvailable=${isAvailable}&skador=${skador}`;
+ let query = `id=${id}&brand=${brand}&fordonstyp=${fordonstyp}&model=${model}&year=${year}&fuel=${fuel}&gearbox=${gearbox}&reqLicense=${reqLicense}&dagsHyra=${dagsHyra}&isAvailable=${isAvailable}&skador=${skador}`;
 
 
 }
@@ -160,7 +160,7 @@ function getFormInfo(){
 function deleteCar(e){
 	e.preventDefault();
     let id = document.getElementById("idHolder").textContent;
-    findByQuery("admin/delete",`id=${id}`),reload();
+    findByQuery("admin/delete",`id=${id}`,reload);
 
 }
 
@@ -191,5 +191,5 @@ function findByQuery(router,query="",callback,method="GET"){
 
 function addCar(e){
     e.preventDefault();
-    findByQuery("admin/addCar",getFormInfo(),reload());
+    findByQuery("admin/addCar",getFormInfo(),reload);
 }

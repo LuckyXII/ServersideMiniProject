@@ -22,6 +22,8 @@ function addCar(req,res){
         "status.isAvailable":req.query.isAvailable
     }).save((err)=>{
         console.log("Save new car: " + err);
+
+        res.json({})
     });
 }
 
