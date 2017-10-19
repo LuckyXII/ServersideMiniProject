@@ -151,7 +151,7 @@ function updateCar(e) {
     let query =`id=${id}&brand=${brand}&fordonstyp=${fordonstyp}&model=${model}&year=${year}&fuel=${fuel}&gearbox=${gearbox}&reqLicense=${reqLicense}&dagsHyra=${dagsHyra}&isAvailable=${isAvailable}`;
     findByQuery("admin/update",query);
 
-
+    
 }
 
 //delete car
@@ -172,28 +172,11 @@ function findByQuery(router,query="",callback){
         .then((result)=> {
             console.log(router + " query was sucessfull");
             console.log(result);
-            callback(result);
+            if(arguments[2] !== undefined) {
+               callback(result); 
+            }
         })
         .catch((err)=>{
             console.log(err);
         });
 }
-
-
-
-	/*
-	
-	app.get("/adminn/delete" , carController.deleteCar)
-	
-	}
-	function callback(result) {
-		findByQuery("admin/delete",`id=${id}}`);
-	
-	function callback(result) {
-		result.leng>0 {
-		findByQurey("admin")	
-		} 
- message. result.response.deletecount =	}
-	
-	res.json(result)*/
-
